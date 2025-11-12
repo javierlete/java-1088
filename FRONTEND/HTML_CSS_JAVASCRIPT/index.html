@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo HTML</title>
+</head>
+<body>
+    <!-- nav>ul>li*5>a[href=#]>{Opción $} -->
+    <nav>
+        <ul>
+            <li><a href="#">Opción 1</a></li>
+            <li><a href="#">Opción 2</a></li>
+            <li><a href="#">Opción 3</a></li>
+            <li><a href="#">Opción 4</a></li>
+            <li><a href="#">Opción 5</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <h1>Bienvenidos a este ejemplo de HTML</h1>
+            <p>Tenemos snacks</p>
+        </header>
+
+        <article id="html">
+            <h2>HTML</h2>
+
+            <section id="parrafos">
+                <h3>Párrafos</h3>
+
+                <p>Este es el <b>primer</b> párrafo de ejemplo. Aquí puedes ver cómo se distribuye el texto en el documento.</p>
+                <p>En el <i>segundo</i> párrafo se añade información adicional sobre el contenido y la estructura de la página.</p>
+                <p>El <span class="destacado">tercer</span> párrafo sirve para mostrar un bloque de texto más largo, con varias oraciones que imitan contenido real.</p>
+                <p>En el cuarto párrafo se podrían incluir enlaces, listas o cualquier otro elemento inline sin romper la semántica.</p>
+                <p>Finalmente, el quinto párrafo concluye el ejemplo y recuerda que puedes modificar el texto según tus necesidades.</p>
+            </section>
+
+            <section id="listas">
+                <h3>Listas</h3>
+
+                <ul>
+                    <li>Ejemplo 1</li>
+                    <li>Ejemplo 2</li>
+                    <li>Ejemplo 3</li>
+                    <li>Ejemplo 4</li>
+                </ul>
+
+                <ol>
+                    <li>Opción 1</li>
+                    <li>Opción 2
+                        <ol>
+                            <li>Subopción 2.1</li>
+                            <li>Subopción 2.2</li>
+                            <li>Subopción 2.3</li>
+                        </ol>
+                    </li>
+                    <li>Opción 3</li>
+                    <li>Opción 4</li>
+                </ol>
+
+                <dl>
+                    <dt>HTML</dt>
+                    <dd>Hyper Text Markup Language</dd>
+
+                    <dt>CSS</dt>
+                    <dd>Cascade Style Sheets</dd>
+                </dl>
+            </section>
+
+            <section id="tablas">
+                <h3>Tablas</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr>
+                            <th>1</th>
+                            <td>Manzana</td>
+                            <td>10,00 €</td>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <td>Plátano</td>
+                            <td>15,50 €</td>
+                        </tr>
+                        <tr>
+                            <th>3</th>
+                            <td>Naranja</td>
+                            <td>7,25 €</td>
+                        </tr>
+                        <tr>
+                            <th>4</th>
+                            <td>Uva</td>
+                            <td>20,00 €</td>
+                        </tr>
+                        <tr>
+                            <th>5</th>
+                            <td>Pera</td>
+                            <td>12,75 €</td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <th>Total</th>
+                            <th>65,50 €</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+
+            <section id="multimedia">
+                <h3>Multimedia</h3>
+
+                <figure>
+                    <img src="https://prd.place/100/75" alt="Imagen de ejemplo">
+                    <figcaption>Imágen de producto de ejemplo</figcaption>
+                </figure>
+
+                <audio controls>
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    Tu navegador no soporta audio.
+                </audio>
+
+                <video controls width="400" height="300">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    Tu navegador no soporta video.
+                </video>
+            </section>
+
+            <section id="formulario">
+                <h3>Formulario</h3>
+
+                <form>
+                    <fieldset>
+                        <legend>Inicio de sesión</legend>
+
+                        <input required type="email" placeholder="Email">
+                        <input required type="password" placeholder="Contraseña">
+
+                        <button>Iniciar sesión</button>
+                    </fieldset>
+                </form>
+
+                <form action="https://www.google.com/search">
+                    <fieldset>
+                        <legend>Búsqueda por Google</legend>
+
+                        <input type="text" name="q" placeholder="Texto a buscar">
+
+                        <button>Buscar</button>
+                    </fieldset>
+                </form>
+            </section>
+        </article>
+    </main>
+
+
+
+    <footer>
+        &copy;2025 Javier Lete
+    </footer>
+</body>
+</html>
