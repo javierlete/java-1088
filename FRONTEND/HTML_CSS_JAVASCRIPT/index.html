@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejemplo HTML</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
     <!-- nav>ul>li*5>a[href=#]>{Opción $} -->
-    <nav>
+    <nav aria-label="Navegación principal">
         <ul>
-            <li><a href="#">Opción 1</a></li>
-            <li><a href="#">Opción 2</a></li>
-            <li><a href="#">Opción 3</a></li>
-            <li><a href="#">Opción 4</a></li>
-            <li><a href="#">Opción 5</a></li>
+            <li><a href="#parrafos">Párrafos</a></li>
+            <li><a href="#listas">Listas</a></li>
+            <li><a href="#tablas">Tablas</a></li>
+            <li><a href="#multimedia">Multimedia</a></li>
+            <li><a href="#formulario">Formulario</a></li>
         </ul>
     </nav>
 
@@ -34,6 +36,14 @@
                 <p>El <span class="destacado">tercer</span> párrafo sirve para mostrar un bloque de texto más largo, con varias oraciones que imitan contenido real.</p>
                 <p>En el cuarto párrafo se podrían incluir enlaces, listas o cualquier otro elemento inline sin romper la semántica.</p>
                 <p>Finalmente, el quinto párrafo concluye el ejemplo y recuerda que puedes modificar el texto según tus necesidades.</p>
+
+                <pre>
+public class Hola {
+    public static void main(String[] args) {
+        System.out.println("Hola");
+    }
+}
+                </pre>
             </section>
 
             <section id="listas">
@@ -166,10 +176,18 @@
         </article>
     </main>
 
-
+    <aside>
+        <nav aria-label="Vínculos externos">
+            <ul>
+                <li><a href="https://copilot.microsoft.com">Copilot</a></li>
+            </ul>
+        </nav>
+    </aside>
 
     <footer>
-        &copy;2025 Javier Lete
+        <p>&copy;2025 Javier Lete</p>
+
+        <p><a href="#">Arriba</a></p>
     </footer>
 </body>
 </html>
