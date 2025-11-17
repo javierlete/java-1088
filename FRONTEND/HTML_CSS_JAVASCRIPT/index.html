@@ -186,8 +186,14 @@ public class Hola {
                     <fieldset>
                         <legend>Inicio de sesión</legend>
 
-                        <input required type="email" placeholder="Email">
-                        <input required type="password" placeholder="Contraseña">
+                        <div>
+                            <label for="usuario">Correo electrónico</label>
+                            <input required type="email" id="usuario" placeholder="Email">
+                        </div>
+                        <div>
+                            <label for="contra">Contraseña</label>
+                            <input required type="password" id="contra" placeholder="Contraseña">
+                        </div>
 
                         <button>Iniciar sesión</button>
                     </fieldset>
@@ -217,7 +223,7 @@ public class Hola {
     <footer>
         <p>&copy;2025 Javier Lete</p>
 
-        <p><a href="#">Arriba</a></p>
+        <p><a id="arriba" href="#">Arriba</a></p>
     </footer>
 </body>
 
