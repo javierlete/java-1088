@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Tilt Neon';
+    src: url(../fonts/Tilt_Neon/TiltNeon-Regular-VariableFont_XROT\,YROT.ttf)
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url(../fonts/Inter/Inter-VariableFont_opsz\,wght.ttf)
+}
+
+@font-face {
+    font-family: 'Cascadia Code';
+    src: url(../fonts/Cascadia_Code/CascadiaCode-VariableFont_wght.ttf);
+}
