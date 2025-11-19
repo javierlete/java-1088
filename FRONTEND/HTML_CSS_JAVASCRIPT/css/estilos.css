@@ -366,9 +366,10 @@ aside {
         #formulario {
             display: flex;
             flex-wrap: wrap;
+            justify-content: space-between;
 
             &>* {
-                width: 50%;
+                width: calc(50% - var(--margen-grande) / 2);
             }
 
             h3 {
@@ -377,7 +378,186 @@ aside {
         }
     }
 
+    body>footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    p:has(#arriba) {
+        display: none;
+    }
+
     #arriba {
         display: none;
+    }
+}
+
+@media (min-width: 1024px) {
+    body>nav ul {
+        justify-content: flex-start;
+    }
+    
+    main>header, h1, h2, h3, h4, h5, h6 {
+        text-align: start;
+    }
+
+    main {
+        padding: calc(var(--margen-grande) * 4);
+    }
+    
+    #multimedia {
+        display: grid;
+        gap: var(--margen-grande);
+
+        grid-template-columns: 2fr 1fr 1fr 2fr;
+
+        h3, audio {
+            grid-column: span 4;
+        }
+
+        /* Imagen y mapa */
+        figure, .proporcion:first-of-type {
+            grid-column-end: span 2;
+        }
+
+        /* Mapa */
+        .proporcion:first-of-type {
+            grid-row-start: 2;
+            grid-column-start: 3;
+        }
+
+        video, .proporcion:last-of-type {
+            grid-column-end: span 3;
+        }
+
+        /* Spotify */
+        .proporcion:nth-of-type(2) {
+            grid-row: span 3;
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    #html {
+        display: grid;
+        gap: var(--margen-grande);
+
+        align-items: start;
+
+        grid-template-columns: 1fr 2fr;
+
+        &>* {
+            width: 100% !important;
+        }
+
+        grid-template-areas: 
+            "titulo-html    titulo-html"
+            "parrafos       multimedia"
+            "listas         multimedia"
+            "tablas         multimedia"
+            "formulario     multimedia"
+            ".              multimedia";
+
+        h2 {
+            grid-area: titulo-html;
+        }
+
+        #parrafos {
+            grid-area: parrafos;
+        }
+
+        #listas {
+            grid-area: listas;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            grid-template-areas: 
+                "titulo-listas     titulo-listas"
+                "ul                 ol"
+                "dl                 ol"
+                ".                  ol";
+
+            h3 {
+                grid-area: titulo-listas;
+            }
+
+            ul {
+                grid-area: ul;
+            }
+
+            ol {
+                grid-area: ol;
+            }
+
+            dl {
+                grid-area: dl;
+            }
+        }
+
+        #tablas {
+            grid-area: tablas;
+        }
+
+        #multimedia {
+            grid-area: multimedia;
+        }
+
+        #formulario {
+            grid-area: formulario;
+        }
+    }
+
+}
+
+@media (min-width: 2560px) {
+    :root {
+        --margen-grande: 2rem;
+    }
+
+    #html {
+        grid-template-columns: 1fr 4fr;
+    }
+
+    #multimedia {
+        grid-template-columns: repeat(3, 1fr);
+
+        grid-template-areas: 
+            "titulo-multimedia   titulo-multimedia   titulo-multimedia"
+            "audio               audio               spotify"
+            "video               youtube             spotify"
+            "imagen              mapa                spotify"
+            ".                   .                   spotify"
+        ;
+
+        h3 {
+            grid-area: titulo-multimedia;
+        }
+        
+        figure {
+            grid-area: imagen;
+        }
+
+        .proporcion:nth-of-type(1) {
+            grid-area: mapa;
+        }
+
+        audio {
+            grid-area: audio;
+        }
+        
+        video {
+            grid-area: video;
+        }
+
+        .proporcion:nth-of-type(2) {
+            grid-area: spotify;
+        }
+
+        .proporcion:nth-of-type(3) {
+            grid-area: youtube;
+        }
     }
 }
