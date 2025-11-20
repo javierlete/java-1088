@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo HTML</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+    <!-- nav>ul>li*5>a[href=#]>{Opción $} -->
+    <nav aria-label="Navegación principal">
+        <ul>
+            <li><a href="#parrafos">Párrafos</a></li>
+            <li><a href="#listas">Listas</a></li>
+            <li><a href="#tablas">Tablas</a></li>
+            <li><a href="#multimedia">Multimedia</a></li>
+            <li><a href="#formulario">Formulario</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <h1>Bienvenidos a este ejemplo de HTML</h1>
+            <p>Tenemos snacks</p>
+        </header>
+
+        <article id="html">
+            <h2>HTML</h2>
+
+            <section id="parrafos">
+                <h3>Párrafos</h3>
+
+                <p>Este es el <strong>primer</strong> párrafo de ejemplo. Aquí puedes ver cómo se distribuye el texto en
+                    el
+                    documento.</p>
+                <p>En el <em>segundo</em> párrafo se añade información adicional sobre el contenido y la estructura de
+                    la
+                    página.</p>
+                <p>El <span class="destacado">tercer</span> párrafo sirve para mostrar un bloque de texto más largo, con
+                    varias oraciones que imitan contenido real.</p>
+                <p>En el cuarto párrafo se podrían incluir enlaces, listas o cualquier otro elemento inline sin romper
+                    la semántica.</p>
+                <p>Finalmente, el quinto párrafo concluye el ejemplo y recuerda que puedes modificar el texto según tus
+                    necesidades.</p>
+
+                <pre>
+public class Hola {
+    public static void main(String[] args) {
+        System.out.println("Hola");
+    }
+}
+                </pre>
+            </section>
+
+            <section id="listas">
+                <h3>Listas</h3>
+
+                <ul>
+                    <li>Ejemplo 1</li>
+                    <li>Ejemplo 2</li>
+                    <li>Ejemplo 3</li>
+                    <li>Ejemplo 4</li>
+                </ul>
+
+                <ol>
+                    <li>Opción 1</li>
+                    <li>Opción 2
+                        <ol>
+                            <li>Subopción 2.1</li>
+                            <li>Subopción 2.2</li>
+                            <li>Subopción 2.3</li>
+                        </ol>
+                    </li>
+                    <li>Opción 3</li>
+                    <li>Opción 4</li>
+                </ol>
+
+                <dl>
+                    <dt>HTML</dt>
+                    <dd>Hyper Text Markup Language</dd>
+
+                    <dt>CSS</dt>
+                    <dd>Cascade Style Sheets</dd>
+                </dl>
+            </section>
+
+            <section id="tablas">
+                <h3>Tablas</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Precio</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Manzana</td>
+                            <td>10,00 €</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Plátano</td>
+                            <td>15,50 €</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Naranja</td>
+                            <td>7,25 €</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>Uva</td>
+                            <td>20,00 €</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>Pera</td>
+                            <td>12,75 €</td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <th scope="row">Total</th>
+                            <td>65,50 €</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+
+            <section id="multimedia">
+                <h3>Multimedia</h3>
+
+                <figure>
+                    <img src="https://prd.place/800/600" alt="Ejemplo">
+                    <figcaption>Imágen de producto de ejemplo</figcaption>
+                </figure>
+
+                <audio controls>
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    Tu navegador no soporta audio.
+                </audio>
+
+                <video controls>
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    <track kind="subtitles" src="subtitles.vtt" srclang="es" label="Español">
+                    <track kind="descriptions" src="descriptions.vtt" srclang="es" label="Descripción">
+                    Tu navegador no soporta video.
+                </video>
+
+                <div class="proporcion p1x1">
+                    <iframe title="Mapa Ipartek"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2905.762268580204!2d-2.9161669238179604!3d43.2564039711237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4e4fb46238d865%3A0xb671edfb1120ab06!2sIpartek%20Servicios%20Inform%C3%A1ticos!5e0!3m2!1ses-419!2ses!4v1763366760916!5m2!1ses-419!2ses"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <div class="proporcion p2x1">
+                    <iframe title="Spotify de 8 Bit Big Band" data-testid="embed-iframe" style="border-radius:12px"
+                        src="https://open.spotify.com/embed/artist/5d1sgs6DwqUcHqQsvwStt2?utm_source=generator&theme=0"
+                        allowfullscreen=""
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy"></iframe>
+                </div>
+
+                <div class="proporcion p16x9">
+                    <iframe title="YouTube de 8 Bit Big Band"
+                        src="https://www.youtube.com/embed/KOIOkSvS65c?si=xdF-1_WbMgOO3FsC"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <section id="formulario">
+                <h3>Formulario</h3>
+
+                <form>
+                    <fieldset>
+                        <legend>Inicio de sesión</legend>
+
+                        <div>
+                            <label for="usuario">Correo electrónico</label>
+                            <input required type="email" id="usuario" placeholder="Email">
+                        </div>
+                        <div>
+                            <label for="contra">Contraseña</label>
+                            <input required type="password" id="contra" placeholder="Contraseña">
+                        </div>
+
+                        <button>Iniciar sesión</button>
+                    </fieldset>
+                </form>
+
+                <form action="https://www.google.com/search">
+                    <fieldset>
+                        <legend>Búsqueda por Google</legend>
+
+                        <input type="text" name="q" placeholder="Texto a buscar">
+
+                        <button>Buscar</button>
+                    </fieldset>
+                </form>
+            </section>
+        </article>
+    </main>
+
+    <aside>
+        <nav aria-label="Vínculos externos">
+            <ul>
+                <li><a href="https://copilot.microsoft.com">Copilot</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <footer>
+        <p>&copy;2025 Javier Lete</p>
+
+        <ul id="redes-sociales">
+            <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+        </ul>
+
+        <p><a id="arriba" href="#"><i class="fa-solid fa-arrow-up"></i></a></p>
+    </footer>
+</body>
+
+</html>
