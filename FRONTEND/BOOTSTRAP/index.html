@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <style>
+        .list-dentro {
+            list-style-position: inside;
+        }
+    </style>
 </head>
 
 <body data-bs-theme="light">
@@ -48,10 +54,10 @@
             <p>Tenemos snacks</p>
         </header>
 
-        <article id="html">
-            <h2 class="text-center">HTML</h2>
+        <article id="html" class="row align-items-start">
+            <h2 class="text-center order-xxl-0">HTML</h2>
 
-            <section id="parrafos">
+            <section id="parrafos" class="col-md-8 col-xl-3 col-xxl-6 order-xxl-1">
                 <h3 class="text-center">Párrafos</h3>
 
                 <p>Este es el <strong>primer</strong> párrafo de ejemplo. Aquí puedes ver cómo se distribuye el texto en
@@ -60,7 +66,8 @@
                 <p>En el <em>segundo</em> párrafo se añade información adicional sobre el contenido y la estructura de
                     la
                     página.</p>
-                <p>El <span class="text-bg-warning p-1 rounded">tercer</span> párrafo sirve para mostrar un bloque de texto más largo, con
+                <p>El <span class="text-bg-warning p-1 rounded">tercer</span> párrafo sirve para mostrar un bloque de
+                    texto más largo, con
                     varias oraciones que imitan contenido real.</p>
                 <p>En el cuarto párrafo se podrían incluir enlaces, listas o cualquier otro elemento inline sin romper
                     la semántica.</p>
@@ -76,17 +83,17 @@ public class Hola {
                 </pre>
             </section>
 
-            <section id="listas">
-                <h3>Listas</h3>
+            <section id="listas" class="row col-md col-xl-3 col-xxl-3 order-xxl-3">
+                <h3 class="col-12">Listas</h3>
 
-                <ul>
+                <ul class="col-sm-3 col-md-12 list-dentro">
                     <li>Ejemplo 1</li>
                     <li>Ejemplo 2</li>
                     <li>Ejemplo 3</li>
                     <li>Ejemplo 4</li>
                 </ul>
 
-                <ol>
+                <ol class="col-sm-4 col-md-12 list-dentro">
                     <li>Opción 1</li>
                     <li>Opción 2
                         <ol>
@@ -99,7 +106,7 @@ public class Hola {
                     <li>Opción 4</li>
                 </ol>
 
-                <dl>
+                <dl class="col-sm-5 col-md-12 list-dentro">
                     <dt>HTML</dt>
                     <dd>Hyper Text Markup Language</dd>
 
@@ -108,7 +115,7 @@ public class Hola {
                 </dl>
             </section>
 
-            <section id="tablas">
+            <section id="tablas" class="col-xl-6 col-xxl-5 order-xxl-4">
                 <h3>Tablas</h3>
 
                 <div class="table-responsive">
@@ -158,52 +165,64 @@ public class Hola {
                 </div>
             </section>
 
-            <section id="multimedia" class="text-center">
-                <h3>Multimedia</h3>
+            <section id="multimedia" class="text-center row align-items-center col-xxl-6 order-xxl-2">
+                <h3 class="col-12 order-0">Multimedia</h3>
 
-                <figure class="my-5 img-thumbnail figure w-100 text-center">
-                    <img class="figure-img w-100 rounded" src="imgs/radio.png" alt="Ejemplo">
-                    <figcaption class="figure-caption">Imágen de producto de ejemplo</figcaption>
-                </figure>
-
-                <audio class="my-5 border rounded-pill w-100" controls>
-                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-                    Tu navegador no soporta audio.
-                </audio>
-
-                <video class="my-5 rounded border w-100" controls>
-                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                    <track kind="subtitles" src="subtitles.vtt" srclang="es" label="Español">
-                    <track kind="descriptions" src="descriptions.vtt" srclang="es" label="Descripción">
-                    Tu navegador no soporta video.
-                </video>
-
-                <div class="my-5 ratio ratio-1x1">
-                    <iframe class="rounded border" title="Mapa Ipartek"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2905.762268580204!2d-2.9161669238179604!3d43.2564039711237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4e4fb46238d865%3A0xb671edfb1120ab06!2sIpartek%20Servicios%20Inform%C3%A1ticos!5e0!3m2!1ses-419!2ses!4v1763366760916!5m2!1ses-419!2ses"
-                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="col-lg-4 mb-5 order-lg-2">
+                    <figure class="w-100 img-thumbnail figure text-center">
+                        <img class="figure-img w-100 rounded" src="imgs/radio.png" alt="Ejemplo">
+                        <figcaption class="figure-caption">Imágen de producto de ejemplo</figcaption>
+                    </figure>
                 </div>
 
-                <div class="my-5 ratio ratio-1x1">
-                    <iframe title="Spotify de 8 Bit Big Band" data-testid="embed-iframe" style="border-radius:12px"
-                        src="https://open.spotify.com/embed/artist/5d1sgs6DwqUcHqQsvwStt2?utm_source=generator&theme=0"
-                        allowfullscreen=""
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"></iframe>
+                <div class="col-12 mb-4 order-lg-0">
+                    <audio class="w-100 border rounded-pill" controls>
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                        Tu navegador no soporta audio.
+                    </audio>
                 </div>
 
-                <div class="my-5 ratio ratio-16x9">
-                    <iframe class="rounded border" title="YouTube de 8 Bit Big Band"
-                        src="https://www.youtube.com/embed/KOIOkSvS65c?si=xdF-1_WbMgOO3FsC"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <div class="col-lg-4 mb-4 order-lg-1">
+                    <video class="w-100 rounded border" controls>
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        <track kind="subtitles" src="subtitles.vtt" srclang="es" label="Español">
+                        <track kind="descriptions" src="descriptions.vtt" srclang="es" label="Descripción">
+                        Tu navegador no soporta video.
+                    </video>
+                </div>
+
+                <div class="col-lg-6 mb-4 order-lg-4">
+                    <div class="ratio ratio-1x1">
+                        <iframe class="rounded border" title="Mapa Ipartek"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2905.762268580204!2d-2.9161669238179604!3d43.2564039711237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4e4fb46238d865%3A0xb671edfb1120ab06!2sIpartek%20Servicios%20Inform%C3%A1ticos!5e0!3m2!1ses-419!2ses!4v1763366760916!5m2!1ses-419!2ses"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4 order-lg-5">
+                    <div class="ratio ratio-1x1">
+                        <iframe title="Spotify de 8 Bit Big Band" data-testid="embed-iframe" style="border-radius:12px"
+                            src="https://open.spotify.com/embed/artist/5d1sgs6DwqUcHqQsvwStt2?utm_source=generator&theme=0"
+                            allowfullscreen=""
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                            loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4 order-lg-3">
+                    <div class="ratio ratio-16x9">
+                        <iframe class="rounded border" title="YouTube de 8 Bit Big Band"
+                            src="https://www.youtube.com/embed/KOIOkSvS65c?si=xdF-1_WbMgOO3FsC"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
                 </div>
             </section>
 
-            <section id="formulario">
+            <section id="formulario" class="row col-xxl-4 order-xxl-5">
                 <h3>Formulario</h3>
 
-                <form>
+                <form class="col-xl-6 col-xxl-12 mb-4">
                     <fieldset>
                         <legend>Inicio de sesión</legend>
 
@@ -216,7 +235,8 @@ public class Hola {
                         <div class="row mb-2">
                             <label for="contra" class="col-sm-4 col-form-label">Contraseña</label>
                             <div class="col-sm">
-                                <input class="form-control" required type="password" id="contra" placeholder="Contraseña">
+                                <input class="form-control" required type="password" id="contra"
+                                    placeholder="Contraseña">
                             </div>
                         </div>
 
@@ -224,13 +244,15 @@ public class Hola {
                     </fieldset>
                 </form>
 
-                <form action="https://www.google.com/search">
+                <form class="col-xl-6 col-xxl-12" action="https://www.google.com/search">
                     <fieldset>
                         <legend>Búsqueda por Google</legend>
 
-                        <input class="form-control" type="text" name="q" placeholder="Texto a buscar">
+                        <div class="input-group mb-3">
+                            <input type="search" class="form-control" placeholder="Texto a buscar">
+                            <button class="btn btn-primary">Buscar</button>
+                        </div>
 
-                        <button class="btn btn-primary">Buscar</button>
                     </fieldset>
                 </form>
             </section>
