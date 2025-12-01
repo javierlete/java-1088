@@ -1,12 +1,20 @@
 'use strict';
 
 const etiquetas = [
-    '%', 'CE', 'C', '/',
+    '%', '^', 'C', '/',
     '7', '8', '9', 'X',
     '4', '5', '6', '-',
     '1', '2', '3', '+',
-    '+/-', '0', ',', '='
+    '+/-', '0', ',', '=',
 ];
+
+const operaciones = {
+    '+': (a, b) => a + b, 
+    '-': (a, b) => a - b, 
+    'X': (a, b) => a * b, 
+    '/': (a, b) => a / b,
+    '^': (a, b) => a ** b,
+}
 
 let display, op1, op, op2;
 
@@ -89,24 +97,7 @@ function operacionBinaria(numero, operacion) {
     op1 = normalizar(numero);
     display.innerText = '0';
 
-    switch (operacion) {
-        case '+':
-            op = sumar;
-
-            break;
-        case '-':
-            op = restar;
-
-            break;
-        case 'X':
-            op = multiplicar;
-
-            break;
-        case '/':
-            op = dividir;
-
-            break;
-    }
+    op = operaciones[operacion];
 }
 
 function ejecutarOperacion() {
@@ -129,20 +120,4 @@ function redondear(numero) {
 
 function mostrar(numero) {
     display.innerText = formatear(numero);
-}
-
-function sumar(a, b) {
-    return a + b;
-}
-
-function restar(a, b) {
-    return a - b;
-}
-
-function multiplicar(a, b) {
-    return a * b;
-}
-
-function dividir(a, b) {
-    return a / b;
 }
