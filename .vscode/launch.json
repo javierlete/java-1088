@@ -4,11 +4,21 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "CALCULADORA",
+            "file": "${workspaceFolder}/FRONTEND/HTML_CSS_JAVASCRIPT/calculadora.html",
+            "runtimeArgs": [
+                "--disable-web-security",
+                "--user-data-dir=${workspaceFolder}/.vscode/chromeDevSession"
+            ]
+        },
 
         {
             "type": "chrome",
             "request": "launch",
-            "name": "ABRIR fetch.html SIN CORS",
+            "name": "fetch.html SIN CORS",
             "file": "${workspaceFolder}/FRONTEND/HTML_CSS_JAVASCRIPT/fetch.html",
             "runtimeArgs": [
                 "--disable-web-security",

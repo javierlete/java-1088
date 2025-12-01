@@ -1,0 +1,62 @@
+:root {
+    --margen: 4px;
+    
+    --color-fondo:  rgb(243, 243, 243);
+    --color-operacion: rgb(236, 236, 236);
+    --color-borde: rgb(222, 222, 222);
+    --color-sombra: rgba(0, 0, 0, 0.1);
+    --color-fondo-igual: rgb(0, 108, 185);
+    --color-tinta-igual: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    width: 100%;
+
+    background-color: var(--color-fondo);
+
+    padding: var(--margen);
+}
+
+#display {
+    text-align: end;
+    font-size: 2.2rem;
+    font-weight: 600;
+
+    padding: 0.75rem;
+}
+
+#botonera {
+    display: grid;
+    gap: var(--margen);
+
+    grid-template-columns: repeat(4, 1fr);
+}
+
+button {
+    border: 1px solid var(--color-borde);
+    background-color: white;
+    border-radius: 4px;
+    padding: 0.85rem;
+    font-weight: 300;
+    font-size: 1.1rem;
+    box-shadow: 1px 1px 1px var(--color-sombra);
+}
+
+.operacion {
+    background-color: var(--color-operacion);
+}
+
+.igual {
+    background-color: var(--color-fondo-igual);
+    color: var(--color-tinta-igual);
+}
