@@ -66,36 +66,30 @@ async function guardar() {
 
     const id = formulario.id.value;
 
+    let url, metodo;
+
     if (id) {
         producto.id = id;
 
-        try {
-            const response = await fetch(`${URL}/${id}`, {
-                method: 'PUT',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(producto),
-            });
-
-            const data = await response.json();
-            
-            console.log(data);
-        } catch (error) {
-            console.error(error);
-        }
+        url = `${URL}/${id}`;
+        metodo = 'PUT';
     } else {
-        try {
-            const response = await fetch(`${URL}`, {
-                method: 'POST',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(producto),
-            });
+        url = URL;
+        metodo = 'POST';
+    }
 
-            const data = await response.json();
-            
-            console.log(data);
-        } catch (error) {
-            console.error(error);
-        }
+    try {
+        const response = await fetch(url, {
+            method: metodo,
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(producto),
+        });
+
+        const data = await response.json();
+
+        console.log(data);
+    } catch (error) {
+        console.error(error);
     }
 
     mostrarTabla();
