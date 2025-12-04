@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+
+    <link rel="stylesheet" href="css/productos.css">
+    <script defer src="js/productos.js"></script>
+</head>
+
+<body>
+    <form action="javascript:guardar()">
+        <fieldset>
+            <legend>Formulario de producto</legend>
+
+            <div>
+                <label for="id">Id</label>
+                <input id="id">
+            </div>
+            <div>
+                <label for="nombre">Nombre</label>
+                <input id="nombre">
+            </div>
+            <div>
+                <label for="precio">Precio</label>
+                <input id="precio" type="number" step=".01" value="0">
+            </div>
+
+            <button>Guardar</button>
+        </fieldset>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>OPCIONES</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <td colspan="3"></td>
+            <td>
+                <a href="javascript:anyadir()">Añadir</a>
+            </td>
+        </tfoot>
+    </table>
+
+
+</body>
+
+</html>
