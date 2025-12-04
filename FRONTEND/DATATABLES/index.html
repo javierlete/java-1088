@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataTables</title>
 
-    <link rel="stylesheet" href="//cdn.datatables.net/2.3.5/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/2.3.5/css/dataTables.bootstrap5.css">
     
 </head>
-<body>
+<body class="container">
     <table id="productTable" class="table">
         <thead>
             <tr>
@@ -63,8 +64,10 @@
         </tbody>
     </table>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.datatables.net/2.3.5/js/dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/2.3.5/js/dataTables.bootstrap5.js"></script>
     <script>
         let table = new DataTable('table');
     </script>
