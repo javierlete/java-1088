@@ -1,0 +1,54 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Portátil",
+      "precio": 1234.56
+    },
+    {
+      "id": 2,
+      "nombre": "Smartphone",
+      "precio": 899
+    },
+    {
+      "id": 3,
+      "nombre": "Auriculares inalámbricos",
+      "precio": 149.9
+    },
+    {
+      "id": 4,
+      "nombre": "Monitor 27 pulgadas",
+      "precio": 269.5
+    },
+    {
+      "id": 5,
+      "nombre": "Teclado mecánico",
+      "precio": 89.99
+    },
+    {
+      "id": 6,
+      "nombre": "Ratón ergonómico",
+      "precio": 49.95
+    },
+    {
+      "id": 7,
+      "nombre": "Disco duro externo 1TB",
+      "precio": 79.99
+    },
+    {
+      "id": 8,
+      "nombre": "SSD NVMe 512GB",
+      "precio": 109.99
+    },
+    {
+      "id": 9,
+      "nombre": "Impresora multifunción",
+      "precio": 199
+    },
+    {
+      "id": 10,
+      "nombre": "Cámara web Full HD",
+      "precio": 59.9
+    }
+  ]
+}
