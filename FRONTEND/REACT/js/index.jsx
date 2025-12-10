@@ -4,10 +4,11 @@ function App() {
             <Titulo texto="Hola a todos" />
             <Titulo texto="Hola" />
 
-            <LabelInput id="nombre" etiqueta="Nombre" tipo="text"/>
-            <LabelInput id="email" etiqueta="Email" tipo="email"/>
+            <LabelInput id="nombre" etiqueta="Nombre" tipo="text" />
+            <LabelInput id="email" etiqueta="Email" tipo="email" />
 
             <Bolitas datos={['Uno', 'Dos', 'Tres', 'Cuatro']} />
+            
             <ErrorLabel texto={'Texto del error'} />
             <ErrorLabel texto={''} />
             <ErrorLabel />
@@ -15,11 +16,11 @@ function App() {
     );
 }
 
-function Titulo({texto}) {
+function Titulo({ texto }) {
     return <h1>{texto}</h1>;
 }
 
-function LabelInput({id, etiqueta, tipo}) {
+function LabelInput({ id, etiqueta, tipo }) {
     return (
         <div>
             <label for={id}>{etiqueta}</label>
@@ -28,7 +29,7 @@ function LabelInput({id, etiqueta, tipo}) {
     );
 }
 
-function Bolitas({datos}) {
+function Bolitas({ datos }) {
     return (
         <ul>
             {datos.map(dato => <li>{dato}</li>)}
@@ -36,7 +37,7 @@ function Bolitas({datos}) {
     );
 }
 
-function ErrorLabel({texto}) {
+function ErrorLabel({ texto }) {
     return (
         <>
             {texto ? <span>[[[{texto}]]]</span> : null}
