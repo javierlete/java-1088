@@ -1,3 +1,5 @@
+import './App.css';
+
 import Titulo from './Titulo';
 import LabelInput from './LabelInput';
 import Bolitas from './Bolitas';
@@ -12,6 +14,10 @@ export default function App() {
     <main>
       <Titulo texto="Hola a todos" />
       <Titulo texto="Hola" />
+
+      <div>
+        Ejemplos de componentes
+      </div>
 
       <LabelInput id="nombre" etiqueta="Nombre" tipo="text" valor="Javier" onValorChange={valorCambiado} />
       <LabelInput id="email" etiqueta="Email" tipo="email" />

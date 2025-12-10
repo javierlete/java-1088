@@ -1,9 +1,10 @@
+import './ErrorLabel.css';
 import PropTypes from 'prop-types';
 
 export default function ErrorLabel({ texto }) {
   return (
     <>
-      {texto ? <span>[[[{texto}]]]</span> : null}
+      {texto ? <span className="error-label">{texto}</span> : null}
     </>
   );
 }
