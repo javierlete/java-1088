@@ -45,7 +45,7 @@ function LabelInput({ id, etiqueta, tipo, valor, onValorChange }) {
 function Bolitas({ datos }) {
     return (
         <ul>
-            {datos.map(dato => <li>{dato}</li>)}
+            {datos.map(dato => <li key={dato}>{dato}</li>)}
         </ul>
     );
 }
