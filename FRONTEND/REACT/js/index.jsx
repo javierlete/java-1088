@@ -36,7 +36,7 @@ function LabelInput({ id, etiqueta, tipo, valor, onValorChange }) {
 
     return (
         <div>
-            <label for={id}>{etiqueta}</label>
+            <label htmlFor={id}>{etiqueta}</label>
             <input id={id} type={tipo} value={estado} onChange={onChange}></input>
         </div>
     );
