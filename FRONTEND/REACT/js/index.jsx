@@ -5,19 +5,21 @@ function valorCambiado(valor) {
 function App() {
 
     return (
-        <main>
-            <Titulo texto="Hola a todos" />
-            <Titulo texto="Hola" />
+        <React.StrictMode>
+            <main>
+                <Titulo texto="Hola a todos" />
+                <Titulo texto="Hola" />
 
-            <LabelInput id="nombre" etiqueta="Nombre" tipo="text" valor="Javier" onValorChange={valorCambiado} />
-            <LabelInput id="email" etiqueta="Email" tipo="email" />
+                <LabelInput id="nombre" etiqueta="Nombre" tipo="text" valor="Javier" onValorChange={valorCambiado} />
+                <LabelInput id="email" etiqueta="Email" tipo="email" />
 
-            <Bolitas datos={['Uno', 'Dos', 'Tres', 'Cuatro']} />
-            
-            <ErrorLabel texto={'Texto del error'} />
-            <ErrorLabel texto={''} />
-            <ErrorLabel />
-        </main>
+                <Bolitas datos={['Uno', 'Dos', 'Tres', 'Cuatro']} />
+
+                <ErrorLabel texto={'Texto del error'} />
+                <ErrorLabel texto={''} />
+                <ErrorLabel />
+            </main>
+        </React.StrictMode>
     );
 }
 
