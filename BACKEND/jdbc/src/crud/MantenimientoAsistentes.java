@@ -7,9 +7,9 @@ import static bibliotecas.Consola.pl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class MantenimientoAsistentes {
 	private static final String URL = "jdbc:sqlite:asistentes.db"; // Definimos la URL
@@ -17,11 +17,10 @@ public class MantenimientoAsistentes {
 	private static final String PASS = "";
 
 	private static Connection con;
-	private static Statement st;
+	private static PreparedStatement pst;
 
 	public static void main(String[] args) throws SQLException {
 		con = DriverManager.getConnection(URL, USER, PASS); // Conectamos con la base de datos
-		st = con.createStatement(); // Creamos una sentencia
 
 		String opcion;
 
@@ -68,7 +67,9 @@ public class MantenimientoAsistentes {
 	}
 
 	private static void listado() throws SQLException {
-		ResultSet rs = st.executeQuery("SELECT * FROM asistentes"); // Pedimos todos los registros
+		pst = con.prepareStatement("SELECT * FROM asistentes");
+		
+		ResultSet rs = pst.executeQuery(); // Pedimos todos los registros
 
 		pf("%5s %-15s %-30s %-40s\n", "ID", "Nombre", "Apellidos", "Notas");
 		pf("%5s %-15s %-30s %-40s\n", "==", "======", "=========", "=====");
@@ -85,7 +86,11 @@ public class MantenimientoAsistentes {
 	private static void buscarPorId() throws SQLException {
 		int id = leerInt("Dime el id");
 
-		ResultSet rs = st.executeQuery("SELECT * FROM asistentes WHERE id=" + id);
+		pst = con.prepareStatement("SELECT * FROM asistentes WHERE id=?");
+		
+		pst.setInt(1, id);
+		
+		ResultSet rs = pst.executeQuery();
 
 		pf("%5s %-15s %-30s %-40s\n", "ID", "Nombre", "Apellidos", "Notas");
 		pf("%5s %-15s %-30s %-40s\n", "==", "======", "=========", "=====");
@@ -100,7 +105,12 @@ public class MantenimientoAsistentes {
 		String nombre = leerString("Nombre");
 		String apellidos = leerString("Apellidos");
 
-		st.executeUpdate("INSERT INTO asistentes (nombre, apellidos) VALUES ('" + nombre + "', '" + apellidos + "')");
+		pst = con.prepareStatement("INSERT INTO asistentes (nombre, apellidos) VALUES (?,?)");
+		
+		pst.setString(1, nombre);
+		pst.setString(2, apellidos);
+		
+		pst.executeUpdate();
 
 		pl("Insertado");
 	}
@@ -110,7 +120,13 @@ public class MantenimientoAsistentes {
 		String nombre = leerString("Nombre");
 		String apellidos = leerString("Apellidos");
 
-		st.executeUpdate("UPDATE asistentes SET nombre='" + nombre + "', apellidos='" + apellidos + "' WHERE id=" + id);
+		pst = con.prepareStatement("UPDATE asistentes SET nombre=?, apellidos=? WHERE id=?");
+		
+		pst.setString(1, nombre);
+		pst.setString(2, apellidos);
+		pst.setInt(3, id);
+		
+		pst.executeUpdate();
 
 		pl("Modificado");
 	}
@@ -118,7 +134,11 @@ public class MantenimientoAsistentes {
 	private static void borrar() throws SQLException {
 		int id = leerInt("Dime el id");
 
-		st.executeUpdate("DELETE FROM asistentes WHERE id=" + id);
+		pst = con.prepareStatement("DELETE FROM asistentes WHERE id=?");
+		
+		pst.setInt(1, id);
+		
+		pst.executeUpdate();
 
 		pl("Borrado");
 	}
