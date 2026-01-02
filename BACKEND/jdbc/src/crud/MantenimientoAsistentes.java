@@ -83,8 +83,7 @@ public class MantenimientoAsistentes {
 	}
 
 	private static void buscarPorId() throws SQLException {
-		System.out.println("Dime el id");
-
+		System.out.print("Dime el id: ");
 		int id = Integer.parseInt(SC.nextLine());
 
 		ResultSet rs = st.executeQuery("SELECT * FROM asistentes WHERE id=" + id);
@@ -110,12 +109,28 @@ public class MantenimientoAsistentes {
 		System.out.println("Insertado");
 	}
 
-	private static void modificar() {
-		System.out.println("MODIFICAR");
+	private static void modificar() throws SQLException {
+		System.out.print("Dime el id: ");
+		int id = Integer.parseInt(SC.nextLine());
+
+		System.out.print("Nombre: ");
+		String nombre = SC.nextLine();
+
+		System.out.print("Apellidos: ");
+		String apellidos = SC.nextLine();
+
+		st.executeUpdate("UPDATE asistentes SET nombre='" + nombre + "', apellidos='" + apellidos + "' WHERE id=" + id);
+
+		System.out.println("Modificado");
 	}
 
-	private static void borrar() {
-		System.out.println("BORRAR");
+	private static void borrar() throws SQLException {
+		System.out.print("Dime el id: ");
+		int id = Integer.parseInt(SC.nextLine());
+
+		st.executeUpdate("DELETE FROM asistentes WHERE id=" + id);
+
+		System.out.println("Borrado");
 	}
 
 	private static void salir() {
