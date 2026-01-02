@@ -4,6 +4,8 @@ import static bibliotecas.Consola.leerInt;
 import static bibliotecas.Consola.leerString;
 import static bibliotecas.Consola.pf;
 import static bibliotecas.Consola.pl;
+import static bibliotecas.Consola.REQUERIDO;
+import static bibliotecas.Consola.OPCIONAL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -102,13 +104,15 @@ public class MantenimientoAsistentes {
 	}
 
 	private static void insertar() throws SQLException {
-		String nombre = leerString("Nombre");
-		String apellidos = leerString("Apellidos");
+		String nombre = leerString("Nombre", REQUERIDO);
+		String apellidos = leerString("Apellidos", REQUERIDO);
+		String notas = leerString("Notas", OPCIONAL);
 
-		pst = con.prepareStatement("INSERT INTO asistentes (nombre, apellidos) VALUES (?,?)");
+		pst = con.prepareStatement("INSERT INTO asistentes (nombre, apellidos, notas) VALUES (?,?,?)");
 		
 		pst.setString(1, nombre);
 		pst.setString(2, apellidos);
+		pst.setString(3, notas);
 		
 		pst.executeUpdate();
 
@@ -117,14 +121,16 @@ public class MantenimientoAsistentes {
 
 	private static void modificar() throws SQLException {
 		int id = leerInt("Dime el id");
-		String nombre = leerString("Nombre");
-		String apellidos = leerString("Apellidos");
+		String nombre = leerString("Nombre", REQUERIDO);
+		String apellidos = leerString("Apellidos", REQUERIDO);
+		String notas = leerString("Notas", OPCIONAL);
 
-		pst = con.prepareStatement("UPDATE asistentes SET nombre=?, apellidos=? WHERE id=?");
+		pst = con.prepareStatement("UPDATE asistentes SET nombre=?, apellidos=?, notas=? WHERE id=?");
 		
 		pst.setString(1, nombre);
 		pst.setString(2, apellidos);
-		pst.setInt(3, id);
+		pst.setString(3, notas);
+		pst.setInt(4, id);
 		
 		pst.executeUpdate();
 
