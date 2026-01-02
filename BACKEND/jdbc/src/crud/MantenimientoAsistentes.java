@@ -1,15 +1,17 @@
 package crud;
 
+import static bibliotecas.Consola.leerInt;
+import static bibliotecas.Consola.leerString;
+import static bibliotecas.Consola.pf;
+import static bibliotecas.Consola.pl;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 public class MantenimientoAsistentes {
-	private static final Scanner SC = new Scanner(System.in);
-
 	private static final String URL = "jdbc:sqlite:asistentes.db"; // Definimos la URL
 	private static final String USER = "";
 	private static final String PASS = "";
@@ -31,7 +33,7 @@ public class MantenimientoAsistentes {
 	}
 
 	private static void mostrarMenu() {
-		System.out.println("""
+		pl("""
 				MENU
 				====
 
@@ -47,9 +49,7 @@ public class MantenimientoAsistentes {
 	}
 
 	private static String pedirOpcion() {
-		System.out.println("Dime la opción que quieres");
-
-		return SC.nextLine();
+		return leerString("Selecciona la opción");
 	}
 
 	private static void procesarOpcion(String opcion) throws SQLException {
@@ -70,74 +70,64 @@ public class MantenimientoAsistentes {
 	private static void listado() throws SQLException {
 		ResultSet rs = st.executeQuery("SELECT * FROM asistentes"); // Pedimos todos los registros
 
-		System.out.printf("%5s %-15s %-30s %-40s\n", "ID", "Nombre", "Apellidos", "Notas");
-		System.out.printf("%5s %-15s %-30s %-40s\n", "==", "======", "=========", "=====");
+		pf("%5s %-15s %-30s %-40s\n", "ID", "Nombre", "Apellidos", "Notas");
+		pf("%5s %-15s %-30s %-40s\n", "==", "======", "=========", "=====");
 
 		while (rs.next()) { // Mientras haya registros pasamos al siguiente...
-			System.out.printf("%5s %-15s %-30s %-40s\n", rs.getString("id"), rs.getString("nombre"),
-					rs.getString("apellidos"), rs.getString("notas") != null ? rs.getString("notas") : "SIN RELLENAR"); // ...y
-																														// mostramos
-																														// su
-																														// información
+			pf("%5s %-15s %-30s %-40s\n", rs.getString("id"), rs.getString("nombre"), rs.getString("apellidos"),
+					rs.getString("notas") != null ? rs.getString("notas") : "SIN RELLENAR"); // ...y
+																								// mostramos
+																								// su
+																								// información
 		}
 	}
 
 	private static void buscarPorId() throws SQLException {
-		System.out.print("Dime el id: ");
-		int id = Integer.parseInt(SC.nextLine());
+		int id = leerInt("Dime el id");
 
 		ResultSet rs = st.executeQuery("SELECT * FROM asistentes WHERE id=" + id);
 
-		System.out.printf("%5s %-15s %-30s %-40s\n", "ID", "Nombre", "Apellidos", "Notas");
-		System.out.printf("%5s %-15s %-30s %-40s\n", "==", "======", "=========", "=====");
+		pf("%5s %-15s %-30s %-40s\n", "ID", "Nombre", "Apellidos", "Notas");
+		pf("%5s %-15s %-30s %-40s\n", "==", "======", "=========", "=====");
 
 		while (rs.next()) { // Mientras haya registros pasamos al siguiente...
-			System.out.printf("%5s %-15s %-30s %-40s\n", rs.getString("id"), rs.getString("nombre"),
-					rs.getString("apellidos"), rs.getString("notas")); // ...y mostramos su información
+			pf("%5s %-15s %-30s %-40s\n", rs.getString("id"), rs.getString("nombre"), rs.getString("apellidos"),
+					rs.getString("notas")); // ...y mostramos su información
 		}
 	}
 
 	private static void insertar() throws SQLException {
-		System.out.print("Nombre: ");
-		String nombre = SC.nextLine();
-
-		System.out.print("Apellidos: ");
-		String apellidos = SC.nextLine();
+		String nombre = leerString("Nombre");
+		String apellidos = leerString("Apellidos");
 
 		st.executeUpdate("INSERT INTO asistentes (nombre, apellidos) VALUES ('" + nombre + "', '" + apellidos + "')");
 
-		System.out.println("Insertado");
+		pl("Insertado");
 	}
 
 	private static void modificar() throws SQLException {
-		System.out.print("Dime el id: ");
-		int id = Integer.parseInt(SC.nextLine());
-
-		System.out.print("Nombre: ");
-		String nombre = SC.nextLine();
-
-		System.out.print("Apellidos: ");
-		String apellidos = SC.nextLine();
+		int id = leerInt("Dime el id");
+		String nombre = leerString("Nombre");
+		String apellidos = leerString("Apellidos");
 
 		st.executeUpdate("UPDATE asistentes SET nombre='" + nombre + "', apellidos='" + apellidos + "' WHERE id=" + id);
 
-		System.out.println("Modificado");
+		pl("Modificado");
 	}
 
 	private static void borrar() throws SQLException {
-		System.out.print("Dime el id: ");
-		int id = Integer.parseInt(SC.nextLine());
+		int id = leerInt("Dime el id");
 
 		st.executeUpdate("DELETE FROM asistentes WHERE id=" + id);
 
-		System.out.println("Borrado");
+		pl("Borrado");
 	}
 
 	private static void salir() {
-		System.out.println("Gracias por usar este programa. Cerrando");
+		pl("Gracias por usar este programa. Cerrando");
 	}
 
 	private static void error() {
-		System.out.println("OPCIÓN NO RECONOCIDA");
+		pl("OPCIÓN NO RECONOCIDA");
 	}
 }
