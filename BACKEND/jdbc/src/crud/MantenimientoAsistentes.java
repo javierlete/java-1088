@@ -7,8 +7,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class MantenimientoAsistentes {
+	private static final String FORMATO_LISTADO = "%5s %-10s %-15s %-20s %-20s %-40s\n";
+	
 	private static final String URL = "jdbc:sqlite:asistentes.db"; // Definimos la URL
 	private static final String USER = "";
 	private static final String PASS = "";
@@ -68,16 +71,26 @@ public class MantenimientoAsistentes {
 
 		ResultSet rs = pst.executeQuery(); // Pedimos todos los registros
 
-		pf("%5s %-15s %-30s %-40s\n", "ID", "Nombre", "Apellidos", "Notas");
-		pf("%5s %-15s %-30s %-40s\n", "==", "======", "=========", "=====");
+		pf(FORMATO_LISTADO, "ID", "Nombre", "Apellidos", "Entrada", "Salida", "Notas");
+		pf(FORMATO_LISTADO, "==", "======", "=========", "=======", "======", "=====");
 
 		while (rs.next()) { // Mientras haya registros pasamos al siguiente...
-			pf("%5s %-15s %-30s %-40s\n", rs.getString("id"), rs.getString("nombre"), rs.getString("apellidos"),
+			pf(FORMATO_LISTADO, rs.getString("id"), rs.getString("nombre"), rs.getString("apellidos"),
+					formatearFecha(rs.getTimestamp("entrada")),
+					formatearFecha(rs.getTimestamp("salida")),
 					rs.getString("notas") != null ? rs.getString("notas") : "SIN RELLENAR"); // ...y
 																								// mostramos
 																								// su
 																								// información
 		}
+	}
+
+	private static String formatearFecha(java.sql.Timestamp fecha) throws SQLException {
+		if(fecha == null) {
+			return "X";
+		}
+
+		return FORMATO_FECHA_HORA.format(fecha.toLocalDateTime());
 	}
 
 	private static void buscarPorId() throws SQLException {
@@ -89,11 +102,11 @@ public class MantenimientoAsistentes {
 
 		ResultSet rs = pst.executeQuery();
 
-		pf("%5s %-15s %-30s %-40s\n", "ID", "Nombre", "Apellidos", "Notas");
-		pf("%5s %-15s %-30s %-40s\n", "==", "======", "=========", "=====");
+		pf(FORMATO_LISTADO, "ID", "Nombre", "Apellidos", "Notas");
+		pf(FORMATO_LISTADO, "==", "======", "=========", "=====");
 
 		while (rs.next()) { // Mientras haya registros pasamos al siguiente...
-			pf("%5s %-15s %-30s %-40s\n", rs.getString("id"), rs.getString("nombre"), rs.getString("apellidos"),
+			pf(FORMATO_LISTADO, rs.getString("id"), rs.getString("nombre"), rs.getString("apellidos"),
 					rs.getString("notas")); // ...y mostramos su información
 		}
 	}
@@ -101,13 +114,19 @@ public class MantenimientoAsistentes {
 	private static void insertar() throws SQLException {
 		String nombre = leerString("Nombre", REQUERIDO);
 		String apellidos = leerString("Apellidos", REQUERIDO);
-		String notas = leerString("Notas", OPCIONAL);
 
-		pst = con.prepareStatement("INSERT INTO asistentes (nombre, apellidos, notas) VALUES (?,?,?)");
+		String notas = leerString("Notas", OPCIONAL);
+		LocalDateTime entrada = leerLocalDateTime("Entrada", OPCIONAL);
+		LocalDateTime salida = leerLocalDateTime("Salida", OPCIONAL);
+
+		pst = con.prepareStatement(
+				"INSERT INTO asistentes (nombre, apellidos, notas, entrada, salida) VALUES (?,?,?,?,?)");
 
 		pst.setString(1, nombre);
 		pst.setString(2, apellidos);
 		pst.setString(3, notas);
+		pst.setTimestamp(4, entrada == null ? null : java.sql.Timestamp.valueOf(entrada));
+		pst.setTimestamp(5, salida == null ? null : java.sql.Timestamp.valueOf(salida));
 
 		pst.executeUpdate();
 
@@ -118,14 +137,20 @@ public class MantenimientoAsistentes {
 		int id = leerInt("Dime el id", REQUERIDO);
 		String nombre = leerString("Nombre", REQUERIDO);
 		String apellidos = leerString("Apellidos", REQUERIDO);
-		String notas = leerString("Notas", OPCIONAL);
 
-		pst = con.prepareStatement("UPDATE asistentes SET nombre=?, apellidos=?, notas=? WHERE id=?");
+		String notas = leerString("Notas", OPCIONAL);
+		LocalDateTime entrada = leerLocalDateTime("Entrada", OPCIONAL);
+		LocalDateTime salida = leerLocalDateTime("Salida", OPCIONAL);
+
+		pst = con.prepareStatement(
+				"UPDATE asistentes SET nombre=?, apellidos=?, notas=?, entrada=?, salida=? WHERE id=?");
 
 		pst.setString(1, nombre);
 		pst.setString(2, apellidos);
 		pst.setString(3, notas);
-		pst.setInt(4, id);
+		pst.setTimestamp(4, java.sql.Timestamp.valueOf(entrada));
+		pst.setTimestamp(5, java.sql.Timestamp.valueOf(salida));
+		pst.setInt(6, id);
 
 		pst.executeUpdate();
 
