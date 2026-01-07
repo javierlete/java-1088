@@ -1,8 +1,13 @@
 package bibliotecas;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Consola {
+	public static final DateTimeFormatter FORMATO_FECHA_HORA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	
 	public static final boolean REQUERIDO = true;
 	public static final boolean OPCIONAL = false;
 
@@ -48,18 +53,38 @@ public class Consola {
 	public static Integer leerInt(String mensaje) {
 		return leerInt(mensaje, OPCIONAL);
 	}
-	
+
 	public static Integer leerInt(String mensaje, boolean requerido) {
 		do {
 			try {
 				String texto = leerString(mensaje, requerido);
-				
-				if(!requerido && texto == null) {
+
+				if (!requerido && texto == null) {
 					return null;
 				}
-				
+
 				return Integer.parseInt(texto);
 			} catch (NumberFormatException e) {
+				pl("No se ha introducido un número");
+			}
+		} while (true);
+	}
+
+	public static LocalDateTime leerLocalDateTime(String mensaje) {
+		return leerLocalDateTime(mensaje, OPCIONAL);
+	}
+
+	public static LocalDateTime leerLocalDateTime(String mensaje, boolean requerido) {
+		do {
+			try {
+				String texto = leerString(mensaje, requerido);
+
+				if (!requerido && texto == null) {
+					return null;
+				}
+
+				return LocalDateTime.parse(texto, FORMATO_FECHA_HORA);
+			} catch (DateTimeParseException e) {
 				pl("No se ha introducido un número");
 			}
 		} while (true);
