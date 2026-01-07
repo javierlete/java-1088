@@ -1,11 +1,6 @@
 package crud;
 
-import static bibliotecas.Consola.leerInt;
-import static bibliotecas.Consola.leerString;
-import static bibliotecas.Consola.pf;
-import static bibliotecas.Consola.pl;
-import static bibliotecas.Consola.REQUERIDO;
-import static bibliotecas.Consola.OPCIONAL;
+import static bibliotecas.Consola.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -50,7 +45,7 @@ public class MantenimientoAsistentes {
 	}
 
 	private static String pedirOpcion() {
-		return leerString("Selecciona la opción");
+		return leerString("Selecciona la opción", REQUERIDO);
 	}
 
 	private static void procesarOpcion(String opcion) throws SQLException {
@@ -70,7 +65,7 @@ public class MantenimientoAsistentes {
 
 	private static void listado() throws SQLException {
 		pst = con.prepareStatement("SELECT * FROM asistentes");
-		
+
 		ResultSet rs = pst.executeQuery(); // Pedimos todos los registros
 
 		pf("%5s %-15s %-30s %-40s\n", "ID", "Nombre", "Apellidos", "Notas");
@@ -86,12 +81,12 @@ public class MantenimientoAsistentes {
 	}
 
 	private static void buscarPorId() throws SQLException {
-		int id = leerInt("Dime el id");
+		int id = leerInt("Dime el id", REQUERIDO);
 
 		pst = con.prepareStatement("SELECT * FROM asistentes WHERE id=?");
-		
+
 		pst.setInt(1, id);
-		
+
 		ResultSet rs = pst.executeQuery();
 
 		pf("%5s %-15s %-30s %-40s\n", "ID", "Nombre", "Apellidos", "Notas");
@@ -109,41 +104,41 @@ public class MantenimientoAsistentes {
 		String notas = leerString("Notas", OPCIONAL);
 
 		pst = con.prepareStatement("INSERT INTO asistentes (nombre, apellidos, notas) VALUES (?,?,?)");
-		
+
 		pst.setString(1, nombre);
 		pst.setString(2, apellidos);
 		pst.setString(3, notas);
-		
+
 		pst.executeUpdate();
 
 		pl("Insertado");
 	}
 
 	private static void modificar() throws SQLException {
-		int id = leerInt("Dime el id");
+		int id = leerInt("Dime el id", REQUERIDO);
 		String nombre = leerString("Nombre", REQUERIDO);
 		String apellidos = leerString("Apellidos", REQUERIDO);
 		String notas = leerString("Notas", OPCIONAL);
 
 		pst = con.prepareStatement("UPDATE asistentes SET nombre=?, apellidos=?, notas=? WHERE id=?");
-		
+
 		pst.setString(1, nombre);
 		pst.setString(2, apellidos);
 		pst.setString(3, notas);
 		pst.setInt(4, id);
-		
+
 		pst.executeUpdate();
 
 		pl("Modificado");
 	}
 
 	private static void borrar() throws SQLException {
-		int id = leerInt("Dime el id");
+		int id = leerInt("Dime el id", REQUERIDO);
 
 		pst = con.prepareStatement("DELETE FROM asistentes WHERE id=?");
-		
+
 		pst.setInt(1, id);
-		
+
 		pst.executeUpdate();
 
 		pl("Borrado");

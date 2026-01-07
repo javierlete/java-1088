@@ -21,7 +21,7 @@ public class Consola {
 	}
 
 	public static String leerString(String mensaje) {
-		return leerString(mensaje, false);
+		return leerString(mensaje, OPCIONAL);
 	}
 
 	public static String leerString(String mensaje, boolean requerido) {
@@ -45,10 +45,20 @@ public class Consola {
 		return resultado;
 	}
 
-	public static int leerInt(String mensaje) {
+	public static Integer leerInt(String mensaje) {
+		return leerInt(mensaje, OPCIONAL);
+	}
+	
+	public static Integer leerInt(String mensaje, boolean requerido) {
 		do {
 			try {
-				return Integer.parseInt(leerString(mensaje));
+				String texto = leerString(mensaje, requerido);
+				
+				if(!requerido && texto == null) {
+					return null;
+				}
+				
+				return Integer.parseInt(texto);
 			} catch (NumberFormatException e) {
 				pl("No se ha introducido un número");
 			}
