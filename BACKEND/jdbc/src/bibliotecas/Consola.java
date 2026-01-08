@@ -77,7 +77,7 @@ public class Consola {
 	public static LocalDateTime leerLocalDateTime(String mensaje, boolean requerido) {
 		do {
 			try {
-				String texto = leerString(mensaje, requerido);
+				String texto = leerString(mensaje + " (DD/MM/AAAA HH:MM)", requerido);
 
 				if (!requerido && texto == null) {
 					return null;
@@ -85,7 +85,7 @@ public class Consola {
 
 				return LocalDateTime.parse(texto, FORMATO_FECHA_HORA);
 			} catch (DateTimeParseException e) {
-				pl("No se ha introducido un número");
+				pl("No se ha introducido una fecha con hora en el formato correcto");
 			}
 		} while (true);
 	}
