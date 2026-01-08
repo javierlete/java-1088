@@ -12,9 +12,13 @@ import java.time.LocalDateTime;
 public class MantenimientoAsistentes {
 	private static final String FORMATO_LISTADO = "%5s %-10s %-15s %-20s %-20s %-40s\n";
 	
-	private static final String URL = "jdbc:sqlite:asistentes.db"; // Definimos la URL
-	private static final String USER = "";
-	private static final String PASS = "";
+//	private static final String URL = "jdbc:sqlite:asistentes.db"; // Definimos la URL
+//	private static final String USER = "";
+//	private static final String PASS = "";
+
+	private static final String URL = "jdbc:mysql://localhost:3306/java1088"; // Definimos la URL
+	private static final String USER = "root";
+	private static final String PASS = "1234";
 
 	private static Connection con;
 	private static PreparedStatement pst;
@@ -71,26 +75,11 @@ public class MantenimientoAsistentes {
 
 		ResultSet rs = pst.executeQuery(); // Pedimos todos los registros
 
-		pf(FORMATO_LISTADO, "ID", "Nombre", "Apellidos", "Entrada", "Salida", "Notas");
-		pf(FORMATO_LISTADO, "==", "======", "=========", "=======", "======", "=====");
+		cabeceraListado();
 
 		while (rs.next()) { // Mientras haya registros pasamos al siguiente...
-			pf(FORMATO_LISTADO, rs.getString("id"), rs.getString("nombre"), rs.getString("apellidos"),
-					formatearFecha(rs.getTimestamp("entrada")),
-					formatearFecha(rs.getTimestamp("salida")),
-					rs.getString("notas") != null ? rs.getString("notas") : "SIN RELLENAR"); // ...y
-																								// mostramos
-																								// su
-																								// información
+			lineaListado(rs);
 		}
-	}
-
-	private static String formatearFecha(java.sql.Timestamp fecha) throws SQLException {
-		if(fecha == null) {
-			return "X";
-		}
-
-		return FORMATO_FECHA_HORA.format(fecha.toLocalDateTime());
 	}
 
 	private static void buscarPorId() throws SQLException {
@@ -102,12 +91,10 @@ public class MantenimientoAsistentes {
 
 		ResultSet rs = pst.executeQuery();
 
-		pf(FORMATO_LISTADO, "ID", "Nombre", "Apellidos", "Notas");
-		pf(FORMATO_LISTADO, "==", "======", "=========", "=====");
-
-		while (rs.next()) { // Mientras haya registros pasamos al siguiente...
-			pf(FORMATO_LISTADO, rs.getString("id"), rs.getString("nombre"), rs.getString("apellidos"),
-					rs.getString("notas")); // ...y mostramos su información
+		cabeceraListado();
+		
+		if (rs.next()) {
+			lineaListado(rs);
 		}
 	}
 
@@ -171,6 +158,26 @@ public class MantenimientoAsistentes {
 
 	private static void salir() {
 		pl("Gracias por usar este programa. Cerrando");
+	}
+
+	private static void cabeceraListado() {
+		pf(FORMATO_LISTADO, "ID", "Nombre", "Apellidos", "Entrada", "Salida", "Notas");
+		pf(FORMATO_LISTADO, "==", "======", "=========", "=======", "======", "=====");
+	}
+
+	private static void lineaListado(ResultSet rs) throws SQLException {
+		pf(FORMATO_LISTADO, rs.getString("id"), rs.getString("nombre"), rs.getString("apellidos"),
+				formatearFecha(rs.getTimestamp("entrada")),
+				formatearFecha(rs.getTimestamp("salida")),
+				rs.getString("notas") != null ? rs.getString("notas") : "SIN RELLENAR");
+	}
+
+	private static String formatearFecha(java.sql.Timestamp fecha) throws SQLException {
+		if(fecha == null) {
+			return "X";
+		}
+	
+		return FORMATO_FECHA_HORA.format(fecha.toLocalDateTime());
 	}
 
 	private static void error() {
