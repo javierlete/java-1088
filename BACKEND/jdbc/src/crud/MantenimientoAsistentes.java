@@ -17,8 +17,8 @@ public class MantenimientoAsistentes {
 //	private static final String PASS = "";
 
 	private static final String URL = "jdbc:mysql://localhost:3306/java1088"; // Definimos la URL
-	private static final String USER = "root";
-	private static final String PASS = "1234";
+	private static final String USER = "java1088_user";
+	private static final String PASS = "java1088_user_pass";
 
 	private static Connection con;
 	private static PreparedStatement pst;
