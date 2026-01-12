@@ -26,14 +26,15 @@ DROP TABLE IF EXISTS `clientes`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clientes` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  `NIF` char(9) COLLATE utf8mb4_general_ci NOT NULL,
-  `usuarios_id` bigint NOT NULL,
+  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nif` char(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `usuarios_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `NIF_UNIQUE` (`NIF`),
+  UNIQUE KEY `NIF_UNIQUE` (`nif`),
+  UNIQUE KEY `usuarios_id_UNIQUE` (`usuarios_id`),
   KEY `fk_clientes_usuarios1_idx` (`usuarios_id`),
   CONSTRAINT `fk_clientes_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +43,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'Javier','12345678A',1),(2,'Pepe','87654321B',2);
+INSERT INTO `clientes` VALUES (1,'Javier','12345678A',1),(2,'Pepe','87654321B',2),(3,'Pepe','13243546A',NULL);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,14 +56,14 @@ DROP TABLE IF EXISTS `facturas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `facturas` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `codigo` char(8) COLLATE utf8mb4_general_ci NOT NULL,
+  `codigo` char(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `fecha` date NOT NULL,
   `clientes_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `codigo_UNIQUE` (`codigo`),
   KEY `fk_facturas_clientes_idx` (`clientes_id`),
   CONSTRAINT `fk_facturas_clientes` FOREIGN KEY (`clientes_id`) REFERENCES `clientes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +72,7 @@ CREATE TABLE `facturas` (
 
 LOCK TABLES `facturas` WRITE;
 /*!40000 ALTER TABLE `facturas` DISABLE KEYS */;
-INSERT INTO `facturas` VALUES (1,'INF-0001','2026-01-08',1),(2,'INF-0002','2026-01-08',2),(3,'ELE-0001','2026-01-01',2);
+INSERT INTO `facturas` VALUES (1,'INF-0001','2026-01-08',1),(2,'INF-0002','2026-01-08',2),(3,'ELE-0001','2026-01-01',2),(4,'INF-0003','2026-01-12',3);
 /*!40000 ALTER TABLE `facturas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +113,7 @@ DROP TABLE IF EXISTS `productos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `productos` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `precio` decimal(19,2) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -163,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-08 10:57:45
+-- Dump completed on 2026-01-12 10:33:15
