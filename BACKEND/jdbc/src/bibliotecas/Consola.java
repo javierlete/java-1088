@@ -1,17 +1,26 @@
 package bibliotecas;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Consola {
-	public static final DateTimeFormatter FORMATO_FECHA_HORA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	private static final String STRING_FORMATO_FECHA = "dd/MM/yyyy";
+	private static final String STRING_FORMATO_HORA = "HH:mm";
+
+	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern(STRING_FORMATO_FECHA);
+	@SuppressWarnings("unused")
+	private static final DateTimeFormatter FORMATO_HORA = DateTimeFormatter.ofPattern(STRING_FORMATO_HORA);
+
+	public static final DateTimeFormatter FORMATO_FECHA_HORA = DateTimeFormatter.ofPattern(STRING_FORMATO_FECHA + " " + STRING_FORMATO_HORA);
 	
 	public static final boolean REQUERIDO = true;
 	public static final boolean OPCIONAL = false;
 
 	private static final Scanner SC = new Scanner(System.in);
+
 
 	public static void pl(String mensaje) {
 		System.out.println(mensaje);
@@ -86,6 +95,26 @@ public class Consola {
 				return LocalDateTime.parse(texto, FORMATO_FECHA_HORA);
 			} catch (DateTimeParseException e) {
 				pl("No se ha introducido una fecha con hora en el formato correcto");
+			}
+		} while (true);
+	}
+	
+	public static LocalDate leerLocalDate(String mensaje) {
+		return leerLocalDate(mensaje, OPCIONAL);
+	}
+	
+	public static LocalDate leerLocalDate(String mensaje, boolean requerido) {
+		do {
+			try {
+				String texto = leerString(mensaje + " (DD/MM/AAAA)", requerido);
+				
+				if (!requerido && texto == null) {
+					return null;
+				}
+				
+				return LocalDate.parse(texto, FORMATO_FECHA);
+			} catch (DateTimeParseException e) {
+				pl("No se ha introducido una fecha en el formato correcto");
 			}
 		} while (true);
 	}
