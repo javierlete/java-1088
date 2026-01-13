@@ -2,9 +2,11 @@ package crud;
 
 import static bibliotecas.Consola.*;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MantenimientoTienda {
 	private static final String URL = "jdbc:mysql://localhost:3306/tienda";
@@ -49,6 +51,8 @@ public class MantenimientoTienda {
 
 				5. Buscar por código
 
+				7. Crear factura con cliente
+
 				8. Crear cliente
 
 				9. Crear factura
@@ -67,6 +71,7 @@ public class MantenimientoTienda {
 		case 2 -> listadoFacturas();
 		case 3 -> listadoFacturasAlternativo();
 		case 5 -> buscarPorCodigo();
+		case 7 -> crearFacturaConCliente();
 		case 8 -> crearCliente();
 		case 9 -> crearFactura();
 		case 0 -> salir();
@@ -150,6 +155,62 @@ public class MantenimientoTienda {
 			}
 		} catch (SQLException e) {
 			System.out.println("No se ha podido buscar por código");
+		}
+	}
+
+	private static void crearFacturaConCliente() {
+		Connection con = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USER, PASS);
+
+			int id;
+
+			con.setAutoCommit(false);
+
+			try (var pstCliente = con.prepareStatement(SQL_CLIENTES_INSERT, Statement.RETURN_GENERATED_KEYS)) {
+				pstCliente.setString(1, leerString("Nombre", REQUERIDO));
+				pstCliente.setString(2, leerString("NIF", REQUERIDO));
+
+				pstCliente.executeUpdate();
+
+				try (var rsId = pstCliente.getGeneratedKeys()) {
+					rsId.next();
+
+					id = rsId.getInt(1);
+				}
+			}
+
+			try (var pstFactura = con.prepareStatement(SQL_FACTURAS_INSERT)) {
+				pstFactura.setInt(1, id);
+				pstFactura.setString(2, leerString("Código", REQUERIDO));
+				pstFactura.setDate(3, java.sql.Date.valueOf(leerLocalDate("Fecha", REQUERIDO)));
+
+				pstFactura.executeUpdate();
+			}
+
+			con.commit();
+		} catch (SQLException e) {
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException e1) {
+					System.out.println("No se ha podido deshacer la transacción");
+					e1.printStackTrace();
+				}
+			}
+			
+			System.out.println("No se ha podido crear la factura con cliente");
+			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// No hacemos nada si hay un error en el cierre
+				}
+			}
+
 		}
 	}
 
