@@ -13,20 +13,22 @@ public class MantenimientoTienda {
 
 	private static final String SQL_CLIENTES_CAMPOS = "c.id AS c_id, c.nombre AS c_nombre, c.nif AS c_nif";
 	private static final String SQL_FACTURAS_CAMPOS = "f.id AS f_id, f.codigo AS f_codigo, f.fecha AS f_fecha";
-	
+
 	private static final String SQL_SELECT_CLIENTES_FACTURAS = String.format("""
 			select %s, %s
 			from clientes c
 			join facturas f on c.id = f.clientes_id
 			""", SQL_CLIENTES_CAMPOS, SQL_FACTURAS_CAMPOS);
-	private static final String SQL_SELECT_CLIENTES_FACTURAS_POR_CODIGO = SQL_SELECT_CLIENTES_FACTURAS + " WHERE f.codigo=?";
-	
+	private static final String SQL_SELECT_CLIENTES_FACTURAS_POR_CODIGO = SQL_SELECT_CLIENTES_FACTURAS
+			+ " WHERE f.codigo=?";
+
 	private static final String SQL_SELECT_CLIENTES = String.format("SELECT %s FROM clientes c", SQL_CLIENTES_CAMPOS);
-	private static final String SQL_SELECT_FACTURAS_POR_CLIENTE_ID = String.format("SELECT %s FROM facturas f WHERE clientes_id=?", SQL_FACTURAS_CAMPOS);
+	private static final String SQL_SELECT_FACTURAS_POR_CLIENTE_ID = String
+			.format("SELECT %s FROM facturas f WHERE clientes_id=?", SQL_FACTURAS_CAMPOS);
 	private static final String SQL_CLIENTES_INSERT = "INSERT INTO clientes (nombre, nif) VALUES (?,?)";
 	private static final String SQL_FACTURAS_INSERT = "INSERT INTO facturas (clientes_id, codigo, fecha) VALUES (?,?,?)";
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) {
 
 		int opcion;
 
@@ -59,7 +61,7 @@ public class MantenimientoTienda {
 		return leerInt("Selecciona una opción", REQUERIDO);
 	}
 
-	private static void procesarOpcion(int opcion) throws SQLException {
+	private static void procesarOpcion(int opcion) {
 		switch (opcion) {
 		case 1 -> listadoClientes();
 		case 2 -> listadoFacturas();
@@ -70,104 +72,111 @@ public class MantenimientoTienda {
 		case 0 -> salir();
 		default -> noExiste(opcion);
 		}
-		
+
 		System.out.println();
 	}
 
-	private static void listadoClientes() throws SQLException {
-		var con = DriverManager.getConnection(URL, USER, PASS);
-
-		// Producto cartesiano
-
-		var pst = con.prepareStatement(SQL_SELECT_CLIENTES);
-		var rs = pst.executeQuery();
-
-		while (rs.next()) {
-			mostrarLineaCliente(rs);
-		}
-	}
-
-	private static void listadoFacturas() throws SQLException {
-		var con = DriverManager.getConnection(URL, USER, PASS);
-
-		// Producto cartesiano
-
-		var pst = con.prepareStatement(SQL_SELECT_CLIENTES_FACTURAS);
-		var rs = pst.executeQuery();
-
-		long id = -1L;
-
-		while (rs.next()) {
-			if (rs.getLong("c_id") != id) {
-				id = rs.getLong("c_id");
-
+	private static void listadoClientes() {
+		try (var con = DriverManager.getConnection(URL, USER, PASS);
+				var pst = con.prepareStatement(SQL_SELECT_CLIENTES);
+				var rs = pst.executeQuery()) {
+			while (rs.next()) {
 				mostrarLineaCliente(rs);
 			}
-
-			p("\t");
-			
-			mostrarLineaFactura(rs);
+		} catch (SQLException e) {
+			System.out.println("Error en el listado de clientes");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
-	private static void listadoFacturasAlternativo() throws SQLException {
-		var con = DriverManager.getConnection(URL, USER, PASS);
+	// Producto cartesiano
+	private static void listadoFacturas() {
+		try (var con = DriverManager.getConnection(URL, USER, PASS);
+				var pst = con.prepareStatement(SQL_SELECT_CLIENTES_FACTURAS);
+				var rs = pst.executeQuery()) {
+			long id = -1L;
 
-		// N+1
+			while (rs.next()) {
+				if (rs.getLong("c_id") != id) {
+					id = rs.getLong("c_id");
 
-		var pstClientes = con.prepareStatement(SQL_SELECT_CLIENTES);
-		var pstFacturas = con.prepareStatement(SQL_SELECT_FACTURAS_POR_CLIENTE_ID);
+					mostrarLineaCliente(rs);
+				}
 
-		var rsClientes = pstClientes.executeQuery();
-
-		while (rsClientes.next()) {
-			mostrarLineaCliente(rsClientes);
-
-			pstFacturas.setLong(1, rsClientes.getLong("c_id"));
-
-			var rsFacturas = pstFacturas.executeQuery();
-
-			while (rsFacturas.next()) {
 				p("\t");
-				mostrarLineaFactura(rsFacturas);
+
+				mostrarLineaFactura(rs);
 			}
+		} catch (SQLException e) {
+			System.out.println("No se ha podido mostrar el listado de facturas");
 		}
 	}
 
-	private static void buscarPorCodigo() throws SQLException {
-		var con = DriverManager.getConnection(URL, USER, PASS);
-		var pst = con.prepareStatement(SQL_SELECT_CLIENTES_FACTURAS_POR_CODIGO);
-		
-		var codigo = leerString("Código de factura", REQUERIDO);
-		
-		pst.setString(1, codigo);
-		
-		var rs = pst.executeQuery();
-		
-		while(rs.next()) {
-			mostrarLineaFactura(rs);
+	// N+1
+	private static void listadoFacturasAlternativo() {
+		try (var con = DriverManager.getConnection(URL, USER, PASS);
+				var pstClientes = con.prepareStatement(SQL_SELECT_CLIENTES);
+				var pstFacturas = con.prepareStatement(SQL_SELECT_FACTURAS_POR_CLIENTE_ID);
+				var rsClientes = pstClientes.executeQuery()) {
+			while (rsClientes.next()) {
+				mostrarLineaCliente(rsClientes);
+
+				pstFacturas.setLong(1, rsClientes.getLong("c_id"));
+
+				try (var rsFacturas = pstFacturas.executeQuery()) {
+					while (rsFacturas.next()) {
+						p("\t");
+						mostrarLineaFactura(rsFacturas);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("No se ha podido mostrar el listado de facturas");
 		}
 	}
 
-	private static void crearCliente() throws SQLException {
-		var con = DriverManager.getConnection(URL, USER, PASS);
-		var pst = con.prepareStatement(SQL_CLIENTES_INSERT);
-		
-		pst.setString(1, leerString("Nombre", REQUERIDO));
-		pst.setString(2, leerString("NIF", REQUERIDO));
-		
-		pst.executeUpdate();
+	private static void buscarPorCodigo() {
+		try (var con = DriverManager.getConnection(URL, USER, PASS);
+				var pst = con.prepareStatement(SQL_SELECT_CLIENTES_FACTURAS_POR_CODIGO)) {
+			var codigo = leerString("Código de factura", REQUERIDO);
+
+			pst.setString(1, codigo);
+
+			var rs = pst.executeQuery();
+
+			while (rs.next()) {
+				mostrarLineaFactura(rs);
+			}
+		} catch (SQLException e) {
+			System.out.println("No se ha podido buscar por código");
+		}
 	}
 
-	private static void crearFactura() throws SQLException {
-		var con = DriverManager.getConnection(URL, USER, PASS);
-		var pst = con.prepareStatement(SQL_FACTURAS_INSERT);
+	private static void crearCliente() {
+		try (var con = DriverManager.getConnection(URL, USER, PASS);
+				var pst = con.prepareStatement(SQL_CLIENTES_INSERT)) {
+			pst.setString(1, leerString("Nombre", REQUERIDO));
+			pst.setString(2, leerString("NIF", REQUERIDO));
 
-		pst.setInt(1, leerInt("Código de cliente", REQUERIDO));
-		pst.setString(2, leerString("Código", REQUERIDO));
-		pst.setDate(3, java.sql.Date.valueOf(leerLocalDate("Fecha", REQUERIDO)));
-		
-		pst.executeUpdate();
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("No se ha podido crear el cliente");
+		}
+	}
+
+	private static void crearFactura() {
+		try (var con = DriverManager.getConnection(URL, USER, PASS);
+				var pst = con.prepareStatement(SQL_FACTURAS_INSERT)) {
+			pst.setInt(1, leerInt("Código de cliente", REQUERIDO));
+			pst.setString(2, leerString("Código", REQUERIDO));
+			pst.setDate(3, java.sql.Date.valueOf(leerLocalDate("Fecha", REQUERIDO)));
+
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("No se ha podido crear la factura");
+		}
+
 	}
 
 	private static void salir() {
