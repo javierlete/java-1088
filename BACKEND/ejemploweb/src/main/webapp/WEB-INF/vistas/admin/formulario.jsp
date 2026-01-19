@@ -11,10 +11,10 @@
 
 	<p>${asistente}</p>
 
-	<form>
-		<input placeholder="Id" readonly value="${asistente.id}">
-		<input placeholder="Nombre" value="${asistente.nombre}">
-		<input placeholder="Apellidos" value="${asistente.apellidos}">
+	<form action="formulario" method="post">
+		<input name="id" placeholder="Id" readonly value="${asistente.id}">
+		<input name="nombre" placeholder="Nombre" value="${asistente.nombre}">
+		<input name="apellidos" placeholder="Apellidos" value="${asistente.apellidos}">
 		
 		<button>Guardar</button>
 	</form>
