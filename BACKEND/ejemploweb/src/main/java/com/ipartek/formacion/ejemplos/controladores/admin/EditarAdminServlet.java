@@ -1,12 +1,10 @@
 package com.ipartek.formacion.ejemplos.controladores.admin;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
+import com.ipartek.formacion.ejemplos.bibliotecas.JdbcHelper;
 import com.ipartek.formacion.ejemplos.modelos.Asistente;
 
 import jakarta.servlet.ServletException;
@@ -33,39 +31,28 @@ public class EditarAdminServlet extends HttpServlet {
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 
-		String url = "jdbc:mysql://localhost:3306/asistentes";
-		String user = "root";
-		String pass = "1234";
+		try (PreparedStatement pst = JdbcHelper.prepararSql("select * from asistentes where id=?");) {
+			pst.setLong(1, id);
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			ResultSet rs = pst.executeQuery();
 
-			try (Connection con = DriverManager.getConnection(url, user, pass);
-					PreparedStatement pst = con.prepareStatement("select * from asistentes where id=?");) {
-				pst.setLong(1, id);
+			Asistente asistente = null;
 
-				ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				String nombre = rs.getString("nombre");
+				String apellidos = rs.getString("apellidos");
 
-				Asistente asistente = null;
-
-				if (rs.next()) {
-					String nombre = rs.getString("nombre");
-					String apellidos = rs.getString("apellidos");
-
-					asistente = new Asistente(id, nombre, apellidos);
-				}
-
-				// Empaquetar modelo para la siguiente vista
-				
-				request.setAttribute("asistente", asistente);
-				
-				// Saltar a la siguiente vista
-
-				request.getRequestDispatcher("/WEB-INF/vistas/admin/formulario.jsp").forward(request, response);
-			} catch (SQLException e) {
-				e.printStackTrace();
+				asistente = new Asistente(id, nombre, apellidos);
 			}
-		} catch (ClassNotFoundException e) {
+
+			// Empaquetar modelo para la siguiente vista
+
+			request.setAttribute("asistente", asistente);
+
+			// Saltar a la siguiente vista
+
+			request.getRequestDispatcher("/WEB-INF/vistas/admin/formulario.jsp").forward(request, response);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

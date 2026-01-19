@@ -1,11 +1,9 @@
 package com.ipartek.formacion.ejemplos.controladores.admin;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
+import com.ipartek.formacion.ejemplos.bibliotecas.JdbcHelper;
 import com.ipartek.formacion.ejemplos.modelos.Asistente;
 
 import jakarta.servlet.ServletException;
@@ -55,32 +53,21 @@ public class FormularioAdminServlet extends HttpServlet {
 			sql = "update asistentes set nombre=?, apellidos=? where id=?";
 		}
 
-		String url = "jdbc:mysql://localhost:3306/asistentes";
-		String user = "root";
-		String pass = "1234";
+		try (PreparedStatement pst = JdbcHelper.prepararSql(sql)) {
+			pst.setString(1, asistente.nombre());
+			pst.setString(2, asistente.apellidos());
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			try (Connection con = DriverManager.getConnection(url, user, pass);
-					PreparedStatement pst = con.prepareStatement(sql);) {
-				pst.setString(1, asistente.nombre());
-				pst.setString(2, asistente.apellidos());
-
-				if (asistente.id() != null) {
-					pst.setLong(3, id);
-				}
-
-				pst.executeUpdate();
-
-				// Empaquetar modelo para la siguiente vista
-				// Saltar a la siguiente vista
-
-				response.sendRedirect("index");
-			} catch (SQLException e) {
-				e.printStackTrace();
+			if (asistente.id() != null) {
+				pst.setLong(3, id);
 			}
-		} catch (ClassNotFoundException e) {
+
+			pst.executeUpdate();
+
+			// Empaquetar modelo para la siguiente vista
+			// Saltar a la siguiente vista
+
+			response.sendRedirect("index");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
