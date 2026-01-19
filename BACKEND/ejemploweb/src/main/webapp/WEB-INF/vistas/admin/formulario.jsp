@@ -9,9 +9,12 @@
 </head>
 <body>
 
+	<p>${asistente}</p>
+
 	<form>
-		<input placeholder="Nombre">
-		<input placeholder="Apellidos">
+		<input placeholder="Id" readonly value="${asistente.id}">
+		<input placeholder="Nombre" value="${asistente.nombre}">
+		<input placeholder="Apellidos" value="${asistente.apellidos}">
 		
 		<button>Guardar</button>
 	</form>
