@@ -9,8 +9,6 @@
 </head>
 <body>
 
-	<p>${asistente}</p>
-
 	<form action="formulario" method="post">
 		<input name="id" placeholder="Id" readonly value="${asistente.id}">
 		<input name="nombre" placeholder="Nombre" value="${asistente.nombre}">
