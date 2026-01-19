@@ -24,19 +24,16 @@
 					<th>${a.id}</th>
 					<td>${a.nombre}</td>
 					<td>${a.apellidos}</td>
-					<td>
-						<a href="editar?id=${a.id}">[Editar]</a>
-						<a href="borrar?id=${a.id}">[Borrar]</a>
-					</td>
+					<td><a href="editar?id=${a.id}">[Editar]</a> <a
+						onclick="javascript:return confirm('¿Estás seguro de borrar a ${a.nombre} ${a.apellidos}?')"
+						href="borrar?id=${a.id}">[Borrar]</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		<tfoot>
 			<tr>
 				<td colspan="3"></td>
-				<td>
-					<a href="formulario">[Añadir]</a>
-				</td>
+				<td><a href="formulario">[Añadir]</a></td>
 			</tr>
 		</tfoot>
 	</table>
