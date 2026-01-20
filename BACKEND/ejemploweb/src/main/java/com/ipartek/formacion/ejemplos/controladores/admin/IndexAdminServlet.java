@@ -1,11 +1,9 @@
 package com.ipartek.formacion.ejemplos.controladores.admin;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import com.ipartek.formacion.ejemplos.bibliotecas.JdbcHelper;
+import com.ipartek.formacion.ejemplos.accesodatos.AsistentesCrud;
 import com.ipartek.formacion.ejemplos.modelos.Asistente;
 
 import jakarta.servlet.ServletException;
@@ -24,33 +22,18 @@ public class IndexAdminServlet extends HttpServlet {
 		// Recoger la información recibida en la petición
 		// Convertir las partes que sean necesarias
 		// Crear objetos con todas las partes
+
 		// Ejecutar lógica de negocio
 
-		try (PreparedStatement pst = JdbcHelper.prepararSql("select * from asistentes");
-				ResultSet rs = pst.executeQuery()) {
-			ArrayList<Asistente> asistentes = new ArrayList<>();
+		ArrayList<Asistente> asistentes = AsistentesCrud.obtenerTodos();
 
-			while (rs.next()) {
-				long id = rs.getLong("id");
-				String nombre = rs.getString("nombre");
-				String apellidos = rs.getString("apellidos");
+		// Empaquetar modelo para la siguiente vista
 
-				Asistente asistente = new Asistente(id, nombre, apellidos);
+		request.setAttribute("asistentes", asistentes);
 
-				asistentes.add(asistente);
-			}
+		// Saltar a la siguiente vista
 
-			// Empaquetar modelo para la siguiente vista
-
-			request.setAttribute("asistentes", asistentes);
-
-			// Saltar a la siguiente vista
-
-			request.getRequestDispatcher("/WEB-INF/vistas/admin/index.jsp").forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		request.getRequestDispatcher("/WEB-INF/vistas/admin/index.jsp").forward(request, response);
 	}
 
 }

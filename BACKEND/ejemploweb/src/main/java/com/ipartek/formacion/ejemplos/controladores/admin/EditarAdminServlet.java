@@ -1,10 +1,8 @@
 package com.ipartek.formacion.ejemplos.controladores.admin;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
-import com.ipartek.formacion.ejemplos.bibliotecas.JdbcHelper;
+import com.ipartek.formacion.ejemplos.accesodatos.AsistentesCrud;
 import com.ipartek.formacion.ejemplos.modelos.Asistente;
 
 import jakarta.servlet.ServletException;
@@ -31,30 +29,15 @@ public class EditarAdminServlet extends HttpServlet {
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 
-		try (PreparedStatement pst = JdbcHelper.prepararSql("select * from asistentes where id=?");) {
-			pst.setLong(1, id);
+		Asistente asistente = AsistentesCrud.obtenerPorId(id);
 
-			ResultSet rs = pst.executeQuery();
+		// Empaquetar modelo para la siguiente vista
 
-			Asistente asistente = null;
+		request.setAttribute("asistente", asistente);
 
-			if (rs.next()) {
-				String nombre = rs.getString("nombre");
-				String apellidos = rs.getString("apellidos");
+		// Saltar a la siguiente vista
 
-				asistente = new Asistente(id, nombre, apellidos);
-			}
-
-			// Empaquetar modelo para la siguiente vista
-
-			request.setAttribute("asistente", asistente);
-
-			// Saltar a la siguiente vista
-
-			request.getRequestDispatcher("/WEB-INF/vistas/admin/formulario.jsp").forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		request.getRequestDispatcher("/WEB-INF/vistas/admin/formulario.jsp").forward(request, response);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejemplos.bibliotecas;
+package com.ipartek.formacion.ejemplos.accesodatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

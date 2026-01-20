@@ -1,9 +1,8 @@
 package com.ipartek.formacion.ejemplos.controladores.admin;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
 
-import com.ipartek.formacion.ejemplos.bibliotecas.JdbcHelper;
+import com.ipartek.formacion.ejemplos.accesodatos.AsistentesCrud;
 import com.ipartek.formacion.ejemplos.modelos.Asistente;
 
 import jakarta.servlet.ServletException;
@@ -47,29 +46,13 @@ public class FormularioAdminServlet extends HttpServlet {
 		Asistente asistente = new Asistente(id, nombre, apellidos);
 
 		// Ejecutar lógica de negocio
-		String sql = "insert into asistentes (nombre, apellidos) values (?,?)";
 
-		if (id != null) {
-			sql = "update asistentes set nombre=?, apellidos=? where id=?";
-		}
+		AsistentesCrud.guardar(asistente);
 
-		try (PreparedStatement pst = JdbcHelper.prepararSql(sql)) {
-			pst.setString(1, asistente.nombre());
-			pst.setString(2, asistente.apellidos());
+		// Empaquetar modelo para la siguiente vista
+		// Saltar a la siguiente vista
 
-			if (asistente.id() != null) {
-				pst.setLong(3, id);
-			}
-
-			pst.executeUpdate();
-
-			// Empaquetar modelo para la siguiente vista
-			// Saltar a la siguiente vista
-
-			response.sendRedirect("index");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		response.sendRedirect("index");
 	}
 
 }

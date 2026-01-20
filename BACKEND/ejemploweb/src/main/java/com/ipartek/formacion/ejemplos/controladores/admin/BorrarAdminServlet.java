@@ -1,9 +1,8 @@
 package com.ipartek.formacion.ejemplos.controladores.admin;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
 
-import com.ipartek.formacion.ejemplos.bibliotecas.JdbcHelper;
+import com.ipartek.formacion.ejemplos.accesodatos.AsistentesCrud;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,18 +28,12 @@ public class BorrarAdminServlet extends HttpServlet {
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 
-		try (PreparedStatement pst = JdbcHelper.prepararSql("delete from asistentes where id=?");) {
-			pst.setLong(1, id);
-
-			pst.executeUpdate();
-
-			// Empaquetar modelo para la siguiente vista
-			// Saltar a la siguiente vista
-
-			response.sendRedirect("index");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		AsistentesCrud.borrar(id);
+		
+		// Empaquetar modelo para la siguiente vista
+		// Saltar a la siguiente vista
+		
+		response.sendRedirect("index");
 	}
 
 }
