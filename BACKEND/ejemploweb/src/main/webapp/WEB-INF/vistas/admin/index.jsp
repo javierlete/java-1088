@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Listado de administración de asistentes</title>
-</head>
-<body>
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/vistas/includes/cabecera.jsp" %>
 
 	<table>
 		<thead>
@@ -38,5 +31,4 @@
 		</tfoot>
 	</table>
 
-</body>
-</html>
+<%@ include file="/WEB-INF/vistas/includes/pie.jsp" %>
