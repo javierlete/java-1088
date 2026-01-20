@@ -8,13 +8,10 @@
 <title>Listado de asistentes</title>
 </head>
 <body>
-	<p>${asistentes}</p>
-
 	<ul>
 		<c:forEach items="${asistentes}" var="asistente">
 			<li>${asistente.id}&nbsp;${asistente.nombre}&nbsp;${asistente.apellidos}</li>
 		</c:forEach>
 	</ul>
-
 </body>
 </html>

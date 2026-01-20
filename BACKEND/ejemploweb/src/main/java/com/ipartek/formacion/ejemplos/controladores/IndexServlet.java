@@ -1,13 +1,11 @@
 package com.ipartek.formacion.ejemplos.controladores;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.ipartek.formacion.ejemplos.bibliotecas.JdbcHelper;
 import com.ipartek.formacion.ejemplos.modelos.Asistente;
 
 import jakarta.servlet.ServletException;
@@ -28,41 +26,31 @@ public class IndexServlet extends HttpServlet {
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 
-		String url = "jdbc:mysql://localhost:3306/asistentes";
-		String user = "root";
-		String pass = "1234";
+		try (PreparedStatement pst = JdbcHelper.prepararSql("select * from asistentes");
+				ResultSet rs = pst.executeQuery()) {
+			ArrayList<Asistente> asistentes = new ArrayList<>();
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			while (rs.next()) {
+				long id = rs.getLong("id");
+				String nombre = rs.getString("nombre");
+				String apellidos = rs.getString("apellidos");
 
-			try (Connection con = DriverManager.getConnection(url, user, pass);
-					PreparedStatement pst = con.prepareStatement("select * from asistentes");
-					ResultSet rs = pst.executeQuery()) {
-				ArrayList<Asistente> asistentes = new ArrayList<>();
+				Asistente asistente = new Asistente(id, nombre, apellidos);
 
-				while (rs.next()) {
-					long id = rs.getLong("id");
-					String nombre = rs.getString("nombre");
-					String apellidos = rs.getString("apellidos");
-
-					Asistente asistente = new Asistente(id, nombre, apellidos);
-
-					asistentes.add(asistente);
-				}
-
-				// Empaquetar modelo para la siguiente vista
-
-				request.setAttribute("asistentes", asistentes);
-
-				// Saltar a la siguiente vista
-
-				request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
-			} catch (SQLException e) {
-				e.printStackTrace();
+				asistentes.add(asistente);
 			}
-		} catch (ClassNotFoundException e) {
+
+			// Empaquetar modelo para la siguiente vista
+
+			request.setAttribute("asistentes", asistentes);
+
+			// Saltar a la siguiente vista
+
+			request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 }
