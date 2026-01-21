@@ -1,27 +1,64 @@
 package com.ipartek.formacion.ejemplos.ipartube.accesodatos;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 
 public class VideoCrud {
-	private static final ArrayList<Video> VIDEOS = new ArrayList<Video>();
+	public static ArrayList<Video> obtenerTodos() {
+		try (PreparedStatement pst = JdbcHelper.prepararSql("select * from videos");
+				ResultSet rs = pst.executeQuery()) {
+			ArrayList<Video> videos = new ArrayList<>();
 
-	static {
-		for (long i = 1; i <= 9; i++) {
-			Video video = new Video(i, "Video " + i, "Descripción del video " + i, "https://picsum.photos/1600/900?" + i,
-					LocalDateTime.now(), "https://www.youtube.com/embed/ChrLRauOR28?si=bOcjf4mXy4_6HQmk");
+			while (rs.next()) {
+				long id = rs.getLong("id");
+				String titulo = rs.getString("titulo");
+				String descripcion = rs.getString("descripcion");
+				String imagenUrl = rs.getString("imagen_url");
+				Timestamp timestamp = rs.getTimestamp("fecha");
+				LocalDateTime fecha = timestamp != null ? timestamp.toLocalDateTime() : null;
+				String videoUrl = rs.getString("video_url");
 
-			VIDEOS.add(video);
+				Video video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl);
+
+				videos.add(video);
+			}
+
+			return videos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
-	
-	public static ArrayList<Video> obtenerTodos() {
-		return VIDEOS;
-	}
-	
+
 	public static Video obtenerPorId(Long id) {
-		return VIDEOS.stream().filter(v -> v.id() == id).findFirst().get();
+		try (PreparedStatement pst = JdbcHelper.prepararSql("select * from videos where id=?");
+				) {
+			pst.setLong(1, id);
+			
+			try (ResultSet rs = pst.executeQuery()) {
+				Video video = null;
+
+				if (rs.next()) {
+					String titulo = rs.getString("titulo");
+					String descripcion = rs.getString("descripcion");
+					String imagenUrl = rs.getString("imagen_url");
+					Timestamp timestamp = rs.getTimestamp("fecha");
+					LocalDateTime fecha = timestamp != null ? timestamp.toLocalDateTime() : null;
+					String videoUrl = rs.getString("video_url");
+
+					video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl);
+				}
+
+				return video;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
