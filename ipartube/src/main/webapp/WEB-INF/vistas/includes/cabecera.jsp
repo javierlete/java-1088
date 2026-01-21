@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <!DOCTYPE html>
-<html class="h-100">
+<html class="h-100" lang="es">
 <head>
 <base href="${pageContext.request.contextPath}/cf/">
 <meta charset="UTF-8">
@@ -18,7 +18,7 @@
 	<nav class="sticky-top navbar navbar-expand-sm bg-dark"
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">IparTube</a>
+			<a class="navbar-brand" href="index">IparTube</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
