@@ -7,18 +7,16 @@
 		<div class="card mb-3">
 			<div class="ratio ratio-16x9 card-img-top">
 				<iframe class=""
-					src="https://www.youtube.com/embed/ChrLRauOR28?si=bOcjf4mXy4_6HQmk"
+					src="${video.videoUrl}"
 					title="YouTube video player"
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 					referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 			</div>
 			<div class="card-body">
-				<h5 class="card-title">Michael Jackson concierto en Auckland de
-					1996</h5>
-				<p class="card-text">Concierto del Rey del Pop con animaciones
-					3D de la época</p>
+				<h5 class="card-title">${video.titulo}</h5>
+				<p class="card-text">${video.descripcion}</p>
 				<p class="card-text">
-					<small class="text-body-secondary">21/01/2026 9:25</small>
+					<small class="text-body-secondary">${video.fecha}</small>
 				</p>
 			</div>
 		</div>

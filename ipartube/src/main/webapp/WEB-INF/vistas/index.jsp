@@ -7,18 +7,18 @@
 <hr>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
-	<c:forEach begin="1" end="9" var="i">
+	<c:forEach items="${videos}" var="v">
 		<div class="col">
 			<div class="card h-100">
-				<img src="https://picsum.photos/1600/900?${i}" class="card-img-top"
+				<img src="${v.imagenUrl}" class="card-img-top"
 					alt="...">
 				<div class="card-body">
-					<h5 class="card-title">Video ${i}</h5>
-					<p class="card-text">Descripción del video ${i}</p>
-					<a class="btn btn-primary" href="video">Ver video ${i}</a>
+					<h5 class="card-title">${v.titulo}</h5>
+					<p class="card-text">${v.descripcion}</p>
+					<a class="btn btn-primary" href="video?id=${v.id}">Ver video ${v.titulo}</a>
 				</div>
 				<div class="card-footer">
-					<small class="text-body-secondary">21/01/2026 9:0${i}</small>
+					<small class="text-body-secondary">${v.fecha}</small>
 				</div>
 			</div>
 		</div>
