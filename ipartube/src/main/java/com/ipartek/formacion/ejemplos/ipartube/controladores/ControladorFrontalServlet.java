@@ -1,9 +1,9 @@
 package com.ipartek.formacion.ejemplos.ipartube.controladores;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 
 import jakarta.servlet.ServletException;
@@ -15,17 +15,6 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/cf/*")
 public class ControladorFrontalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private static final ArrayList<Video> VIDEOS = new ArrayList<Video>();
-
-	static {
-		for (long i = 1; i <= 9; i++) {
-			Video video = new Video(i, "Video " + i, "Descripción " + i, "https://picsum.photos/1600/900?" + i,
-					LocalDateTime.now(), "https://www.youtube.com/embed/ChrLRauOR28?si=bOcjf4mXy4_6HQmk");
-
-			VIDEOS.add(video);
-		}
-	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -49,7 +38,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 
-		ArrayList<Video> videos = VIDEOS;
+		ArrayList<Video> videos = VideoCrud.obtenerTodos();
 
 		// Empaquetar modelo para la siguiente vista
 
@@ -71,7 +60,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 
-		Video video = VIDEOS.stream().filter(v -> v.id() == id).findFirst().get();
+		Video video = VideoCrud.obtenerPorId(id);
 
 		// Empaquetar modelo para la siguiente vista
 
