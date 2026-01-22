@@ -43,7 +43,7 @@ CREATE TABLE `videos` (
 
 LOCK TABLES `videos` WRITE;
 /*!40000 ALTER TABLE `videos` DISABLE KEYS */;
-INSERT INTO `videos` VALUES (1,'Michael Jackson en Auckly','Con efectos 3D de la época','2026-01-21 10:46:00','https://picsum.photos/400/225?1','https://www.youtube.com/embed/ChrLRauOR28?si=bOcjf4mXy4_6HQmk'),(2,'Clásicos del Rock',NULL,NULL,'https://picsum.photos/400/225?2','https://www.youtube.com/embed/4_O-y3SM3UM?si=OI0TefFacONKbTAp');
+INSERT INTO `videos` VALUES (1,'Michael Jackson en Auckly','Con efectos 3D de la época','2026-01-21 10:46:00','https://i.ytimg.com/vi/ChrLRauOR28/hq720.jpg','https://www.youtube.com/embed/ChrLRauOR28'),(2,'Clásicos del Rock',NULL,NULL,'https://i.ytimg.com/vi/4_O-y3SM3UM/hq720.jpg','https://www.youtube.com/embed/4_O-y3SM3UM');
 /*!40000 ALTER TABLE `videos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-21 10:56:09
+-- Dump completed on 2026-01-22  9:20:52
