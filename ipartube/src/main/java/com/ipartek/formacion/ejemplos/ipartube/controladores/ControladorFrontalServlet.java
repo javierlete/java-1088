@@ -1,6 +1,7 @@
 package com.ipartek.formacion.ejemplos.ipartube.controladores;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
@@ -26,6 +27,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 		case "/admin/index" -> adminIndex(request, response);
 		case "/admin/borrar" -> adminBorrar(request, response);
 		case "/admin/formulario" -> adminFormulario(request, response);
+		case "/admin/guardar" -> adminGuardar(request, response);
 		default -> request.getRequestDispatcher("/WEB-INF/vistas" + ruta + ".jsp").forward(request, response);
 		}
 	}
@@ -137,6 +139,40 @@ public class ControladorFrontalServlet extends HttpServlet {
 		// Saltar a la siguiente vista
 
 		request.getRequestDispatcher("/WEB-INF/vistas/admin/formulario.jsp").forward(request, response);
+	}
+
+	private void adminGuardar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Recoger la información recibida en la petición
+
+		String sId = request.getParameter("id");
+		String titulo = request.getParameter("titulo");
+		String sFecha = request.getParameter("fecha");
+		String imagenUrl = request.getParameter("imagen");
+		String videoUrl = request.getParameter("video");
+		String descripcion = request.getParameter("descripcion");
+
+		// Convertir las partes que sean necesarias
+
+		Long id = sId.isBlank() ? null : Long.parseLong(sId);
+		LocalDateTime fecha = sFecha.isBlank() ? null : LocalDateTime.parse(sFecha);
+
+		// Crear objetos con todas las partes
+
+		Video video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl);
+
+		// Ejecutar lógica de negocio
+
+		if (id == null) {
+			System.out.println("INSERTAR " + video);
+		} else {
+			System.out.println("MODIFICAR " + video);
+		}
+
+		// Empaquetar modelo para la siguiente vista
+		// Saltar a la siguiente vista
+
+		response.sendRedirect("index");
 	}
 
 }
