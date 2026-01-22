@@ -24,6 +24,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 		case "/index" -> index(request, response);
 		case "/video" -> video(request, response);
 		case "/admin/index" -> adminIndex(request, response);
+		case "/admin/borrar" -> adminBorrar(request, response);
 		default -> request.getRequestDispatcher("/WEB-INF/vistas" + ruta + ".jsp").forward(request, response);
 		}
 	}
@@ -86,6 +87,27 @@ public class ControladorFrontalServlet extends HttpServlet {
 
 		// Saltar a la siguiente vista
 		request.getRequestDispatcher("/WEB-INF/vistas/admin/index.jsp").forward(request, response);
+	}
+	private void adminBorrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Recoger la información recibida en la petición
+		
+		String sId = request.getParameter("id");
+		
+		// Convertir las partes que sean necesarias
+		
+		Long id = Long.parseLong(sId);
+		
+		// Crear objetos con todas las partes
+		// Ejecutar lógica de negocio
+
+		// VideoCrud.borrar(id);
+		
+		System.out.println("Borrando " + id);
+
+		// Empaquetar modelo para la siguiente vista
+		// Saltar a la siguiente vista
+		
+		response.sendRedirect("index");
 	}
 
 }
