@@ -15,7 +15,7 @@
 				<div class="card-body">
 					<h5 class="card-title">${v.titulo}</h5>
 					<p class="card-text">${v.descripcion}</p>
-					<a class="btn btn-primary" href="video?id=${v.id}">Ver video ${v.titulo}</a>
+					<a class="btn btn-primary stretched-link" href="video?id=${v.id}">Ver video ${v.titulo}</a>
 				</div>
 				<div class="card-footer">
 					<small class="text-body-secondary">${v.fecha}</small>

@@ -13,6 +13,8 @@
 	rel="stylesheet"
 	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body class="h-100 d-flex flex-column">
 	<nav class="sticky-top navbar navbar-expand-sm bg-dark"
@@ -29,9 +31,9 @@
 				<ul class="navbar-nav me-auto mb-2 mb-sm-0">
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a></li>
 				</ul>
-				<!-- <ul class="navbar-nav mb-2 mb-sm-0">
+				<ul class="navbar-nav mb-2 mb-sm-0">
 					<li class="nav-item"><a class="nav-link" href="admin/index">Administración</a></li>
-				</ul> -->
+				</ul>
 			</div>
 		</div>
 	</nav>
