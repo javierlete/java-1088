@@ -13,13 +13,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach begin="1" end="5" var="i">
+		<c:forEach items="${videos}" var="v">
 			<tr>
-				<th>${i}</th>
-				<td>Un video superchuli ${i}</td>
-				<td>21/01/2026 8:3${i}</td>
-				<td><img src="https://picsum.photos/100/75?${i}" alt=""></td>
-				<td><a class="btn btn-sm btn-primary" href="admin/formulario?id=${i}"><i
+				<th>${v.id}</th>
+				<td>${v.titulo}</td>
+				<td>${v.fecha}</td>
+				<td><img width="100" height="75" src="${v.imagenUrl}" alt=""></td>
+				<td><a class="btn btn-sm btn-primary" href="admin/formulario?id=${v.id}"><i
 						class="bi bi-pencil-fill"></i></a> <a onclick="javascript:return confirm('¿Estás seguro de borrar el video ${i}?')" class="btn btn-sm btn-danger"
 					href="admin/index"><i class="bi bi-trash-fill"></i></a></td>
 			</tr>

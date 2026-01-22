@@ -23,6 +23,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 		switch (ruta) {
 		case "/index" -> index(request, response);
 		case "/video" -> video(request, response);
+		case "/admin/index" -> adminIndex(request, response);
 		default -> request.getRequestDispatcher("/WEB-INF/vistas" + ruta + ".jsp").forward(request, response);
 		}
 	}
@@ -70,4 +71,21 @@ public class ControladorFrontalServlet extends HttpServlet {
 
 		request.getRequestDispatcher("/WEB-INF/vistas/video.jsp").forward(request, response);
 	}
+	
+	private void adminIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Recoger la información recibida en la petición
+		// Convertir las partes que sean necesarias
+		// Crear objetos con todas las partes
+		// Ejecutar lógica de negocio
+
+		ArrayList<Video> videos = VideoCrud.obtenerTodos();
+
+		// Empaquetar modelo para la siguiente vista
+
+		request.setAttribute("videos", videos);
+
+		// Saltar a la siguiente vista
+		request.getRequestDispatcher("/WEB-INF/vistas/admin/index.jsp").forward(request, response);
+	}
+
 }
