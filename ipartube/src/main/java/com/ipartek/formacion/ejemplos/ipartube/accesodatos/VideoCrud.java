@@ -63,6 +63,13 @@ public class VideoCrud {
 	}
 
 	public static void borrar(Long id) {
-		System.out.println("Borrando " + id + " desde CRUD");
+		try (PreparedStatement pst = JdbcHelper.prepararSql("delete from videos where id=?");
+				) {
+			pst.setLong(1, id);
+			
+			pst.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
