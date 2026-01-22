@@ -6,38 +6,37 @@
 	<div class="row mb-3">
 		<label for="id" class="col-sm-2 col-form-label">Id</label>
 		<div class="col-sm">
-			<input readonly type="number" class="form-control bg-secondary-subtle" id="id">
+			<input readonly type="number" class="form-control bg-secondary-subtle" id="id" value="${video.id}">
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="titulo" class="col-sm-2 col-form-label">Título</label>
 		<div class="col-sm">
-			<input type="text" class="form-control" id="titulo">
+			<input type="text" class="form-control" id="titulo" value="${video.titulo}">
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
 		<div class="col-sm">
-			<input type="datetime-local" class="form-control" id="fecha">
+			<input type="datetime-local" class="form-control" id="fecha" value="${video.fecha}">
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="imagen" class="col-sm-2 col-form-label">Imagen</label>
 		<div class="col-sm">
-			<input type="url" class="form-control" id="imagen">
+			<input type="url" class="form-control" id="imagen" value="${video.imagenUrl}">
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="video" class="col-sm-2 col-form-label">Video</label>
 		<div class="col-sm">
-			<input type="url" class="form-control" id="video">
+			<input type="url" class="form-control" id="video" value="${video.videoUrl}">
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
 		<div class="col-sm">
-			<textarea class="form-control" id="descripcion"></textarea>
-		
+			<textarea class="form-control" id="descripcion">${video.descripcion}</textarea>
 		</div>
 	</div>
 	<div class="row mb-3">
