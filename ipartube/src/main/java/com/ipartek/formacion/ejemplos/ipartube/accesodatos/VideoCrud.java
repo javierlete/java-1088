@@ -61,4 +61,8 @@ public class VideoCrud {
 			return null;
 		}
 	}
+
+	public static void borrar(Long id) {
+		System.out.println("Borrando " + id + " desde CRUD");
+	}
 }

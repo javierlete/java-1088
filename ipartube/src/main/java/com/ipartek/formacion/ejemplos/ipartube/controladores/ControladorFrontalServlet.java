@@ -102,7 +102,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 
 		// VideoCrud.borrar(id);
 		
-		System.out.println("Borrando " + id);
+		VideoCrud.borrar(id);
 
 		// Empaquetar modelo para la siguiente vista
 		// Saltar a la siguiente vista
