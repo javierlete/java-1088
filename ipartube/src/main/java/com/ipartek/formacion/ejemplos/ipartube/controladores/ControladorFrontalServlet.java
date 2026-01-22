@@ -164,9 +164,9 @@ public class ControladorFrontalServlet extends HttpServlet {
 		// Ejecutar lógica de negocio
 
 		if (id == null) {
-			System.out.println("INSERTAR " + video);
+			VideoCrud.insertar(video);
 		} else {
-			System.out.println("MODIFICAR " + video);
+			VideoCrud.modificar(video);
 		}
 
 		// Empaquetar modelo para la siguiente vista

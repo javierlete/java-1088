@@ -72,4 +72,12 @@ public class VideoCrud {
 			e.printStackTrace();
 		}
 	}
+
+	public static void insertar(Video video) {
+		System.out.println("INSERTANDO " + video);
+	}
+
+	public static void modificar(Video video) {
+		System.out.println("MODIFICANDO " + video);
+	}
 }
