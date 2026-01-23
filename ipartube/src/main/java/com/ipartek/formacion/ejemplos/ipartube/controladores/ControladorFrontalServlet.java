@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.ipartek.formacion.ejemplos.bibliotecas.criptografia.PwdMini;
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.UsuarioCrud;
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario;
@@ -100,22 +101,28 @@ public class ControladorFrontalServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
-		// Convertir las partes que sean necesarias
-		// Crear objetos con todas las partes
-		// Ejecutar lógica de negocio
+		try {
+			System.out.println(PwdMini.hash(password));		
+			
+			// Convertir las partes que sean necesarias
+			// Crear objetos con todas las partes
+			// Ejecutar lógica de negocio
 
-		Usuario usuario = UsuarioCrud.obtenerPorEmail(email);
-		
-		if (usuario != null && usuario.password().equals(password)) {
-			// Empaquetar modelo para la siguiente vista
-			session.setAttribute("email", email);
-			// Saltar a la siguiente vista
-			response.sendRedirect("admin/index");
-		} else {
-			// Empaquetar modelo para la siguiente vista
-			request.setAttribute("email", email);
-			// Saltar a la siguiente vista
-			request.getRequestDispatcher("/WEB-INF/vistas/login.jsp").forward(request, response);
+			Usuario usuario = UsuarioCrud.obtenerPorEmail(email);
+			
+			if (usuario != null && PwdMini.verify(password, usuario.password())) {
+				// Empaquetar modelo para la siguiente vista
+				session.setAttribute("email", email);
+				// Saltar a la siguiente vista
+				response.sendRedirect("admin/index");
+			} else {
+				// Empaquetar modelo para la siguiente vista
+				request.setAttribute("email", email);
+				// Saltar a la siguiente vista
+				request.getRequestDispatcher("/WEB-INF/vistas/login.jsp").forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

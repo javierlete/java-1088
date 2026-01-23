@@ -39,7 +39,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'javier@email.net','javier'),(2,'pepe@email.net','pepe');
+INSERT INTO `usuarios` VALUES (1,'javier@email.net','cMjMm3rVE20YK1num2ChHQ==:qc9TPUBe0igBPPOrxjYsTparCljXnmSGfTUs5YRPfzE='),(2,'pepe@email.net','m45Kuet0JlxsDinODzFgeg==:KTmkeeKe08AqoSrUFnXGOx54Xi/5Cgnc8psuBPu6rCk=');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,4 +82,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-23 10:26:47
+-- Dump completed on 2026-01-23 11:05:56
