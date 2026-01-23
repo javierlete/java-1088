@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/cf/*")
 public class ControladorFrontalServlet extends HttpServlet {
@@ -25,6 +26,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 		case "/index" -> index(request, response);
 		case "/video" -> video(request, response);
 		case "/login" -> login(request, response);
+		case "/logout" -> logout(request, response);
 		case "/admin/index" -> adminIndex(request, response);
 		case "/admin/borrar" -> adminBorrar(request, response);
 		case "/admin/formulario" -> adminFormulario(request, response);
@@ -90,21 +92,41 @@ public class ControladorFrontalServlet extends HttpServlet {
 		}
 
 		// Recoger la información recibida en la petición
-		
+
+		HttpSession session = request.getSession();
+
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
+
+		// Convertir las partes que sean necesarias
+		// Crear objetos con todas las partes
+		// Ejecutar lógica de negocio
+
+		if ("javier@email.net".equals(email) && "javier".equals(password)) {
+			// Empaquetar modelo para la siguiente vista
+			session.setAttribute("email", email);
+			// Saltar a la siguiente vista
+			response.sendRedirect("admin/index");
+		} else {
+			// Empaquetar modelo para la siguiente vista
+			request.setAttribute("email", email);
+			// Saltar a la siguiente vista
+			request.getRequestDispatcher("/WEB-INF/vistas/login.jsp").forward(request, response);
+		}
+	}
+
+	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// Recoger la información recibida en la petición
 		// Convertir las partes que sean necesarias
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 		
-		if("javier@email.net".equals(email) && "javier".equals(password)) {
-			// Empaquetar modelo para la siguiente vista
-			// Saltar a la siguiente vista
-			response.sendRedirect("admin/index");
-		} else {
-			response.sendRedirect("login");
-		}
+		request.getSession().invalidate();
+		
+		// Empaquetar modelo para la siguiente vista
+		// Saltar a la siguiente vista
+		
+		response.sendRedirect("login");
 	}
 
 	private void adminIndex(HttpServletRequest request, HttpServletResponse response)

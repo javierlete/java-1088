@@ -32,8 +32,16 @@
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a></li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-sm-0">
-					<li class="nav-item"><a class="nav-link" href="admin/index">Administración</a></li>
-					<li class="nav-item"><a class="nav-link" href="login">Iniciar sesión</a></li>
+					<c:if test="${sessionScope.email != null}">
+						<li class="nav-item"><a class="nav-link" href="admin/index">Administración</a></li>
+						<li class="navbar-text">${sessionScope.email}</li>
+						<li class="nav-item"><a class="nav-link" href="logout">Cerrar
+								sesión</a></li>
+					</c:if>
+					<c:if test="${sessionScope.email == null}">
+						<li class="nav-item"><a class="nav-link" href="login">Iniciar
+								sesión</a></li>
+					</c:if>
 				</ul>
 			</div>
 		</div>
