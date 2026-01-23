@@ -33,6 +33,7 @@
 				</ul>
 				<ul class="navbar-nav mb-2 mb-sm-0">
 					<li class="nav-item"><a class="nav-link" href="admin/index">Administración</a></li>
+					<li class="nav-item"><a class="nav-link" href="login">Iniciar sesión</a></li>
 				</ul>
 			</div>
 		</div>
