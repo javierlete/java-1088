@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.ipartek.formacion.ejemplos.ipartube.accesodatos.UsuarioCrud;
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
+import com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 
 import jakarta.servlet.ServletException;
@@ -102,7 +104,9 @@ public class ControladorFrontalServlet extends HttpServlet {
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 
-		if ("javier@email.net".equals(email) && "javier".equals(password)) {
+		Usuario usuario = UsuarioCrud.obtenerPorEmail(email);
+		
+		if (usuario != null && usuario.password().equals(password)) {
 			// Empaquetar modelo para la siguiente vista
 			session.setAttribute("email", email);
 			// Saltar a la siguiente vista
