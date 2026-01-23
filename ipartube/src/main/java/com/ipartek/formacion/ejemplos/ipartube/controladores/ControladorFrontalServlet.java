@@ -24,6 +24,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 		switch (ruta) {
 		case "/index" -> index(request, response);
 		case "/video" -> video(request, response);
+		case "/login" -> login(request, response);
 		case "/admin/index" -> adminIndex(request, response);
 		case "/admin/borrar" -> adminBorrar(request, response);
 		case "/admin/formulario" -> adminFormulario(request, response);
@@ -74,6 +75,36 @@ public class ControladorFrontalServlet extends HttpServlet {
 		// Saltar a la siguiente vista
 
 		request.getRequestDispatcher("/WEB-INF/vistas/video.jsp").forward(request, response);
+	}
+
+	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if ("GET".equals(request.getMethod())) {
+			// Recoger la información recibida en la petición
+			// Convertir las partes que sean necesarias
+			// Crear objetos con todas las partes
+			// Ejecutar lógica de negocio
+			// Empaquetar modelo para la siguiente vista
+			// Saltar a la siguiente vista
+			request.getRequestDispatcher("/WEB-INF/vistas/login.jsp").forward(request, response);
+			return;
+		}
+
+		// Recoger la información recibida en la petición
+		
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		// Convertir las partes que sean necesarias
+		// Crear objetos con todas las partes
+		// Ejecutar lógica de negocio
+		
+		if("javier@email.net".equals(email) && "javier".equals(password)) {
+			// Empaquetar modelo para la siguiente vista
+			// Saltar a la siguiente vista
+			response.sendRedirect("admin/index");
+		} else {
+			response.sendRedirect("login");
+		}
 	}
 
 	private void adminIndex(HttpServletRequest request, HttpServletResponse response)

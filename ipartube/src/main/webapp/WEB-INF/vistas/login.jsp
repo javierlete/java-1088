@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
-<form action="admin/index" method="post">
+<form action="login" method="post">
 	<div class="row mb-3">
 		<label for="email" class="col-sm-2 col-form-label">Email</label>
 		<div class="col-sm">
