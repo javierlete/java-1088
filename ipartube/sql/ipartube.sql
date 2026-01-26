@@ -18,6 +18,31 @@ USE `ipartube`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `roles` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'ADMINISTRADOR','Puede gestionar todos los videos'),(2,'USUARIO','Sólo puede gestionar sus propios videos');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `usuarios`
 --
 
@@ -28,8 +53,11 @@ CREATE TABLE `usuarios` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `roles_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  KEY `fk_usuarios_roles_idx` (`roles_id`),
+  CONSTRAINT `fk_usuarios_roles` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,7 +67,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'javier@email.net','cMjMm3rVE20YK1num2ChHQ==:qc9TPUBe0igBPPOrxjYsTparCljXnmSGfTUs5YRPfzE='),(2,'pepe@email.net','m45Kuet0JlxsDinODzFgeg==:KTmkeeKe08AqoSrUFnXGOx54Xi/5Cgnc8psuBPu6rCk=');
+INSERT INTO `usuarios` VALUES (1,'javier@email.net','cMjMm3rVE20YK1num2ChHQ==:qc9TPUBe0igBPPOrxjYsTparCljXnmSGfTUs5YRPfzE=',1),(2,'pepe@email.net','m45Kuet0JlxsDinODzFgeg==:KTmkeeKe08AqoSrUFnXGOx54Xi/5Cgnc8psuBPu6rCk=',2);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,4 +110,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-23 11:05:56
+-- Dump completed on 2026-01-26  8:50:32
