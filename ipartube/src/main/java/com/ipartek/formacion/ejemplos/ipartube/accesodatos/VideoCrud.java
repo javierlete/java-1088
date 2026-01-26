@@ -101,10 +101,61 @@ public class VideoCrud {
 		}
 	}
 
+	public static ArrayList<Video> obtenerPorIdUsuario(Long idUsuario) {
+		try (PreparedStatement pst = JdbcHelper.prepararSql("""
+				SELECT 
+					v.id AS v_id,
+				    v.titulo AS v_titulo,
+				    v.descripcion AS v_descripcion,
+				    v.fecha AS v_fecha,
+				    v.imagen_url AS v_imagen_url,
+				    v.video_url AS v_video_url,
+				    u.id AS u_id,
+				    u.email AS u_email
+				FROM
+				    videos AS v
+				        JOIN
+				    usuarios AS u ON v.usuarios_id = u.id
+				WHERE u.id=?
+				""");) {
+			
+			pst.setLong(1, idUsuario);
+			
+			try (ResultSet rs = pst.executeQuery()) {
+				ArrayList<Video> videos = new ArrayList<>();
+				
+				Video video = null;
+				
+				if (rs.next()) {
+					long id = rs.getLong("v_id");
+					String titulo = rs.getString("v_titulo");
+					String descripcion = rs.getString("v_descripcion");
+					String imagenUrl = rs.getString("v_imagen_url");
+					Timestamp timestamp = rs.getTimestamp("v_fecha");
+					LocalDateTime fecha = timestamp != null ? timestamp.toLocalDateTime() : null;
+					String videoUrl = rs.getString("v_video_url");
+					
+					String usuarioEmail = rs.getString("u_email");
+					
+					Usuario usuario = new Usuario(idUsuario, usuarioEmail, null, null);
+					
+					video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario);
+					
+					videos.add(video);
+				}
+				
+				return videos;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public static void borrar(Long id) {
 		try (PreparedStatement pst = JdbcHelper.prepararSql("delete from videos where id=?");) {
 			pst.setLong(1, id);
-
+			
 			pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

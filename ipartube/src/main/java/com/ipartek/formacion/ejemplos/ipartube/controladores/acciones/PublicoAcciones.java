@@ -24,10 +24,12 @@ public class PublicoAcciones {
 		// Ejecutar lógica de negocio
 
 		ArrayList<Video> videos = VideoCrud.obtenerTodos();
+		ArrayList<Usuario> usuarios = UsuarioCrud.obtenerTodos();
 
 		// Empaquetar modelo para la siguiente vista
 
 		request.setAttribute("videos", videos);
+		request.setAttribute("usuarios", usuarios);
 
 		// Saltar a la siguiente vista
 		request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
@@ -118,6 +120,30 @@ public class PublicoAcciones {
 		// Saltar a la siguiente vista
 
 		response.sendRedirect("login");
+	}
+
+	public static void usuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Recoger la información recibida en la petición
+		
+		String sId = request.getParameter("id");
+		
+		// Convertir las partes que sean necesarias
+		
+		Long id = Long.parseLong(sId);
+		
+		// Crear objetos con todas las partes
+		// Ejecutar lógica de negocio
+
+		ArrayList<Video> videos = VideoCrud.obtenerPorIdUsuario(id);
+		ArrayList<Usuario> usuarios = UsuarioCrud.obtenerTodos();
+
+		// Empaquetar modelo para la siguiente vista
+
+		request.setAttribute("videos", videos);
+		request.setAttribute("usuarios", usuarios);
+
+		// Saltar a la siguiente vista
+		request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
 	}
 
 }
