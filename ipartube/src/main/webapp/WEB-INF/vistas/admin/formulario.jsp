@@ -10,6 +10,16 @@
 		</div>
 	</div>
 	<div class="row mb-3">
+		<label for="usuario" class="col-sm-2 col-form-label">Usuario</label>
+		<div class="col-sm">
+			<select class="form-select" id="usuario" name="usuario">
+				<c:forEach items="${usuarios}" var="u">
+					<option ${u.id == video.usuario.id ? 'selected' : ''} value="${u.id}">${u.email}</option>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+	<div class="row mb-3">
 		<label for="titulo" class="col-sm-2 col-form-label">Título</label>
 		<div class="col-sm">
 			<input type="text" class="form-control" id="titulo" name="titulo" value="${video.titulo}">

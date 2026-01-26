@@ -18,7 +18,7 @@
 					<a class="btn btn-primary stretched-link" href="video?id=${v.id}">Ver video ${v.titulo}</a>
 				</div>
 				<div class="card-footer">
-					<small class="text-body-secondary">${v.fecha}</small>
+					<small class="text-body-secondary">${v.usuario.email} ${v.fecha}</small>
 				</div>
 			</div>
 		</div>

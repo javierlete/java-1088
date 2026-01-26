@@ -16,7 +16,7 @@
 				<h5 class="card-title">${video.titulo}</h5>
 				<p class="card-text">${video.descripcion}</p>
 				<p class="card-text">
-					<small class="text-body-secondary">${video.fecha}</small>
+					<small class="text-body-secondary">${video.usuario.email} ${video.fecha}</small>
 				</p>
 			</div>
 		</div>

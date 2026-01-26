@@ -85,9 +85,12 @@ CREATE TABLE `videos` (
   `fecha` datetime DEFAULT NULL,
   `imagen_url` varchar(255) DEFAULT NULL,
   `video_url` varchar(255) NOT NULL,
+  `usuarios_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `videoUrl_UNIQUE` (`video_url`),
-  UNIQUE KEY `imagenUrl_UNIQUE` (`imagen_url`)
+  UNIQUE KEY `imagenUrl_UNIQUE` (`imagen_url`),
+  KEY `fk_videos_usuarios1_idx` (`usuarios_id`),
+  CONSTRAINT `fk_videos_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -97,7 +100,7 @@ CREATE TABLE `videos` (
 
 LOCK TABLES `videos` WRITE;
 /*!40000 ALTER TABLE `videos` DISABLE KEYS */;
-INSERT INTO `videos` VALUES (1,'Michael Jackson en Auckly','Con efectos 3D de la época.\r\nComo se nota la diferencia...','2026-01-22 10:26:00','https://i.ytimg.com/vi/ChrLRauOR28/hq720.jpg','https://www.youtube.com/embed/ChrLRauOR28'),(3,'Clásicos del Rock','',NULL,'https://i.ytimg.com/vi/4_O-y3SM3UM/hq720.jpg','https://www.youtube.com/embed/4_O-y3SM3UM');
+INSERT INTO `videos` VALUES (1,'Michael Jackson en Auckly','Con efectos 3D de la época.\r\nComo se nota la diferencia...','2026-01-22 10:26:00','https://i.ytimg.com/vi/ChrLRauOR28/hq720.jpg','https://www.youtube.com/embed/ChrLRauOR28',1),(3,'Clásicos del Rock','',NULL,'https://i.ytimg.com/vi/4_O-y3SM3UM/hq720.jpg','https://www.youtube.com/embed/4_O-y3SM3UM',2);
 /*!40000 ALTER TABLE `videos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -110,4 +113,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-26  8:50:32
+-- Dump completed on 2026-01-26 10:06:46

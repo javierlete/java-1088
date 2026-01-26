@@ -6,24 +6,44 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 
 public class VideoCrud {
 	public static ArrayList<Video> obtenerTodos() {
-		try (PreparedStatement pst = JdbcHelper.prepararSql("select * from videos");
+		try (PreparedStatement pst = JdbcHelper.prepararSql("""
+				SELECT 
+				    v.id AS v_id,
+				    v.titulo AS v_titulo,
+				    v.descripcion AS v_descripcion,
+				    v.fecha AS v_fecha,
+				    v.imagen_url AS v_imagen_url,
+				    v.video_url AS v_video_url,
+				    u.id AS u_id,
+				    u.email AS u_email
+				FROM
+				    videos AS v
+				        JOIN
+				    usuarios AS u ON v.usuarios_id = u.id
+				""");
 				ResultSet rs = pst.executeQuery()) {
 			ArrayList<Video> videos = new ArrayList<>();
 
 			while (rs.next()) {
-				long id = rs.getLong("id");
-				String titulo = rs.getString("titulo");
-				String descripcion = rs.getString("descripcion");
-				String imagenUrl = rs.getString("imagen_url");
-				Timestamp timestamp = rs.getTimestamp("fecha");
+				long id = rs.getLong("v_id");
+				String titulo = rs.getString("v_titulo");
+				String descripcion = rs.getString("v_descripcion");
+				String imagenUrl = rs.getString("v_imagen_url");
+				Timestamp timestamp = rs.getTimestamp("v_fecha");
 				LocalDateTime fecha = timestamp != null ? timestamp.toLocalDateTime() : null;
-				String videoUrl = rs.getString("video_url");
+				String videoUrl = rs.getString("v_video_url");
 
-				Video video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl);
+				long usuarioId = rs.getLong("u_id");
+				String usuarioEmail = rs.getString("u_email");
+				
+				Usuario usuario = new Usuario(usuarioId, usuarioEmail, null, null);
+				
+				Video video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario);
 
 				videos.add(video);
 			}
@@ -36,21 +56,41 @@ public class VideoCrud {
 	}
 
 	public static Video obtenerPorId(Long id) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql("select * from videos where id=?");) {
+		try (PreparedStatement pst = JdbcHelper.prepararSql("""
+				SELECT 
+				    v.titulo AS v_titulo,
+				    v.descripcion AS v_descripcion,
+				    v.fecha AS v_fecha,
+				    v.imagen_url AS v_imagen_url,
+				    v.video_url AS v_video_url,
+				    u.id AS u_id,
+				    u.email AS u_email
+				FROM
+				    videos AS v
+				        JOIN
+				    usuarios AS u ON v.usuarios_id = u.id
+				WHERE v.id=?
+				""");) {
+			
 			pst.setLong(1, id);
 
 			try (ResultSet rs = pst.executeQuery()) {
 				Video video = null;
 
 				if (rs.next()) {
-					String titulo = rs.getString("titulo");
-					String descripcion = rs.getString("descripcion");
-					String imagenUrl = rs.getString("imagen_url");
-					Timestamp timestamp = rs.getTimestamp("fecha");
+					String titulo = rs.getString("v_titulo");
+					String descripcion = rs.getString("v_descripcion");
+					String imagenUrl = rs.getString("v_imagen_url");
+					Timestamp timestamp = rs.getTimestamp("v_fecha");
 					LocalDateTime fecha = timestamp != null ? timestamp.toLocalDateTime() : null;
-					String videoUrl = rs.getString("video_url");
+					String videoUrl = rs.getString("v_video_url");
 
-					video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl);
+					long usuarioId = rs.getLong("u_id");
+					String usuarioEmail = rs.getString("u_email");
+					
+					Usuario usuario = new Usuario(usuarioId, usuarioEmail, null, null);
+					
+					video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario);
 				}
 
 				return video;
@@ -73,12 +113,13 @@ public class VideoCrud {
 
 	public static void insertar(Video video) {
 		try (PreparedStatement pst = JdbcHelper.prepararSql(
-				"insert into videos (titulo, descripcion, imagen_url, fecha, video_url) VALUES (?,?,?,?,?)");) {
+				"insert into videos (titulo, descripcion, imagen_url, fecha, video_url, usuarios_id) VALUES (?,?,?,?,?,?)");) {
 			pst.setString(1, video.titulo());
 			pst.setString(2, video.descripcion());
 			pst.setString(3, video.imagenUrl());
 			pst.setTimestamp(4, video.fecha() == null ? null : Timestamp.valueOf(video.fecha()));
 			pst.setString(5, video.videoUrl());
+			pst.setLong(6, video.usuario().id());
 
 			pst.executeUpdate();
 		} catch (Exception e) {
@@ -88,13 +129,14 @@ public class VideoCrud {
 
 	public static void modificar(Video video) {
 		try (PreparedStatement pst = JdbcHelper.prepararSql(
-				"update videos set titulo=?, descripcion=?, imagen_url=?, fecha=?, video_url=? where id=?");) {
+				"update videos set titulo=?, descripcion=?, imagen_url=?, fecha=?, video_url=?, usuarios_id=? where id=?");) {
 			pst.setString(1, video.titulo());
 			pst.setString(2, video.descripcion());
 			pst.setString(3, video.imagenUrl());
-			pst.setTimestamp(4, Timestamp.valueOf(video.fecha()));
+			pst.setTimestamp(4, video.fecha() == null ? null : Timestamp.valueOf(video.fecha()));
 			pst.setString(5, video.videoUrl());
-			pst.setLong(6, video.id());
+			pst.setLong(6, video.usuario().id());
+			pst.setLong(7, video.id());
 
 			pst.executeUpdate();
 		} catch (Exception e) {
