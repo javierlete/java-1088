@@ -2,6 +2,8 @@ package com.ipartek.formacion.ejemplos.ipartube.filtros;
 
 import java.io.IOException;
 
+import com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
@@ -20,9 +22,9 @@ public class AdministradorFilter extends HttpFilter {
 
 		HttpSession session = request.getSession();
 
-		String email = (String) session.getAttribute("email");
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-		if (email == null) {
+		if (usuario == null || !"ADMINISTRADOR".equals(usuario.rol().nombre())) {
 			response.sendRedirect(request.getContextPath() + "/cf/login");
 			return;
 		}
