@@ -1,9 +1,11 @@
 package com.ipartek.formacion.ejemplos.ipartube.controladores;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import com.ipartek.formacion.ejemplos.ipartube.controladores.acciones.AdministradorAcciones;
 import com.ipartek.formacion.ejemplos.ipartube.controladores.acciones.PublicoAcciones;
+import com.ipartek.formacion.ejemplos.ipartube.controladores.acciones.UsuarioAcciones;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,12 +21,16 @@ public class ControladorFrontalServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String ruta = request.getPathInfo();
 
+		request.setAttribute("ahora", LocalDateTime.now());
+		
 		switch (ruta) {
 		case "/index" -> PublicoAcciones.index(request, response);
 		case "/video" -> PublicoAcciones.video(request, response);
 		case "/login" -> PublicoAcciones.login(request, response);
 		case "/logout" -> PublicoAcciones.logout(request, response);
 		case "/usuario" -> PublicoAcciones.usuario(request, response);
+		case "/usuario/video/borrar" -> UsuarioAcciones.borrar(request, response);
+		case "/usuario/video/guardar" -> UsuarioAcciones.guardar(request, response);
 		case "/admin/index" -> AdministradorAcciones.adminIndex(request, response);
 		case "/admin/borrar" -> AdministradorAcciones.adminBorrar(request, response);
 		case "/admin/formulario" -> AdministradorAcciones.adminFormulario(request, response);

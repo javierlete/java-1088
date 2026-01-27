@@ -26,46 +26,102 @@
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 			<c:forEach items="${videos}" var="v">
 				<div class="col">
-					<div class="card h-100">
-						<img src="${v.imagenUrl}" class="card-img-top" alt="...">
+					<form class="card h-100" action="usuario/video/guardar" method="post">
+						<input type="hidden" name="id" value="${v.id}">
+						<div class="ratio ratio-16x9">
+							<img src="${v.imagenUrl}" class="card-img-top" alt="...">
+						</div>
+						<c:if test="${v.id == param.editar}">
+							<input class="form-control" name="imagen" value="${v.imagenUrl}">
+						</c:if>
 						<div class="card-body">
-							<h5 class="card-title">${v.titulo}</h5>
-							<p class="card-text">${v.descripcion}</p>
-							<a class="btn btn-primary stretched-link" href="video?id=${v.id}">Ver
-								video ${v.titulo}</a>
+							<h5 class="card-title">
+								<c:choose>
+									<c:when test="${v.id == param.editar}">
+										<input class="form-control" name="titulo" value="${v.titulo}">
+									</c:when>
+									<c:otherwise>
+										${v.titulo}
+									</c:otherwise>
+								</c:choose>
+							</h5>
+							<p class="card-text">
+								<c:choose>
+									<c:when test="${v.id == param.editar}">
+										<textarea name="descripcion" class="form-control">${v.descripcion}</textarea>
+									</c:when>
+									<c:otherwise>
+										${v.descripcion}
+									</c:otherwise>
+								</c:choose>
+							</p>
+							<c:choose>
+								<c:when test="${v.id == param.editar}">
+									<input name="video" class="form-control" value="${v.videoUrl}">
+								</c:when>
+								<c:otherwise>
+									<a class="btn btn-primary stretched-link"
+										href="video?id=${v.id}">Ver video ${v.titulo}</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="card-footer">
 							<small
 								class="text-body-secondary d-flex justify-content-between align-items-baseline"><span>${v.usuario.email}
-									${v.fecha}</span> <c:if test="${param.id == usuario.id}">
-									<span class="card-text" style="z-index: 2"> <a
-										class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
-										<a class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+									<javatime:format value="${v.fecha}" style="MS" />
+							</span> <c:if test="${param.id == usuario.id}">
+									<span class="card-text" style="z-index: 2"> <c:choose>
+											<c:when test="${param.editar == null}">
+												<a class="btn btn-outline-primary"
+													href="usuario?id=${usuario.id}&editar=${v.id}"><i
+													class="bi bi-pencil-fill"></i></a>
+												<a class="btn btn-outline-danger"
+													href="usuario/video/borrar?id=${v.id}"><i
+													class="bi bi-trash-fill"></i></a>
+											</c:when>
+											<c:otherwise>
+												<button class="btn btn-outline-primary">
+													<i class="bi bi-floppy2-fill"></i>
+												</button>
+											</c:otherwise>
+										</c:choose>
 									</span>
 								</c:if></small>
 						</div>
-					</div>
+					</form>
 				</div>
 			</c:forEach>
 			<c:if test="${param.id == usuario.id}">
 				<div class="col">
-					<div class="card h-100">
-						<div class="text-center">
-							<i class="bi bi-plus-circle-fill" style="font-size: 10rem"></i>
+					<form class="card h-100" action="usuario/video/guardar" method="post">
+						<div class="ratio ratio-16x9">
+							<img
+								src="${pageContext.request.contextPath}/imgs/plus-circle-fill.svg"
+								class="card-img-top p-3" alt="...">
 						</div>
+						<input name="imagen" class="form-control" placeholder="URL imagen">
 						<div class="card-body">
 							<h5 class="card-title">
-								<input class="form-control" placeholder="Título">
+								<input name="titulo" class="form-control" placeholder="Título">
 							</h5>
 							<p class="card-text">
-								<textarea class="form-control" placeholder="Descripción"></textarea>
+								<textarea name="descripcion" class="form-control" placeholder="Descripción"></textarea>
 							</p>
-							<a class="btn btn-primary" href="video?id=${v.id}">Guardar</a>
+							<input name="video" class="form-control" placeholder="URL video">
 						</div>
 						<div class="card-footer">
-							<small class="text-body-secondary">${sessionScope.usuario.email}</small>
+							<small
+								class="text-body-secondary d-flex justify-content-between align-items-baseline"><span>${sessionScope.usuario.email}
+									<javatime:format value="${ahora}" style="MS" />
+							</span> <c:if test="${param.id == usuario.id}">
+									<span class="card-text" style="z-index: 2">
+										<button class="btn btn-outline-primary">
+											<i class="bi bi-floppy2-fill"></i>
+										</button>
+									</span>
+								</c:if></small>
 						</div>
-					</div>
+					</form>
 				</div>
 			</c:if>
 		</div>

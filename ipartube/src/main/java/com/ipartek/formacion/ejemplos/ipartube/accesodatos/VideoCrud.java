@@ -126,7 +126,7 @@ public class VideoCrud {
 				
 				Video video = null;
 				
-				if (rs.next()) {
+				while (rs.next()) {
 					long id = rs.getLong("v_id");
 					String titulo = rs.getString("v_titulo");
 					String descripcion = rs.getString("v_descripcion");
@@ -162,6 +162,20 @@ public class VideoCrud {
 		}
 	}
 
+	public static boolean borrar(Long id, Long idUsuario) {
+		try (PreparedStatement pst = JdbcHelper.prepararSql("delete from videos where id=? AND usuarios_id=?");) {
+			pst.setLong(1, id);
+			pst.setLong(2, idUsuario);
+			
+			int numeroRegistrosBorrados = pst.executeUpdate();
+			
+			return numeroRegistrosBorrados == 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	public static void insertar(Video video) {
 		try (PreparedStatement pst = JdbcHelper.prepararSql(
 				"insert into videos (titulo, descripcion, imagen_url, fecha, video_url, usuarios_id) VALUES (?,?,?,?,?,?)");) {
@@ -192,6 +206,27 @@ public class VideoCrud {
 			pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static boolean modificar(Video video, Long idUsuario) {
+		try (PreparedStatement pst = JdbcHelper.prepararSql(
+				"update videos set titulo=?, descripcion=?, imagen_url=?, fecha=?, video_url=?, usuarios_id=? where id=? AND usuarios_id=?");) {
+			pst.setString(1, video.titulo());
+			pst.setString(2, video.descripcion());
+			pst.setString(3, video.imagenUrl());
+			pst.setTimestamp(4, video.fecha() == null ? null : Timestamp.valueOf(video.fecha()));
+			pst.setString(5, video.videoUrl());
+			pst.setLong(6, video.usuario().id());
+			pst.setLong(7, video.id());
+			pst.setLong(8, idUsuario);
+			
+			int numeroRegistrosModificados = pst.executeUpdate();
+			
+			return numeroRegistrosModificados == 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 }
