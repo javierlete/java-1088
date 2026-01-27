@@ -2,18 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
-<h1 class="text-center">Listado de videos ${param.id != null ? 'de' : ''} ${param.id != null ? videos[0].usuario.email : '' }</h1>
+<h1 class="text-center">Listado de videos ${param.id != null ? 'de' : ''}
+	${param.id != null ? videos[0].usuario.email : '' }</h1>
 
 <hr>
 
 <div class="row">
 
-	<nav class="col-lg-auto border-end">
+	<nav class="col-lg-auto border-end mb-4">
 		<h2 class="lead">Canales</h2>
 		<ul class="nav flex-column">
-			<li class="nav-item"><a class="nav-link ${param.id == null ? 'fw-medium' : ''}" href="index">TODOS</a></li>
+			<li class="nav-item"><a
+				class="nav-link ${param.id == null ? 'fw-medium' : ''}" href="index">TODOS</a></li>
 			<c:forEach items="${usuarios}" var="u">
-				<li class="nav-item"><a class="nav-link ${u.id == param.id ? 'fw-medium' : ''}" href="usuario?id=${u.id}">${u.email}</a></li>
+				<li class="nav-item"><a
+					class="nav-link ${u.id == param.id ? 'fw-medium' : ''}"
+					href="usuario?id=${u.id}">${u.email}</a></li>
 			</c:forEach>
 		</ul>
 	</nav>
@@ -31,12 +35,39 @@
 								video ${v.titulo}</a>
 						</div>
 						<div class="card-footer">
-							<small class="text-body-secondary">${v.usuario.email}
-								${v.fecha}</small>
+							<small
+								class="text-body-secondary d-flex justify-content-between align-items-baseline"><span>${v.usuario.email}
+									${v.fecha}</span> <c:if test="${param.id == usuario.id}">
+									<span class="card-text" style="z-index: 2"> <a
+										class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+										<a class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+									</span>
+								</c:if></small>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
+			<c:if test="${param.id == usuario.id}">
+				<div class="col">
+					<div class="card h-100">
+						<div class="text-center">
+							<i class="bi bi-plus-circle-fill" style="font-size: 10rem"></i>
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">
+								<input class="form-control" placeholder="Título">
+							</h5>
+							<p class="card-text">
+								<textarea class="form-control" placeholder="Descripción"></textarea>
+							</p>
+							<a class="btn btn-primary" href="video?id=${v.id}">Guardar</a>
+						</div>
+						<div class="card-footer">
+							<small class="text-body-secondary">${sessionScope.usuario.email}</small>
+						</div>
+					</div>
+				</div>
+			</c:if>
 		</div>
 	</div>
 
