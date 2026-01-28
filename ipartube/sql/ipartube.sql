@@ -18,6 +18,38 @@ USE `ipartube`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `comentarios`
+--
+
+DROP TABLE IF EXISTS `comentarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comentarios` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `usuarios_id` bigint NOT NULL,
+  `videos_id` bigint NOT NULL,
+  `fecha` datetime NOT NULL,
+  `texto` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_comentarios` (`usuarios_id`,`videos_id`,`fecha`),
+  KEY `fk_comentarios_videos_idx` (`videos_id`),
+  KEY `fk_comentarios_usuarios_idx` (`usuarios_id`),
+  CONSTRAINT `fk_usuarios_has_videos_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_usuarios_has_videos_videos1` FOREIGN KEY (`videos_id`) REFERENCES `videos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comentarios`
+--
+
+LOCK TABLES `comentarios` WRITE;
+/*!40000 ALTER TABLE `comentarios` DISABLE KEYS */;
+INSERT INTO `comentarios` VALUES (3,1,1,'2026-01-28 09:41:00','¡El Rey del Pop!'),(4,2,1,'2026-01-28 09:42:00','¡Sobrevalorado!'),(5,1,4,'2026-01-28 09:43:00','Joder...');
+/*!40000 ALTER TABLE `comentarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `roles`
 --
 
@@ -51,8 +83,10 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
   `id` bigint NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `imagen_url` varchar(255) DEFAULT NULL,
   `roles_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
@@ -67,7 +101,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'javier@email.net','cMjMm3rVE20YK1num2ChHQ==:qc9TPUBe0igBPPOrxjYsTparCljXnmSGfTUs5YRPfzE=',1),(2,'pepe@email.net','m45Kuet0JlxsDinODzFgeg==:KTmkeeKe08AqoSrUFnXGOx54Xi/5Cgnc8psuBPu6rCk=',2);
+INSERT INTO `usuarios` VALUES (1,'Javier','javier@email.net','cMjMm3rVE20YK1num2ChHQ==:qc9TPUBe0igBPPOrxjYsTparCljXnmSGfTUs5YRPfzE=','https://picsum.photos/id/334/100/100',1),(2,'Pepe','pepe@email.net','m45Kuet0JlxsDinODzFgeg==:KTmkeeKe08AqoSrUFnXGOx54Xi/5Cgnc8psuBPu6rCk=','https://picsum.photos/id/633/100/100',2);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +125,7 @@ CREATE TABLE `videos` (
   UNIQUE KEY `imagenUrl_UNIQUE` (`imagen_url`),
   KEY `fk_videos_usuarios1_idx` (`usuarios_id`),
   CONSTRAINT `fk_videos_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +134,7 @@ CREATE TABLE `videos` (
 
 LOCK TABLES `videos` WRITE;
 /*!40000 ALTER TABLE `videos` DISABLE KEYS */;
-INSERT INTO `videos` VALUES (1,'Michael Jackson en Auckly','Con efectos 3D de la época.\r\nComo se nota la diferencia...','2026-01-22 10:26:00','https://i.ytimg.com/vi/ChrLRauOR28/hq720.jpg','https://www.youtube.com/embed/ChrLRauOR28',1),(3,'Clásicos del Rock','',NULL,'https://i.ytimg.com/vi/4_O-y3SM3UM/hq720.jpg','https://www.youtube.com/embed/4_O-y3SM3UM',2);
+INSERT INTO `videos` VALUES (1,'Michael Jackson en Auckly','Con efectos 3D de la época.\r\nComo se nota la diferencia...','2026-01-22 10:26:00','https://i.ytimg.com/vi/ChrLRauOR28/hq720.jpg','https://www.youtube.com/embed/ChrLRauOR28',1),(3,'Clásicos del Rock','',NULL,'https://i.ytimg.com/vi/4_O-y3SM3UM/hq720.jpg','https://www.youtube.com/embed/4_O-y3SM3UM',2),(4,'8BBB en directo','Video de la 8 Bit Bit Band en diciembre de 2025','2026-01-27 11:03:00','https://i.ytimg.com/vi/mzjqdhWxg8M/hq720.jpg','https://www.youtube.com/embed/mzjqdhWxg8M',2);
 /*!40000 ALTER TABLE `videos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -113,4 +147,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-26 10:06:46
+-- Dump completed on 2026-01-28  9:47:05
