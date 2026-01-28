@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.ejemplos.bibliotecas.criptografia.PwdMini;
+import com.ipartek.formacion.ejemplos.ipartube.accesodatos.ComentarioCrud;
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.UsuarioCrud;
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
+import com.ipartek.formacion.ejemplos.ipartube.modelos.Comentario;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
+import com.ipartek.formacion.ejemplos.ipartube.modelos.VideoDto;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -49,10 +52,16 @@ public class PublicoAcciones {
 		// Ejecutar lógica de negocio
 
 		Video video = VideoCrud.obtenerPorId(id);
+		ArrayList<Comentario> comentarios = ComentarioCrud.obtenerComentariosPorVideo(id);
 
+		VideoDto videoDto = new VideoDto(video, comentarios);
+		
 		// Empaquetar modelo para la siguiente vista
 
-		request.setAttribute("video", video);
+//		request.setAttribute("video", video);
+//		request.setAttribute("comentarios", comentarios);
+		
+		request.setAttribute("videodto", videoDto);
 
 		// Saltar a la siguiente vista
 

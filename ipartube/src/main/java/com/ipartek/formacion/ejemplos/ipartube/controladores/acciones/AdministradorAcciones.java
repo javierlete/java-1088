@@ -109,7 +109,7 @@ public class AdministradorAcciones {
 		
 		// Crear objetos con todas las partes
 	
-		Usuario usuario = new Usuario(idUsuario, null, null, null);
+		Usuario usuario = new Usuario(idUsuario, null, null, null, null, null);
 		
 		Video video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario);
 	

@@ -31,6 +31,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 		case "/usuario" -> PublicoAcciones.usuario(request, response);
 		case "/usuario/video/borrar" -> UsuarioAcciones.borrar(request, response);
 		case "/usuario/video/guardar" -> UsuarioAcciones.guardar(request, response);
+		case "/usuario/video/comentar" -> UsuarioAcciones.comentar(request, response);
 		case "/admin/index" -> AdministradorAcciones.adminIndex(request, response);
 		case "/admin/borrar" -> AdministradorAcciones.adminBorrar(request, response);
 		case "/admin/formulario" -> AdministradorAcciones.adminFormulario(request, response);
