@@ -14,7 +14,7 @@
 		<div class="col-sm">
 			<select class="form-select" id="usuario" name="usuario">
 				<c:forEach items="${usuarios}" var="u">
-					<option ${u.id == video.usuario.id ? 'selected' : ''} value="${u.id}">${u.email}</option>
+					<option ${u.id == video.usuario.id ? 'selected' : ''} value="${u.id}">${u.nombre}</option>
 				</c:forEach>
 			</select>
 		</div>

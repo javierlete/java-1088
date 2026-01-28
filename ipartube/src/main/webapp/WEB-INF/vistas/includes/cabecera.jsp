@@ -39,7 +39,7 @@
 							<li class="nav-item"><a class="nav-link" href="admin/index">Administración</a></li>
 						</c:if>
 						
-						<li class="navbar-text">${sessionScope.usuario.email}</li>
+						<li class="navbar-text">${sessionScope.usuario.nombre}</li>
 						<li class="nav-item"><a class="nav-link" href="logout">Cerrar
 								sesión</a></li>
 					</c:if>

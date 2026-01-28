@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
 <h1 class="text-center">Listado de videos ${param.id != null ? 'de' : ''}
-	${param.id != null ? videos[0].usuario.email : '' }</h1>
+	${param.id != null ? videos[0].usuario.nombre : '' }</h1>
 
 <hr>
 
@@ -17,7 +17,7 @@
 			<c:forEach items="${usuarios}" var="u">
 				<li class="nav-item"><a
 					class="nav-link ${u.id == param.id ? 'fw-medium' : ''}"
-					href="usuario?id=${u.id}">${u.email}</a></li>
+					href="usuario?id=${u.id}">${u.nombre}</a></li>
 			</c:forEach>
 		</ul>
 	</nav>
@@ -67,7 +67,7 @@
 						</div>
 						<div class="card-footer">
 							<small
-								class="text-body-secondary d-flex justify-content-between align-items-baseline"><span>${v.usuario.email}
+								class="text-body-secondary d-flex justify-content-between align-items-baseline"><span>${v.usuario.nombre}
 									<javatime:format value="${v.fecha}" style="MS" />
 							</span> <c:if test="${param.id == usuario.id}">
 									<span class="card-text" style="z-index: 2"> <c:choose>
@@ -111,7 +111,7 @@
 						</div>
 						<div class="card-footer">
 							<small
-								class="text-body-secondary d-flex justify-content-between align-items-baseline"><span>${sessionScope.usuario.email}
+								class="text-body-secondary d-flex justify-content-between align-items-baseline"><span>${sessionScope.usuario.nombre}
 									<javatime:format value="${ahora}" style="MS" />
 							</span> <c:if test="${param.id == usuario.id}">
 									<span class="card-text" style="z-index: 2">
