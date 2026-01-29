@@ -42,25 +42,28 @@ public class PublicoAcciones {
 			throws ServletException, IOException {
 		// Recoger la información recibida en la petición
 
-		String sId = request.getParameter("id");
+		String sIdVideo = request.getParameter("id");
+		String sIdComentario = request.getParameter("comentario");
 
 		// Convertir las partes que sean necesarias
 
-		Long id = Long.parseLong(sId);
+		Long idVideo = Long.parseLong(sIdVideo);
+		Long idComentario = sIdComentario == null ? null : Long.parseLong(sIdComentario);
 
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 
-		Video video = VideoCrud.obtenerPorId(id);
-		ArrayList<Comentario> comentarios = ComentarioCrud.obtenerComentariosPorVideo(id);
+		Video video = VideoCrud.obtenerPorId(idVideo);
+		Comentario comentario = idComentario != null ? ComentarioCrud.obtenerPorId(idComentario) : null;
+		ArrayList<Comentario> comentarios = idComentario == null ? ComentarioCrud.obtenerPorVideo(idVideo) : ComentarioCrud.obtenerPorPadre(idComentario);
 
-		VideoDto videoDto = new VideoDto(video, comentarios);
-		
+		VideoDto videoDto = new VideoDto(video, comentario, comentarios);
+
 		// Empaquetar modelo para la siguiente vista
 
 //		request.setAttribute("video", video);
 //		request.setAttribute("comentarios", comentarios);
-		
+
 		request.setAttribute("videodto", videoDto);
 
 		// Saltar a la siguiente vista
@@ -131,15 +134,16 @@ public class PublicoAcciones {
 		response.sendRedirect("login");
 	}
 
-	public static void usuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public static void usuario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// Recoger la información recibida en la petición
-		
+
 		String sId = request.getParameter("id");
-		
+
 		// Convertir las partes que sean necesarias
-		
+
 		Long id = Long.parseLong(sId);
-		
+
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 

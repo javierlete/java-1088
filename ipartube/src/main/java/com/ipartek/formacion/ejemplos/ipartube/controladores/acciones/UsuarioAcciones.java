@@ -80,32 +80,43 @@ public class UsuarioAcciones {
 
 	public static void comentar(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// Recoger la información recibida en la petición
-		
+
 		HttpSession session = request.getSession();
-		
+
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		
+
 		String sIdVideo = request.getParameter("id-video");
+		String sIdComentarioPadre = request.getParameter("id-comentario-padre");
 		LocalDateTime fecha = LocalDateTime.now();
 		String texto = request.getParameter("texto");
-		
+
 		// Convertir las partes que sean necesarias
-		
+
 		Long idVideo = Long.parseLong(sIdVideo);
-		
+		Long idComentarioPadre = sIdComentarioPadre.isBlank() ? null : Long.parseLong(sIdComentarioPadre);
+
 		// Crear objetos con todas las partes
 
 		Video video = new Video(idVideo, null, null, null, null, null, null);
-		Comentario comentario = new Comentario(null, usuario, video, fecha, texto);
-		
+		Comentario comentarioPadre = new Comentario(idComentarioPadre, null, null, null, null, null, null);
+		Comentario comentario = new Comentario(null, usuario, video, fecha, texto, null, comentarioPadre);
+
 		// Ejecutar lógica de negocio
-		
+
 		ComentarioCrud.insertar(comentario);
-		
+
 		// Empaquetar modelo para la siguiente vista
 		// Saltar a la siguiente vista
+
+		String url = request.getContextPath() + "/cf/video?id=" + idVideo;
 		
-		response.sendRedirect(request.getContextPath() + "/cf/video?id=" + idVideo);
+		if(idComentarioPadre != null) {
+			url += "&comentario=" + idComentarioPadre;
+		}
+		
+		url += "#comentarios";
+		
+		response.sendRedirect(url);
 	}
 
 }

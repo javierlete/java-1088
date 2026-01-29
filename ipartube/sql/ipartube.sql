@@ -30,13 +30,16 @@ CREATE TABLE `comentarios` (
   `videos_id` bigint NOT NULL,
   `fecha` datetime NOT NULL,
   `texto` varchar(1000) NOT NULL,
+  `comentario_padre_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_comentarios` (`usuarios_id`,`videos_id`,`fecha`),
   KEY `fk_comentarios_videos_idx` (`videos_id`),
   KEY `fk_comentarios_usuarios_idx` (`usuarios_id`),
+  KEY `fk_comentarios_comentarios1_idx` (`comentario_padre_id`),
+  CONSTRAINT `fk_comentarios_comentarios1` FOREIGN KEY (`comentario_padre_id`) REFERENCES `comentarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_usuarios_has_videos_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_usuarios_has_videos_videos1` FOREIGN KEY (`videos_id`) REFERENCES `videos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +48,7 @@ CREATE TABLE `comentarios` (
 
 LOCK TABLES `comentarios` WRITE;
 /*!40000 ALTER TABLE `comentarios` DISABLE KEYS */;
-INSERT INTO `comentarios` VALUES (3,1,1,'2026-01-28 09:41:00','¡El Rey del Pop!'),(4,2,1,'2026-01-28 09:42:00','¡Sobrevalorado!'),(5,1,4,'2026-01-28 09:43:00','Joder...');
+INSERT INTO `comentarios` VALUES (3,1,1,'2026-01-28 09:41:00','¡El Rey del Pop!',NULL),(4,2,1,'2026-01-28 09:42:00','¡Sobrevalorado!',3),(5,1,4,'2026-01-28 09:43:00','Joder...',NULL),(6,1,1,'2026-01-28 10:56:38','Inmortal',3),(7,2,1,'2026-01-28 10:58:12','Mola',NULL),(8,2,3,'2026-01-28 10:58:37','¡El de la foto es el de Aerosmith!',NULL),(9,1,1,'2026-01-29 10:34:49','¡Y tanto!',7),(10,2,1,'2026-01-29 10:36:51','¡Tienes razón!',7),(11,1,3,'2026-01-29 10:45:09','Una buena selección',NULL),(12,1,3,'2026-01-29 10:45:21','¡Joder, tienes razón!',8);
 /*!40000 ALTER TABLE `comentarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,4 +150,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-28  9:47:05
+-- Dump completed on 2026-01-29 10:50:59

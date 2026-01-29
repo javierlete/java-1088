@@ -3,6 +3,7 @@
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
 <c:set var="video" value="${videodto.video}" />
+<c:set var="padre" value="${videodto.comentarioPadre}" />
 <c:set var="comentarios" value="${videodto.comentarios}" />
 
 <div class="row">
@@ -25,7 +26,33 @@
 			</div>
 		</div>
 
-		<ul class="list-group">
+		<ul id="comentarios" class="list-group">
+			<c:if test="${padre != null}">
+				<li
+					class="pt-4 pb-5 px-4 list-group-item d-flex flex-wrap align-items-stretch border-primary border border-1">
+					<div class="mb-2 w-100 lh-lg">
+						<a href="video?id=${video.id}"><i
+							class="bi bi-arrow-90deg-left"></i> Volver al listado de
+							comentarios raíz</a>
+					</div> <img width="25" class="rounded-circle"
+					src="${padre.usuario.imagenUrl}" alt="">
+					<div
+						class="flex-grow-1 d-flex justify-content-start align-items-center">
+						<div class="ms-2 me-auto">
+							<div class="fw-bold">${padre.usuario.nombre}</div>
+						</div>
+						<small class="text-secondary"><javatime:format
+								value="${padre.fecha}" style="MS" /></small>
+					</div>
+					<div class="mt-2 w-100 lh-lg">${padre.texto}</div>
+					<div>
+						<a
+							class="badge rounded-pill text-bg-secondary link-underline link-underline-opacity-0"
+							href="video?id=${video.id}&comentario=${padre.id}">${padre.respuestas}
+							respuestas</a>
+					</div>
+				</li>
+			</c:if>
 			<c:if test="${sessionScope.usuario != null}">
 				<li
 					class="pt-4 pb-5 px-4 list-group-item d-flex flex-wrap align-items-stretch">
@@ -42,8 +69,9 @@
 					<form action="usuario/video/comentar" method="post"
 						class="w-100 mt-3">
 						<input type="hidden" name="id-video" value="${video.id}">
+						<input type="hidden" name="id-comentario-padre" value="${padre.id}">
 						<textarea name="texto" rows="3" class="form-control lh-lg"
-							placeholder="Comenta el video aquí"></textarea>
+							placeholder="Pon tu comentario aquí"></textarea>
 						<div class="w-100 mt-3 text-end">
 							<button class="btn btn-primary">Comentar</button>
 						</div>
@@ -64,6 +92,12 @@
 								value="${c.fecha}" style="MS" /></small>
 					</div>
 					<div class="mt-2 w-100 lh-lg">${c.texto}</div>
+					<div>
+						<a
+							class="badge rounded-pill text-bg-secondary link-underline link-underline-opacity-0"
+							href="video?id=${video.id}&comentario=${c.id}#comentarios">${c.respuestas}
+							respuestas</a>
+					</div>
 				</li>
 			</c:forEach>
 		</ul>
