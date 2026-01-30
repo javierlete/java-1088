@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.ComentarioCrud;
+import com.ipartek.formacion.ejemplos.ipartube.accesodatos.MeGustaCrud;
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Comentario;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario;
@@ -117,6 +118,27 @@ public class UsuarioAcciones {
 		url += "#comentarios";
 		
 		response.sendRedirect(url);
+	}
+
+	public static void meGusta(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// Recoger la información recibida en la petición
+		
+		String sId = request.getParameter("id");
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		
+		// Convertir las partes que sean necesarias
+		
+		Long id = Long.parseLong(sId);
+		
+		// Crear objetos con todas las partes
+		// Ejecutar lógica de negocio
+
+		MeGustaCrud.insertar(usuario.id(), id);
+		
+		// Empaquetar modelo para la siguiente vista
+		// Saltar a la siguiente vista
+		
+		response.sendRedirect(request.getHeader("Referer"));
 	}
 
 }
