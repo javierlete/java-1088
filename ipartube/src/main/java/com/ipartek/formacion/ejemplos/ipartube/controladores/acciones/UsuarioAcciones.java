@@ -141,4 +141,25 @@ public class UsuarioAcciones {
 		response.sendRedirect(request.getHeader("Referer"));
 	}
 
+	public static void noMeGusta(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// Recoger la información recibida en la petición
+		
+		String sId = request.getParameter("id");
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		
+		// Convertir las partes que sean necesarias
+		
+		Long id = Long.parseLong(sId);
+		
+		// Crear objetos con todas las partes
+		// Ejecutar lógica de negocio
+
+		MeGustaCrud.borrar(usuario.id(), id);
+		
+		// Empaquetar modelo para la siguiente vista
+		// Saltar a la siguiente vista
+		
+		response.sendRedirect(request.getHeader("Referer"));
+	}
+
 }

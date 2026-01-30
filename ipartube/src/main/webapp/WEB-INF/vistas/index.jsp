@@ -70,7 +70,7 @@
 							<small
 								class="text-body-secondary d-flex justify-content-between align-items-baseline">
 								<a class="btn btn-outline-primary"
-								href="usuario/video/megusta?id=${v.id}"><i
+								href="usuario/video/${v.meGusta ? 'no' : ''}megusta?id=${v.id}"><i
 									class="bi bi-hand-thumbs-up${v.meGusta ? '-fill' : ''}"></i> ${v.numeroMeGusta}</a> <a
 								href="usuario?id=${v.usuario.id}">${v.usuario.nombre}</a> <javatime:format
 									value="${v.fecha}" style="MS" /> <c:if
