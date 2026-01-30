@@ -22,11 +22,14 @@ public class PublicoAcciones {
 	public static void index(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		// Recoger la información recibida en la petición
+		
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		
 		// Convertir las partes que sean necesarias
 		// Crear objetos con todas las partes
 		// Ejecutar lógica de negocio
 
-		ArrayList<Video> videos = VideoCrud.obtenerTodos();
+		ArrayList<Video> videos = VideoCrud.obtenerTodos(usuario != null ? usuario.id() : null);
 		ArrayList<Usuario> usuarios = UsuarioCrud.obtenerTodos();
 
 		// Empaquetar modelo para la siguiente vista

@@ -12,30 +12,43 @@ import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 
 public class VideoCrud {
 	private static final String SQL_SELECT = """
-				SELECT 
-				    v.id AS v_id,
-				    v.titulo AS v_titulo,
-				    v.descripcion AS v_descripcion,
-				    v.fecha AS v_fecha,
-				    v.imagen_url AS v_imagen_url,
-				    v.video_url AS v_video_url,
-				    u.id AS u_id,
-				    u.nombre AS u_nombre,
-				    u.imagen_url AS u_imagen_url,
-				    (SELECT 
-				            COUNT(*)
-				        FROM
-				            usuarios_le_gusta_videos
-				        WHERE
-				            videos_id = v_id) AS numero_me_gusta
-				FROM
-				    videos AS v
-				        JOIN
-				    usuarios AS u ON v.usuarios_id = u.id
-			""";
+			SELECT
+			    v.id AS v_id,
+			    v.titulo AS v_titulo,
+			    v.descripcion AS v_descripcion,
+			    v.fecha AS v_fecha,
+			    v.imagen_url AS v_imagen_url,
+			    v.video_url AS v_video_url,
+			    u.id AS u_id,
+			    u.nombre AS u_nombre,
+			    u.imagen_url AS u_imagen_url,
+			    (SELECT
+			            COUNT(*)
+			        FROM
+			            usuarios_le_gusta_videos
+			        WHERE
+			            videos_id = v_id) AS numero_me_gusta,
+			    (SELECT
+			            COUNT(*)
+			        FROM
+			            usuarios_le_gusta_videos
+			        WHERE
+			            usuarios_id = ? AND videos_id = v_id) AS me_gusta
+			FROM
+			    videos AS v
+			        JOIN
+			    usuarios AS u ON v.usuarios_id = u.id
+						""";
 
 	public static ArrayList<Video> obtenerTodos() {
-		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_SELECT); ResultSet rs = pst.executeQuery()) {
+		return obtenerTodos(null);
+	}
+
+	public static ArrayList<Video> obtenerTodos(Long idUsuario) {
+		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_SELECT)) {
+			pst.setObject(1, idUsuario);
+			ResultSet rs = pst.executeQuery();
+			
 			ArrayList<Video> videos = new ArrayList<>();
 
 			while (rs.next()) {
@@ -53,8 +66,8 @@ public class VideoCrud {
 
 	public static Video obtenerPorId(Long id) {
 		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_SELECT + "WHERE v.id=?");) {
-
-			pst.setLong(1, id);
+			pst.setObject(1, null);
+			pst.setLong(2, id);
 
 			try (ResultSet rs = pst.executeQuery()) {
 				Video video = null;
@@ -73,8 +86,8 @@ public class VideoCrud {
 
 	public static ArrayList<Video> obtenerPorIdUsuario(Long idUsuario) {
 		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_SELECT + "WHERE u.id=?");) {
-
-			pst.setLong(1, idUsuario);
+			pst.setObject(1, null);
+			pst.setLong(2, idUsuario);
 
 			try (ResultSet rs = pst.executeQuery()) {
 				ArrayList<Video> videos = new ArrayList<>();
@@ -176,7 +189,7 @@ public class VideoCrud {
 		if (idUsuario == null) {
 			return;
 		}
-		
+
 		pst.setLong(8, idUsuario);
 	}
 
@@ -192,11 +205,12 @@ public class VideoCrud {
 		long usuarioId = rs.getLong("u_id");
 		String usuarioNombre = rs.getString("u_nombre");
 		String usuarioImagen = rs.getString("u_imagen_url");
-		
+
 		long numeroMeGusta = rs.getLong("numero_me_gusta");
-		
+		boolean meGusta = rs.getBoolean("me_gusta");
+
 		Usuario usuario = new Usuario(usuarioId, usuarioImagen, usuarioNombre, null, null, null);
 
-		return new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario, numeroMeGusta);
+		return new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario, numeroMeGusta, meGusta);
 	}
 }

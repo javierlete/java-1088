@@ -71,7 +71,7 @@
 								class="text-body-secondary d-flex justify-content-between align-items-baseline">
 								<a class="btn btn-outline-primary"
 								href="usuario/video/megusta?id=${v.id}"><i
-									class="bi bi-hand-thumbs-up-fill"></i> ${v.numeroMeGusta}</a> <a
+									class="bi bi-hand-thumbs-up${v.meGusta ? '-fill' : ''}"></i> ${v.numeroMeGusta}</a> <a
 								href="usuario?id=${v.usuario.id}">${v.usuario.nombre}</a> <javatime:format
 									value="${v.fecha}" style="MS" /> <c:if
 									test="${param.id == usuario.id}">
