@@ -62,7 +62,7 @@ public class UsuarioAcciones {
 
 		// Crear objetos con todas las partes
 
-		Video video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario);
+		Video video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario, null);
 
 		// Ejecutar lógica de negocio
 
@@ -97,7 +97,7 @@ public class UsuarioAcciones {
 
 		// Crear objetos con todas las partes
 
-		Video video = new Video(idVideo, null, null, null, null, null, null);
+		Video video = new Video(idVideo, null, null, null, null, null, null, null);
 		Comentario comentarioPadre = new Comentario(idComentarioPadre, null, null, null, null, null, null);
 		Comentario comentario = new Comentario(null, usuario, video, fecha, texto, null, comentarioPadre);
 

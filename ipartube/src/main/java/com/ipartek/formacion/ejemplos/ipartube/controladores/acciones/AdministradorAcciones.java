@@ -111,7 +111,7 @@ public class AdministradorAcciones {
 	
 		Usuario usuario = new Usuario(idUsuario, null, null, null, null, null);
 		
-		Video video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario);
+		Video video = new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario, null);
 	
 		// Ejecutar lógica de negocio
 	

@@ -109,6 +109,34 @@ INSERT INTO `usuarios` VALUES (1,'Javier','javier@email.net','cMjMm3rVE20YK1num2
 UNLOCK TABLES;
 
 --
+-- Table structure for table `usuarios_le_gusta_videos`
+--
+
+DROP TABLE IF EXISTS `usuarios_le_gusta_videos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuarios_le_gusta_videos` (
+  `usuarios_id` bigint NOT NULL,
+  `videos_id` bigint NOT NULL,
+  PRIMARY KEY (`usuarios_id`,`videos_id`),
+  KEY `fk_usuarios_has_videos_videos2_idx` (`videos_id`),
+  KEY `fk_usuarios_has_videos_usuarios2_idx` (`usuarios_id`),
+  CONSTRAINT `fk_usuarios_has_videos_usuarios2` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_usuarios_has_videos_videos2` FOREIGN KEY (`videos_id`) REFERENCES `videos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios_le_gusta_videos`
+--
+
+LOCK TABLES `usuarios_le_gusta_videos` WRITE;
+/*!40000 ALTER TABLE `usuarios_le_gusta_videos` DISABLE KEYS */;
+INSERT INTO `usuarios_le_gusta_videos` VALUES (1,1),(1,3),(2,3);
+/*!40000 ALTER TABLE `usuarios_le_gusta_videos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `videos`
 --
 
@@ -150,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-29 10:50:59
+-- Dump completed on 2026-01-30  8:42:33

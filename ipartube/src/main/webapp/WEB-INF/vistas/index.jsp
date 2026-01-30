@@ -26,7 +26,8 @@
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 			<c:forEach items="${videos}" var="v">
 				<div class="col">
-					<form class="card h-100" action="usuario/video/guardar" method="post">
+					<form class="card h-100" action="usuario/video/guardar"
+						method="post">
 						<input type="hidden" name="id" value="${v.id}">
 						<div class="ratio ratio-16x9">
 							<img src="${v.imagenUrl}" class="card-img-top" alt="...">
@@ -65,12 +66,15 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
-						<div class="card-footer">
+						<div class="card-footer" style="z-index: 2">
 							<small
-								class="text-body-secondary d-flex justify-content-between align-items-baseline"><span>${v.usuario.nombre}
-									<javatime:format value="${v.fecha}" style="MS" />
-							</span> <c:if test="${param.id == usuario.id}">
-									<span class="card-text" style="z-index: 2"> <c:choose>
+								class="text-body-secondary d-flex justify-content-between align-items-baseline">
+								<a class="btn btn-outline-primary" href="#"><i
+									class="bi bi-hand-thumbs-up-fill"></i> ${v.numeroMeGusta}</a> <a
+								href="usuario?id=${v.usuario.id}">${v.usuario.nombre}</a> <javatime:format
+									value="${v.fecha}" style="MS" /> <c:if
+									test="${param.id == usuario.id}">
+									<span class="card-text"> <c:choose>
 											<c:when test="${param.editar == null}">
 												<a class="btn btn-outline-primary"
 													href="usuario?id=${usuario.id}&editar=${v.id}"><i
@@ -86,14 +90,16 @@
 											</c:otherwise>
 										</c:choose>
 									</span>
-								</c:if></small>
+								</c:if>
+							</small>
 						</div>
 					</form>
 				</div>
 			</c:forEach>
 			<c:if test="${param.id == usuario.id}">
 				<div class="col">
-					<form class="card h-100" action="usuario/video/guardar" method="post">
+					<form class="card h-100" action="usuario/video/guardar"
+						method="post">
 						<div class="ratio ratio-16x9">
 							<img
 								src="${pageContext.request.contextPath}/imgs/plus-circle-fill.svg"
@@ -105,7 +111,8 @@
 								<input name="titulo" class="form-control" placeholder="Título">
 							</h5>
 							<p class="card-text">
-								<textarea name="descripcion" class="form-control" placeholder="Descripción"></textarea>
+								<textarea name="descripcion" class="form-control"
+									placeholder="Descripción"></textarea>
 							</p>
 							<input name="video" class="form-control" placeholder="URL video">
 						</div>

@@ -12,20 +12,26 @@ import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 
 public class VideoCrud {
 	private static final String SQL_SELECT = """
-			SELECT
-			    v.id AS v_id,
-			    v.titulo AS v_titulo,
-			    v.descripcion AS v_descripcion,
-			    v.fecha AS v_fecha,
-			    v.imagen_url AS v_imagen_url,
-			    v.video_url AS v_video_url,
-			    u.id AS u_id,
-			    u.nombre AS u_nombre,
-			          u.imagen_url AS u_imagen_url
-			FROM
-			    videos AS v
-			        JOIN
-			    usuarios AS u ON v.usuarios_id = u.id
+				SELECT 
+				    v.id AS v_id,
+				    v.titulo AS v_titulo,
+				    v.descripcion AS v_descripcion,
+				    v.fecha AS v_fecha,
+				    v.imagen_url AS v_imagen_url,
+				    v.video_url AS v_video_url,
+				    u.id AS u_id,
+				    u.nombre AS u_nombre,
+				    u.imagen_url AS u_imagen_url,
+				    (SELECT 
+				            COUNT(*)
+				        FROM
+				            usuarios_le_gusta_videos
+				        WHERE
+				            videos_id = v_id) AS numero_me_gusta
+				FROM
+				    videos AS v
+				        JOIN
+				    usuarios AS u ON v.usuarios_id = u.id
 			""";
 
 	public static ArrayList<Video> obtenerTodos() {
@@ -186,9 +192,11 @@ public class VideoCrud {
 		long usuarioId = rs.getLong("u_id");
 		String usuarioNombre = rs.getString("u_nombre");
 		String usuarioImagen = rs.getString("u_imagen_url");
-
+		
+		long numeroMeGusta = rs.getLong("numero_me_gusta");
+		
 		Usuario usuario = new Usuario(usuarioId, usuarioImagen, usuarioNombre, null, null, null);
 
-		return new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario);
+		return new Video(id, titulo, descripcion, imagenUrl, fecha, videoUrl, usuario, numeroMeGusta);
 	}
 }
