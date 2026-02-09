@@ -33,6 +33,10 @@ public class Rol {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 	}
+	
+	public Rol() {
+		super();
+	}
 
 	// Source/Generate Getters and Setters...
 	public Long getId() {
