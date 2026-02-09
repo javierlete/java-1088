@@ -1,20 +1,17 @@
 package com.ipartek.formacion.ejemplos.ipartube.accesodatos;
 
+import static com.ipartek.formacion.ejemplos.ipartube.accesodatos.Global.*;
+
 import java.util.List;
 
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Rol;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 
 public class RolCrud {
-	private static final EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("com.ipartek.formacion.ejemplos.ipartube.modelos");
-
 	public static List<Rol> obtenerTodos() {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = EMF.createEntityManager();
 		EntityTransaction t = em.getTransaction();
 
 		t.begin();
@@ -27,7 +24,7 @@ public class RolCrud {
 	}
 
 	public static Rol obtenerPorId(Long id) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = EMF.createEntityManager();
 		EntityTransaction t = em.getTransaction();
 
 		t.begin();
@@ -40,7 +37,7 @@ public class RolCrud {
 	}
 
 	public static Rol obtenerPorNombre(String nombre) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = EMF.createEntityManager();
 		EntityTransaction t = em.getTransaction();
 
 		t.begin();
@@ -54,7 +51,7 @@ public class RolCrud {
 	}
 
 	public static Rol insertar(Rol rol) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = EMF.createEntityManager();
 		EntityTransaction t = em.getTransaction();
 
 		t.begin();
@@ -67,7 +64,7 @@ public class RolCrud {
 	}
 
 	public static Rol modificar(Rol rol) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = EMF.createEntityManager();
 		EntityTransaction t = em.getTransaction();
 
 		t.begin();
@@ -80,7 +77,7 @@ public class RolCrud {
 	}
 
 	public static void borrar(Long id) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = EMF.createEntityManager();
 		EntityTransaction t = em.getTransaction();
 
 		t.begin();
