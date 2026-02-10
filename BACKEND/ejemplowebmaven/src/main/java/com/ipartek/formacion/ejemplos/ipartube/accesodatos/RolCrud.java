@@ -24,6 +24,20 @@ public class RolCrud {
 		}
 	}
 
+	public static List<Rol> obtenerTodosConUsuarios() {
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
+			
+			t.begin();
+			
+			List<Rol> roles = em.createQuery("from Rol r left join fetch r.usuarios", Rol.class).getResultList();
+			
+			t.commit();
+			
+			return roles;
+		}
+	}
+
 	public static Rol obtenerPorId(Long id) {
 		try (EntityManager em = EMF.createEntityManager()) {
 			EntityTransaction t = em.getTransaction();
