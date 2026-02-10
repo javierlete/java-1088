@@ -11,42 +11,64 @@ import jakarta.persistence.EntityTransaction;
 
 public class UsuarioCrud {
 	public static List<Usuario> obtenerTodos() {
-		EntityManager em = EMF.createEntityManager();
-		EntityTransaction t = em.getTransaction();
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
 
-		t.begin();
+			t.begin();
 
-		List<Usuario> usuarios = em.createQuery("from Usuario", Usuario.class).getResultList();
+			List<Usuario> usuarios = em.createQuery("from Usuario", Usuario.class).getResultList();
 
-		t.commit();
+			t.commit();
 
-		return usuarios;
+			return usuarios;
+		}
 	}
 
 	public static Usuario obtenerPorEmail(String email) {
-		EntityManager em = EMF.createEntityManager();
-		EntityTransaction t = em.getTransaction();
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
 
-		t.begin();
+			t.begin();
 
-		Usuario usuario = em.createQuery("from Usuario u where u.email = :email", Usuario.class)
-				.setParameter("email", email).getSingleResultOrNull();
+			Usuario usuario = em.createQuery("from Usuario u where u.email = :email", Usuario.class)
+					.setParameter("email", email).getSingleResultOrNull();
 
-		t.commit();
+			t.commit();
 
-		return usuario;
+			return usuario;
+		}
 	}
 	
 	public static Usuario insertar(Usuario usuario) {
-		EntityManager em = EMF.createEntityManager();
-		EntityTransaction t = em.getTransaction();
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
 
-		t.begin();
+			t.begin();
 
-		em.persist(usuario);
+			em.persist(usuario);
 
-		t.commit();
+			t.commit();
 
-		return usuario;
+			return usuario;
+		}
+	}
+	
+	public static List<Usuario> obtenerPorRol(String nombreRol) {
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
+
+			t.begin();
+
+//			List<Usuario> usuarios = em.createQuery("from Usuario u where u.rol.nombre = :nombreRol", Usuario.class)
+//					.setParameter("nombreRol", nombreRol).getResultList();
+
+			List<Usuario> usuarios = em
+					.createQuery("from Usuario u join fetch u.rol r where r.nombre = :nombreRol", Usuario.class)
+					.setParameter("nombreRol", nombreRol).getResultList();
+
+			t.commit();
+
+			return usuarios;
+		}
 	}
 }

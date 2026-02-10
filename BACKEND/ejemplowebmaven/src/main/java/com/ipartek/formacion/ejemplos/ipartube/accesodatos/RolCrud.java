@@ -11,79 +11,85 @@ import jakarta.persistence.EntityTransaction;
 
 public class RolCrud {
 	public static List<Rol> obtenerTodos() {
-		EntityManager em = EMF.createEntityManager();
-		EntityTransaction t = em.getTransaction();
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
 
-		t.begin();
+			t.begin();
 
-		List<Rol> roles = em.createQuery("from Rol", Rol.class).getResultList();
+			List<Rol> roles = em.createQuery("from Rol", Rol.class).getResultList();
 
-		t.commit();
+			t.commit();
 
-		return roles;
+			return roles;
+		}
 	}
 
 	public static Rol obtenerPorId(Long id) {
-		EntityManager em = EMF.createEntityManager();
-		EntityTransaction t = em.getTransaction();
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
 
-		t.begin();
+			t.begin();
 
-		Rol rol = em.find(Rol.class, id);
+			Rol rol = em.find(Rol.class, id);
 
-		t.commit();
+			t.commit();
 
-		return rol;
+			return rol;
+		}
 	}
 
 	public static Rol obtenerPorNombre(String nombre) {
-		EntityManager em = EMF.createEntityManager();
-		EntityTransaction t = em.getTransaction();
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
 
-		t.begin();
+			t.begin();
 
-		Rol rol = em.createQuery("from Rol r where r.nombre = :nombre", Rol.class)
-				.setParameter("nombre", nombre).getSingleResultOrNull();
+			Rol rol = em.createQuery("from Rol r where r.nombre = :nombre", Rol.class)
+					.setParameter("nombre", nombre).getSingleResultOrNull();
 
-		t.commit();
+			t.commit();
 
-		return rol;
+			return rol;
+		}
 	}
 
 	public static Rol insertar(Rol rol) {
-		EntityManager em = EMF.createEntityManager();
-		EntityTransaction t = em.getTransaction();
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
 
-		t.begin();
+			t.begin();
 
-		em.persist(rol);
+			em.persist(rol);
 
-		t.commit();
+			t.commit();
 
-		return rol;
+			return rol;
+		}
 	}
 
 	public static Rol modificar(Rol rol) {
-		EntityManager em = EMF.createEntityManager();
-		EntityTransaction t = em.getTransaction();
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
 
-		t.begin();
+			t.begin();
 
-		em.merge(rol);
+			em.merge(rol);
 
-		t.commit();
+			t.commit();
 
-		return rol;
+			return rol;
+		}
 	}
 
 	public static void borrar(Long id) {
-		EntityManager em = EMF.createEntityManager();
-		EntityTransaction t = em.getTransaction();
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
 
-		t.begin();
+			t.begin();
 
-		em.remove(em.find(Rol.class, id));
+			em.remove(em.find(Rol.class, id));
 
-		t.commit();
+			t.commit();
+		}
 	}
 }
