@@ -27,5 +27,13 @@ public class UsuarioCrudPruebas {
 		for (Usuario usuario : UsuarioCrud.obtenerPorRol("USER")) {
 			System.out.println(usuario);
 		}
+		
+		for(Rol rol: RolCrud.obtenerTodos()) {
+			System.out.println(rol);
+			
+			for(Usuario usuario: rol.getUsuarios()) {
+				System.out.println(usuario);
+			}
+		}
 	}
 }
