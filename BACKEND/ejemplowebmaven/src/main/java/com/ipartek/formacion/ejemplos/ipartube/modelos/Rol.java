@@ -2,6 +2,7 @@ package com.ipartek.formacion.ejemplos.ipartube.modelos;
 
 import java.util.List;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +30,7 @@ public class Rol {
 	@Size(max = 1000)
 	private String descripcion;
 
+	@JsonbTransient
 	@OneToMany(mappedBy = "rol")
 	private List<Usuario> usuarios;
 
