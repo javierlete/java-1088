@@ -7,6 +7,7 @@
 	<persistence-unit name="com.ipartek.formacion.ejemplos.ipartube.modelos">
 		<class>com.ipartek.formacion.ejemplos.ipartube.modelos.Rol</class>
 		<class>com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario</class>
+		<class>com.ipartek.formacion.ejemplos.ipartube.modelos.Video</class>
 
 		<properties>
 			<!-- <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:ejemplowebmaven.db" /> -->
