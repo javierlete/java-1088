@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
+import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoListadoDto;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 import com.ipartek.formacion.ejemplos.ipartube.pruebas.VideoCrudPruebas;
 
@@ -48,7 +49,7 @@ public class VideoRestServlet extends HttpServlet {
 			return;
 		}
 
-		List<Video> videos = VideoCrud.obtenerTodos();
+		List<VideoListadoDto> videos = VideoCrud.obtenerTodosDto();
 
 		String json = JSON.toJson(videos);
 

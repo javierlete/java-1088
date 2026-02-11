@@ -4,6 +4,7 @@ import static com.ipartek.formacion.ejemplos.ipartube.accesodatos.Global.*;
 
 import java.util.List;
 
+import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoListadoDto;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 
 import jakarta.persistence.EntityManager;
@@ -24,6 +25,25 @@ public class VideoCrud {
 		}
 	}
 
+	public static List<VideoListadoDto> obtenerTodosDto() {
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
+
+			t.begin();
+
+			List<VideoListadoDto> videos = em.createQuery("""
+					select new com.ipartek.formacion.ejemplos.ipartube.dtos.VideoListadoDto(
+						v.id, v.titulo, v.imagenUrl, v.fecha, v.usuario.id, v.usuario.nombre
+					)
+					from Video v
+					""", VideoListadoDto.class).getResultList();
+
+			t.commit();
+
+			return videos;
+		}
+	}
+	
 	public static Video obtenerPorId(Long id) {
 		try (EntityManager em = EMF.createEntityManager()) {
 			EntityTransaction t = em.getTransaction();
