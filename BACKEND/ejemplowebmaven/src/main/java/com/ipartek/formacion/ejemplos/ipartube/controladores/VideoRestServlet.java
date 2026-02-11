@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
+import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoDetalleDto;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoListadoDto;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 import com.ipartek.formacion.ejemplos.ipartube.pruebas.VideoCrudPruebas;
@@ -38,7 +39,7 @@ public class VideoRestServlet extends HttpServlet {
 		Long id = obtenerId(request);
 
 		if (id != null) {
-			Video video = VideoCrud.obtenerPorId(id);
+			VideoDetalleDto video = VideoCrud.obtenerPorIdDto(id);
 			
 			if(video ==null) {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
