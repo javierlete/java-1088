@@ -1,5 +1,6 @@
 package com.ipartek.formacion.ejemplos.ipartube.modelos;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ public class Usuario {
 	@Column(unique = true)
 	private String email;
 	
+	@JsonbTransient
 	@NotBlank
 	@Size(max = 255)
 	private String password;
