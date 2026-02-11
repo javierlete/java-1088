@@ -20,11 +20,16 @@ public class VideoCrudPruebas {
 		Usuario pepe = new Usuario(null, null, "Pepe", "pepe@email.net", "alksdjfl", rol);
 		UsuarioCrud.insertar(pepe);
 
-		for (int i = 1; i <= 5; i++) {
-			Video video = new Video(null, "Prueba " + i, "Descripción " + i, "https://picsum.photos/400/300?" + i,
-					LocalDateTime.now(), "https://www.youtube.com/" + i, i % 2 == 0 ? javier : pepe);
-			VideoCrud.insertar(video);
-		}
+		VideoCrud.insertar(new Video(null, "Michael Jackson en Auckly",
+				"Con efectos 3D de la época.\r\nComo se nota la diferencia...",
+				"https://i.ytimg.com/vi/ChrLRauOR28/hq720.jpg", LocalDateTime.now(),
+				"https://www.youtube.com/embed/ChrLRauOR28", javier));
+		VideoCrud.insertar(new Video(null, "Clásicos del Rock", null, "https://i.ytimg.com/vi/4_O-y3SM3UM/hq720.jpg",
+				LocalDateTime.now(), "https://www.youtube.com/embed/4_O-y3SM3UM", pepe));
+		VideoCrud.insertar(new Video(null, "8BBB en directo",
+				"Video de la 8 Bit Bit Band en diciembre de 2025",
+				"https://i.ytimg.com/vi/mzjqdhWxg8M/hq720.jpg", LocalDateTime.now(),
+				"https://www.youtube.com/embed/mzjqdhWxg8M", javier));
 
 		for (Video v : VideoCrud.obtenerTodos()) {
 			System.out.println(v);
