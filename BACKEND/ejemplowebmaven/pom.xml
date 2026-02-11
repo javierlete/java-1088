@@ -12,9 +12,28 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>21</maven.compiler.release>
+		<jersey.version>4.0.2</jersey.version>
 	</properties>
 
 	<dependencies>
+		<!-- Jersey servlet container -->
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<!-- Inyección de dependencias para Jersey -->
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<!-- JSON support -->
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-binding</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
 		<!-- Source: https://mvnrepository.com/artifact/org.eclipse/yasson -->
 		<dependency>
 			<groupId>org.eclipse</groupId>
