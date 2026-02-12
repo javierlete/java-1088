@@ -8,6 +8,7 @@
 		<class>com.ipartek.formacion.ejemplos.ipartube.modelos.Rol</class>
 		<class>com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario</class>
 		<class>com.ipartek.formacion.ejemplos.ipartube.modelos.Video</class>
+		<class>com.ipartek.formacion.ejemplos.ipartube.modelos.Comentario</class>
 
 		<properties>
 			<!-- <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:ejemplowebmaven.db" /> -->

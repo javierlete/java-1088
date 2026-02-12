@@ -2,7 +2,9 @@ package com.ipartek.formacion.ejemplos.ipartube.rest;
 
 import java.util.List;
 
+import com.ipartek.formacion.ejemplos.ipartube.accesodatos.ComentarioCrud;
 import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
+import com.ipartek.formacion.ejemplos.ipartube.dtos.ComentarioDto;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoDetalleDto;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoListadoDto;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
@@ -35,6 +37,12 @@ public class VideoRest {
 		}
 		
 		return video;
+	}
+	
+	@GET
+	@Path("{id}/comentarios")
+	public List<ComentarioDto> obtenerPorIdVideo(@PathParam("id") Long id) {
+		return ComentarioCrud.obtenerPorVideo(id);
 	}
 	
 	@POST
