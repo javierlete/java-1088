@@ -14,9 +14,11 @@ public class ComentarioCrud {
 
 	private static final String COMENTARIO_DTO = """
 			select new com.ipartek.formacion.ejemplos.ipartube.dtos.ComentarioDto(
-				c.id, c.texto, c.fecha, c.usuario.id, c.usuario.nombre
+				c.id, c.texto, c.fecha, c.usuario.id, c.usuario.nombre, count(r)
 			) from Comentario c
+			left join c.respuestas r
 			""";
+	private static final String COMENTARIO_DTO_SUFIJO = " group by c.id, c.texto, c.fecha, c.usuario.id, c.usuario.nombre ";
 
 	public static List<ComentarioDto> obtenerPorVideo(Long idVideo) {
 		try (EntityManager em = EMF.createEntityManager()) {
@@ -25,7 +27,7 @@ public class ComentarioCrud {
 			t.begin();
 
 			List<ComentarioDto> comentarios = em
-					.createQuery(COMENTARIO_DTO + "where c.video.id = :id and c.comentarioPadre is null",
+					.createQuery(COMENTARIO_DTO + "where c.video.id = :id and c.comentarioPadre is null" + COMENTARIO_DTO_SUFIJO,
 							ComentarioDto.class)
 					.setParameter("id", idVideo).getResultList();
 
@@ -41,7 +43,7 @@ public class ComentarioCrud {
 
 			t.begin();
 
-			ComentarioDto comentario = em.createQuery(COMENTARIO_DTO + "where c.id = :id", ComentarioDto.class)
+			ComentarioDto comentario = em.createQuery(COMENTARIO_DTO + "where c.id = :id" + COMENTARIO_DTO_SUFIJO, ComentarioDto.class)
 					.setParameter("id", id).getSingleResultOrNull();
 
 			t.commit();
@@ -57,7 +59,7 @@ public class ComentarioCrud {
 			t.begin();
 
 			List<ComentarioDto> comentarios = em
-					.createQuery(COMENTARIO_DTO + "where c.comentarioPadre.id = :id", ComentarioDto.class)
+					.createQuery(COMENTARIO_DTO + "where c.comentarioPadre.id = :id" + COMENTARIO_DTO_SUFIJO, ComentarioDto.class)
 					.setParameter("id", idComentario).getResultList();
 
 			t.commit();

@@ -1,14 +1,15 @@
 package com.ipartek.formacion.ejemplos.ipartube.modelos;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -37,21 +38,20 @@ public class Comentario {
 	@PastOrPresent
 	private LocalDateTime fecha = LocalDateTime.now();
 
-	@Transient
-	private Integer respuestas;
-
 	@ManyToOne
 	private Comentario comentarioPadre;
+	
+	@OneToMany(mappedBy = "comentarioPadre")
+	private List<Comentario> respuestas;
 
 	public Comentario(Long id, @NotBlank @Size(max = 1000) String texto, @NotNull Usuario usuario, @NotNull Video video,
-			@NotNull @PastOrPresent LocalDateTime fecha, Integer respuestas, Comentario comentarioPadre) {
+			@NotNull @PastOrPresent LocalDateTime fecha, Comentario comentarioPadre) {
 		super();
 		this.id = id;
 		this.texto = texto;
 		this.usuario = usuario;
 		this.video = video;
 		this.fecha = fecha;
-		this.respuestas = respuestas;
 		this.comentarioPadre = comentarioPadre;
 	}
 
@@ -99,14 +99,6 @@ public class Comentario {
 		this.fecha = fecha;
 	}
 
-	public Integer getRespuestas() {
-		return respuestas;
-	}
-
-	public void setRespuestas(Integer respuestas) {
-		this.respuestas = respuestas;
-	}
-
 	public Comentario getComentarioPadre() {
 		return comentarioPadre;
 	}
@@ -118,7 +110,7 @@ public class Comentario {
 	@Override
 	public String toString() {
 		return "Comentario [id=" + id + ", texto=" + texto + ", usuario=" + usuario + ", video=" + video + ", fecha="
-				+ fecha + ", respuestas=" + respuestas + ", comentarioPadre=" + comentarioPadre + "]";
+				+ fecha + ", comentarioPadre=" + comentarioPadre + "]";
 	}
 
 }

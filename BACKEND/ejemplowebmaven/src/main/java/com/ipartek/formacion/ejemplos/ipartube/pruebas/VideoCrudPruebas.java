@@ -44,13 +44,13 @@ public class VideoCrudPruebas {
 		}
 
 		Comentario primerComentario = new Comentario(null, "¡Primer comentario!", javier, videoMichael,
-				LocalDateTime.now(), null, null);
+				LocalDateTime.now(), null);
 		ComentarioCrud.insertar(primerComentario);
 
 		ComentarioCrud
-				.insertar(new Comentario(null, "Yo voy segundo", pepe, videoMichael, LocalDateTime.now(), null, null));
+				.insertar(new Comentario(null, "Yo voy segundo", pepe, videoMichael, LocalDateTime.now(), null));
 		ComentarioCrud.insertar(new Comentario(null, "¡¡Hombre, como eres el que ha creado el video...!!", pepe,
-				videoMichael, LocalDateTime.now(), null, primerComentario));
+				videoMichael, LocalDateTime.now(), primerComentario));
 		
 		for(ComentarioDto c: ComentarioCrud.obtenerPorVideo(videoMichael.getId())) {
 			System.out.println(c);
