@@ -6,7 +6,6 @@ import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoDetalleDto;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoListadoDto;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
-import com.ipartek.formacion.ejemplos.ipartube.pruebas.VideoCrudPruebas;
 
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.DELETE;
@@ -21,10 +20,6 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Path("/videos")
 public class VideoRest {
-	static {
-		VideoCrudPruebas.main(null);
-	}
-	
 	@GET
 	public List<VideoListadoDto> obtenerTodos() {
 		return VideoCrud.obtenerTodosDto();
