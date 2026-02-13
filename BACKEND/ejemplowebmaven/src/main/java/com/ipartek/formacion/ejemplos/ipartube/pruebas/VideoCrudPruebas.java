@@ -17,10 +17,10 @@ public class VideoCrudPruebas {
 		Rol rol = new Rol(null, "USUARIO", "Usuarios");
 		RolCrud.insertar(rol);
 
-		Usuario javier = new Usuario(null, null, "Javier", "javier@email.net", "alksdjfl", rol);
+		Usuario javier = new Usuario(null, null, "Javier", "javier@email.net", "javier", rol);
 		UsuarioCrud.insertar(javier);
 
-		Usuario pepe = new Usuario(null, null, "Pepe", "pepe@email.net", "alksdjfl", rol);
+		Usuario pepe = new Usuario(null, null, "Pepe", "pepe@email.net", "pepe", rol);
 		UsuarioCrud.insertar(pepe);
 
 		Video videoMichael = new Video(null, "Michael Jackson en Auckly",
