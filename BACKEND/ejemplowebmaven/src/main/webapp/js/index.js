@@ -5,13 +5,7 @@ const URL_VIDEOS = URL_BASE + '/videos/';
 const URL_COMENTARIOS = URL_BASE + '/comentarios/';
 
 window.addEventListener('DOMContentLoaded', async () => {
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
-
-    if(usuario) {
-		menuSecundario(usuario);
-	} else {
-		logout();
-	}
+    menuSecundario();
 
     await videos();
 });
@@ -28,6 +22,47 @@ async function videos() {
     const tarjetas = document.querySelector('#tarjetas-videos');
 
     tarjetas.innerHTML = '';
+
+    if (autenticado()) {
+        const tarjeta = document.createElement('div');
+
+        tarjeta.className = 'col';
+
+        tarjeta.innerHTML = `
+				<div class="col">
+					<form class="card h-100" action="javascript:guardar()">
+						<div class="ratio ratio-16x9">
+							<img
+								src="imgs/plus-circle-fill.svg"
+								class="card-img-top p-3" alt="...">
+						</div>
+						<input name="imagen" class="form-control" placeholder="URL imagen">
+						<div class="card-body">
+							<h5 class="card-title">
+								<input name="titulo" class="form-control" placeholder="Título">
+							</h5>
+							<p class="card-text">
+								<textarea name="descripcion" class="form-control"
+									placeholder="Descripción"></textarea>
+							</p>
+							<input name="video" class="form-control" placeholder="URL video">
+						</div>
+						<div class="card-footer">
+							<small
+								class="text-body-secondary d-flex justify-content-between align-items-baseline">
+								<span>${getUsuarioAutenticado().nombre}</span> 
+								<span class="card-text" style="z-index: 2">
+									<button class="btn btn-outline-primary">
+										<i class="bi bi-floppy2-fill"></i>
+									</button>
+								</span>
+							</small>
+						</div>
+					</form>
+				</div>`;
+
+        tarjetas.appendChild(tarjeta);
+    }
 
     for (const video of videos) {
         const tarjeta = document.createElement('div');
@@ -57,6 +92,8 @@ async function videos() {
 
         tarjetas.appendChild(tarjeta);
     }
+
+
 
 }
 
@@ -139,9 +176,11 @@ async function respuestas(id) {
 }
 
 async function login() {
+    const form = document.querySelector('#login form');
+
     const usuario = {
-        email: document.forms[0].email.value,
-        password: document.forms[0].password.value
+        email: form.email.value,
+        password: form.password.value
     };
 
     console.log('Petición login', usuario);
@@ -164,11 +203,11 @@ async function login() {
 
     console.log('Respuesta login', usuarioRespuesta);
 
-    menuSecundario(usuarioRespuesta);
-
     localStorage.setItem('usuario', JSON.stringify(usuarioRespuesta));
 
-    mostrar('listado');
+    menuSecundario();
+
+    videos();
 }
 
 function mostrar(id) {
@@ -183,7 +222,7 @@ function mostrar(id) {
     }
 }
 
-function menuSecundario(usuario) {
+function menuSecundario() {
     const ul = document.querySelector('#navbarSupportedContent ul:last-child');
 
     console.log(ul);
@@ -192,35 +231,73 @@ function menuSecundario(usuario) {
 
     const li = document.createElement('li');
 
-    li.className = 'navbar-text';
+    if (autenticado()) {
+        const usuario = getUsuarioAutenticado();
 
-    li.innerText = usuario.nombre + ' ' + usuario.rol.nombre;
+        li.className = 'navbar-text';
 
-    ul.appendChild(li);
+        li.innerText = usuario.nombre + ' ' + usuario.rol.nombre;
 
-    const liLogout = document.createElement('li');
+        ul.appendChild(li);
 
-    liLogout.className = 'nav-item';
+        const liLogout = document.createElement('li');
 
-    liLogout.innerHTML = `<a class="nav-link" href="javascript:logout()">Cerrar sesión</a>`;
+        liLogout.className = 'nav-item';
 
-    ul.appendChild(liLogout);
+        liLogout.innerHTML = `<a class="nav-link" href="javascript:logout()">Cerrar sesión</a>`;
+
+        ul.appendChild(liLogout);
+    } else {
+        li.className = 'nav-item';
+
+        li.innerHTML = `<a class="nav-link" href="javascript:mostrar('login')">Iniciar sesión</a>`;
+
+        ul.appendChild(li);
+    }
 }
 
 function logout() {
     localStorage.clear();
 
-    const ul = document.querySelector('#navbarSupportedContent ul:last-child');
+    menuSecundario();
 
-    console.log(ul);
+    videos();
+}
 
-    ul.innerHTML = '';
+async function guardar() {
+    console.log('guardar');
 
-    const li = document.createElement('li');
+    const form = document.querySelector('#listado form');
 
-    li.className = 'nav-item';
+    const video = {
+        titulo: form.titulo.value,
+        imagenUrl: form.imagen.value,
+        descripcion: form.descripcion.value,
+        videoUrl: form.video.value,
+        usuario: getUsuarioAutenticado(),
+    }
 
-    li.innerHTML = `<a class="nav-link" href="javascript:mostrar('login')">Iniciar sesión</a>`;
+    console.log(video);
 
-    ul.appendChild(li);
+    const respuesta = await fetch(URL_VIDEOS, {
+        method: 'POST',
+        body: JSON.stringify(video),
+        headers: {
+            'Content-type': 'application/json'
+        },
+    });
+
+    const videoGuardado = await respuesta.json();
+
+    console.log(videoGuardado);
+
+    videos();
+}
+
+function getUsuarioAutenticado() {
+    return JSON.parse(localStorage.getItem('usuario'));
+}
+
+function autenticado() {
+    return !!getUsuarioAutenticado();
 }
