@@ -111,6 +111,14 @@ async function respuestas(id) {
 	
 	const liPadre = document.getElementById('c' + id);
 	
+	const ulHijo = liPadre.querySelector('ul');
+	
+	if(ulHijo) {
+		liPadre.removeChild(ulHijo);
+		
+		return;
+	}
+	
 	const ul = document.createElement('ul');
 	
 	ul.className='list-group mt-3 w-100';
