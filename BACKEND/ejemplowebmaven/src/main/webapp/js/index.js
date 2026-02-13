@@ -93,7 +93,7 @@ function rellenarComentarios(comentarios, ul) {
 						value="${c.fecha}" style="MS" /></small>
 			</div>
 			<div class="mt-2 w-100 lh-lg">${c.texto}</div>
-			<div>
+			<div class="w-100">
 				<a class="badge rounded-pill text-bg-secondary link-underline link-underline-opacity-0"
 					href="javascript:respuestas(${c.id})">${c.respuestas} respuestas</a>
 			</div>
@@ -113,7 +113,7 @@ async function respuestas(id) {
 	
 	const ul = document.createElement('ul');
 	
-	ul.className='list-group mt-3';
+	ul.className='list-group mt-3 w-100';
 	
 	rellenarComentarios(respuestas, ul);
 		
