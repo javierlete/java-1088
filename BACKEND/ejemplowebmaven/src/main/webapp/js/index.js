@@ -22,8 +22,10 @@ async function videos() {
     const tarjetas = document.querySelector('#tarjetas-videos');
 
     tarjetas.innerHTML = '';
+	
+	const usuario = getUsuarioAutenticado();
 
-    if (autenticado()) {
+    if (usuario) {
         const tarjeta = document.createElement('div');
 
         tarjeta.className = 'col';
@@ -50,7 +52,7 @@ async function videos() {
 						<div class="card-footer">
 							<small
 								class="text-body-secondary d-flex justify-content-between align-items-baseline">
-								<span>${getUsuarioAutenticado().nombre}</span> 
+								<span>${usuario.nombre}</span> 
 								<span class="card-text" style="z-index: 2">
 									<button class="btn btn-outline-primary">
 										<i class="bi bi-floppy2-fill"></i>
@@ -81,9 +83,13 @@ async function videos() {
 						href="javascript:video(${video.id})">Ver video ${video.titulo}</a>
 				</div>
 				<div class="card-footer" style="z-index: 2">
-					<small
-						class="text-body-secondary d-flex justify-content-between align-items-baseline">
+					<small class="text-body-secondary d-flex justify-content-between align-items-baseline">
 						${video.fecha} ${video.usuarioNombre}
+						${usuario?.id === video.usuarioId ? `<span class="card-text">
+							<a class="btn btn-outline-danger" href="javascript:borrar(${video.id})">
+								<i class="bi bi-trash-fill"></i>
+							</a>
+						</span>` : ''}
 					</small>
 				</div>
 			</div>
@@ -300,4 +306,12 @@ function getUsuarioAutenticado() {
 
 function autenticado() {
     return !!getUsuarioAutenticado();
+}
+
+async function borrar(id) {
+	const respuesta = await fetch(URL_VIDEOS + id, { method: 'DELETE' });
+	
+	console.log(respuesta);
+	
+	videos();
 }
