@@ -159,9 +159,6 @@ function rellenarComentarios(comentarios, ul) {
 async function respuestas(id) {
     console.log(id);
 
-    const respuestaFetch = await fetch(URL_COMENTARIOS + id + '/respuestas');
-    const respuestas = await respuestaFetch.json();
-
     const liPadre = document.getElementById('c' + id);
 
     const ulHijo = liPadre.querySelector('ul');
@@ -171,6 +168,9 @@ async function respuestas(id) {
 
         return;
     }
+
+    const respuestaFetch = await fetch(URL_COMENTARIOS + id + '/respuestas');
+    const respuestas = await respuestaFetch.json();
 
     const ul = document.createElement('ul');
 
