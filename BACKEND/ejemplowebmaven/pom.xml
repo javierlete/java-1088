@@ -12,10 +12,24 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>21</maven.compiler.release>
-		<jersey.version>4.0.2</jersey.version>
+		<jersey.version>3.1.11</jersey.version>
 	</properties>
 
 	<dependencies>
+		<!-- Source:
+		https://mvnrepository.com/artifact/io.dropwizard/dropwizard-core -->
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-auth</artifactId>
+			<version>5.0.1</version>
+		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt -->
+		<dependency>
+			<groupId>com.nimbusds</groupId>
+			<artifactId>nimbus-jose-jwt</artifactId>
+			<version>10.7</version>
+		</dependency>
 		<!-- Jersey servlet container -->
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>

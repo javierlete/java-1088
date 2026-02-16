@@ -1,5 +1,7 @@
 package com.ipartek.formacion.ejemplos.ipartube.modelos;
 
+import java.security.Principal;
+
 import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +17,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class Usuario implements Principal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -109,6 +111,11 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [id=" + id + ", imagenUrl=" + imagenUrl + ", nombre=" + nombre + ", email=" + email
 				+ ", password=" + password + ", rol=" + rol + "]";
+	}
+
+	@Override
+	public String getName() {
+		return nombre;
 	}
 
 }

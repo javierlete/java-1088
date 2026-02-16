@@ -7,8 +7,11 @@ import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.ComentarioDto;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoDetalleDto;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoListadoDto;
+import com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 
+import io.dropwizard.auth.Auth;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -45,11 +48,13 @@ public class VideoRest {
 		return ComentarioCrud.obtenerPorVideo(id);
 	}
 	
+	@RolesAllowed("USUARIO")
 	@POST
 	public Response insertar(Video video) {
 		return Response.status(Status.CREATED).entity(VideoCrud.insertar(video)).build();
 	}
 	
+	@RolesAllowed("USUARIO")
 	@PUT
 	@Path("{id}")
 	public Video modificar(@PathParam("id") Long id, Video video) {
@@ -60,9 +65,11 @@ public class VideoRest {
 		return VideoCrud.modificar(video);
 	}
 	
+	@RolesAllowed("USUARIO")
 	@DELETE
 	@Path("{id}")
-	public void borrar(@PathParam("id") Long id) {
+	public void borrar(@Auth Usuario usuario, @PathParam("id") Long id) {
+		System.out.println(usuario);
 		VideoCrud.borrar(id);
 	}
 }
