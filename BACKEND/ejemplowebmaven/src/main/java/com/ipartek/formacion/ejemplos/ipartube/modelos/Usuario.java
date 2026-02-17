@@ -15,6 +15,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+// El usuario implementa Principal para poder entrar dentro del contexto de seguridad de la aplicación
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Principal {
@@ -113,6 +115,7 @@ public class Usuario implements Principal {
 				+ ", password=" + password + ", rol=" + rol + "]";
 	}
 
+	// Implementación del método getName para poder decir el nombre del Principal
 	@Override
 	public String getName() {
 		return nombre;

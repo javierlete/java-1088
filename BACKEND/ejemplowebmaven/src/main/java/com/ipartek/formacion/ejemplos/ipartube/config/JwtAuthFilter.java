@@ -27,32 +27,43 @@ public class JwtAuthFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext ctx) {
+    	// Recogemos el texto de la cabecera de la petición recibida con la clave "Authorization"
+    	
+    	// El contenido de header será "Bearer TOKEN" donde TOKEN será la información que habremos enviado en login 
         String header = ctx.getHeaderString(HttpHeaders.AUTHORIZATION);
 
+        // Comprobamos si existe la cabecera y comienza con "Bearer "
         if (header == null || !header.startsWith("Bearer ")) {
-            abort(ctx, Response.Status.UNAUTHORIZED);
+        	// Si no viene la cabecera o no comienza con Bearer, no permitimos la operación
+            noAutorizado(ctx);
             return;
         }
 
+        // Si existe, extraemos el token de la cadena
         String token = header.substring("Bearer ".length());
 
         try {
-            Optional<Usuario> user = authenticator.authenticate(token);
+        	// Autenticamos el usuario a través del JwtAuthenticator
+            Optional<Usuario> usuario = authenticator.authenticate(token);
 
-            if (user.isEmpty()) {
-                abort(ctx, Response.Status.UNAUTHORIZED);
+            // Si no está autenticado
+            if (usuario.isEmpty()) {
+                noAutorizado(ctx);
                 return;
             }
 
+            // En el caso de que todo sea correcto, se crea un contexto de seguridad
             ctx.setSecurityContext(new SecurityContext() {
+            	// Usuario autenticado
                 @Override
                 public Principal getUserPrincipal() {
-                    return user.get();
+                    return usuario.get();
                 }
 
+                // Método para comprobar si el usuario tiene un rol determinado
                 @Override
                 public boolean isUserInRole(String role) {
-                    return role.equals(user.get().getRol().getNombre());
+                    return role.equals(usuario.get().getRol().getNombre());
                 }
 
                 @Override
@@ -67,11 +78,11 @@ public class JwtAuthFilter implements ContainerRequestFilter {
             });
 
         } catch (Exception e) {
-            abort(ctx, Response.Status.UNAUTHORIZED);
+            noAutorizado(ctx);
         }
     }
 
-    private void abort(ContainerRequestContext ctx, Response.Status status) {
-        ctx.abortWith(Response.status(status).build());
+    private void noAutorizado(ContainerRequestContext ctx) {
+        ctx.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
     }
 }
