@@ -9,7 +9,7 @@ import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import jakarta.ws.rs.ApplicationPath;
 
-@ApplicationPath("/api")
+@ApplicationPath("/api/v2")
 public class JaxRsApplication extends ResourceConfig {
 	public JaxRsApplication() {
 		packages("com.ipartek.formacion.ejemplos.ipartube.rest");
