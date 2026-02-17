@@ -70,6 +70,6 @@ public class VideoRest {
 	@Path("{id}")
 	public void borrar(@Auth Usuario usuario, @PathParam("id") Long id) {
 		System.out.println(usuario);
-		VideoCrud.borrar(id);
+		VideoCrud.borrar(usuario.getId(), id);
 	}
 }

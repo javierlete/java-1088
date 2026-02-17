@@ -22,8 +22,8 @@ async function videos() {
     const tarjetas = document.querySelector('#tarjetas-videos');
 
     tarjetas.innerHTML = '';
-	
-	const usuario = getUsuarioAutenticado();
+
+    const usuario = getUsuarioAutenticado();
 
     if (usuario) {
         const tarjeta = document.createElement('div');
@@ -194,9 +194,7 @@ async function login() {
     const respuesta = await fetch(URL_BASE + '/login', {
         method: 'POST',
         body: JSON.stringify(usuario),
-        headers: {
-            'Content-type': 'application/json'
-        },
+        headers: cabecerasFetch(),
     });
 
     if (respuesta.status === 401) {
@@ -205,11 +203,11 @@ async function login() {
         return;
     }
 
-    const usuarioRespuesta = await respuesta.json();
+    const objeto = await respuesta.json();
 
-    console.log('Respuesta login', usuarioRespuesta);
+    console.log('Respuesta login', objeto);
 
-    localStorage.setItem('usuario', JSON.stringify(usuarioRespuesta));
+    localStorage.setItem('token', objeto.token);
 
     menuSecundario();
 
@@ -288,9 +286,7 @@ async function guardar() {
     const respuesta = await fetch(URL_VIDEOS, {
         method: 'POST',
         body: JSON.stringify(video),
-        headers: {
-            'Content-type': 'application/json'
-        },
+        headers: cabecerasFetch(),
     });
 
     const videoGuardado = await respuesta.json();
@@ -301,7 +297,15 @@ async function guardar() {
 }
 
 function getUsuarioAutenticado() {
-    return JSON.parse(localStorage.getItem('usuario'));
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        return null;
+    }
+
+    const claims = JSON.parse(atob(token.split('.')[1]));
+
+    return { id: claims.id, nombre: claims.sub, rol: { nombre: claims.role } };
 }
 
 function autenticado() {
@@ -309,9 +313,19 @@ function autenticado() {
 }
 
 async function borrar(id) {
-	const respuesta = await fetch(URL_VIDEOS + id, { method: 'DELETE' });
-	
-	console.log(respuesta);
-	
-	videos();
+    const respuesta = await fetch(URL_VIDEOS + id, {
+        method: 'DELETE',
+        headers: cabecerasFetch(),
+    });
+
+    console.log(respuesta);
+
+    videos();
+}
+
+function cabecerasFetch() {
+    return {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+    };
 }

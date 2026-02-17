@@ -118,4 +118,21 @@ public class VideoCrud {
 			t.commit();
 		}
 	}
+	
+	public static void borrar(Long idUsuario, Long id) {
+		try (EntityManager em = EMF.createEntityManager()) {
+			EntityTransaction t = em.getTransaction();
+
+			t.begin();
+
+			Video video = em.createQuery("from Video v where v.id = :id and v.usuario.id = :idUsuario", Video.class)
+					.setParameter("id", id).setParameter("idUsuario", idUsuario).getSingleResultOrNull();
+
+			if (video != null) {
+				em.remove(video);
+			}
+
+			t.commit();
+		}
+	}
 }

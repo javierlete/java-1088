@@ -15,7 +15,10 @@ public class LoginRest {
 		Usuario usuarioLogueado = UsuarioCrud.obtenerPorEmail(usuarioLogin.email());
 
 		if (usuarioLogueado != null && usuarioLogueado.getPassword().equals(usuarioLogin.password())) {
-			String token = JwtUtils.generate(usuarioLogueado.getNombre(), usuarioLogueado.getRol().getNombre());
+			// Generamos el token con las JwtUtils que hemos creado
+			String token = JwtUtils.generate(usuarioLogueado.getId(), usuarioLogueado.getNombre(), usuarioLogueado.getRol().getNombre());
+			
+			// Devolvemos un json: { "token": "laksjdhl kajsdghlkahsfjlkahsdf " }
 			return new TokenResponse(token);
 		}
 
