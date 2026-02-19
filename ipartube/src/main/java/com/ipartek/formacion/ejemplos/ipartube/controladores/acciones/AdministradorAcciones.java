@@ -105,7 +105,7 @@ public class AdministradorAcciones {
 		Long id = sId.isBlank() ? null : Long.parseLong(sId);
 		LocalDateTime fecha = sFecha.isBlank() ? null : LocalDateTime.parse(sFecha);
 	
-		Long idUsuario = sId.isBlank() ? null : Long.parseLong(sIdUsuario);
+		Long idUsuario = sIdUsuario.isBlank() ? null : Long.parseLong(sIdUsuario);
 		
 		// Crear objetos con todas las partes
 	

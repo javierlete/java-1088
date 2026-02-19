@@ -74,7 +74,7 @@
 									class="bi bi-hand-thumbs-up${v.meGusta ? '-fill' : ''}"></i> ${v.numeroMeGusta}</a> <javatime:format
 									value="${v.fecha}" style="MS" /> <a
 								href="usuario?id=${v.usuario.id}">${v.usuario.nombre}</a>  <c:if
-									test="${param.id == usuario.id}">
+									test="${param.id != null && param.id == usuario.id}">
 									<span class="card-text"> <c:choose>
 											<c:when test="${param.editar == null}">
 												<a class="btn btn-outline-primary"
@@ -97,7 +97,7 @@
 					</form>
 				</div>
 			</c:forEach>
-			<c:if test="${param.id == usuario.id}">
+			<c:if test="${param.id != null && param.id == usuario.id}">
 				<div class="col">
 					<form class="card h-100" action="usuario/video/guardar"
 						method="post">
