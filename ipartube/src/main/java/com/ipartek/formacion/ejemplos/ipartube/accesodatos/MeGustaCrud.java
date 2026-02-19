@@ -1,15 +1,15 @@
 package com.ipartek.formacion.ejemplos.ipartube.accesodatos;
 
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 public class MeGustaCrud {
 
-	private static final String SQL_INSERTAR = "INSERT INTO usuarios_le_gusta_videos (usuarios_id, videos_id) VALUES (?,?)";
-	private static final String SQL_BORRAR = "DELETE FROM usuarios_le_gusta_videos WHERE usuarios_id=? AND videos_id=?";
+	private static final String SQL_INSERTAR = "CALL megusta(?,?)";
+	private static final String SQL_BORRAR = "CALL nomegusta(?,?)";
 
 	public static void insertar(Long idUsuario, Long idVideo) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_INSERTAR)) {
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_INSERTAR)) {
 			pst.setLong(1, idUsuario);
 			pst.setLong(2, idVideo);
 			
@@ -22,7 +22,7 @@ public class MeGustaCrud {
 	}
 
 	public static void borrar(Long idUsuario, Long idVideo) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_BORRAR)) {
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_BORRAR)) {
 			pst.setLong(1, idUsuario);
 			pst.setLong(2, idVideo);
 			

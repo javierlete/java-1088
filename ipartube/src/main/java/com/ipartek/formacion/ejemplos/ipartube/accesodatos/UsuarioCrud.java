@@ -9,12 +9,10 @@ import com.ipartek.formacion.ejemplos.ipartube.modelos.Rol;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario;
 
 public class UsuarioCrud {
+	private static final String SQL_SELECT = "SELECT * FROM usuarios_completos";
+
 	public static ArrayList<Usuario> obtenerTodos() {
-		try (PreparedStatement pst = JdbcHelper.prepararSql("""
-				select *
-				from usuarios
-				join roles on usuarios.roles_id = roles.id
-				"""); ResultSet rs = pst.executeQuery()) {
+		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_SELECT); ResultSet rs = pst.executeQuery()) {
 
 			ArrayList<Usuario> usuarios = new ArrayList<>();
 
@@ -22,7 +20,7 @@ public class UsuarioCrud {
 
 			while (rs.next()) {
 				usuario = filaAUsuario(rs);
-				
+
 				usuarios.add(usuario);
 			}
 
@@ -34,12 +32,7 @@ public class UsuarioCrud {
 	}
 
 	public static Usuario obtenerPorEmail(String email) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql("""
-				select *
-				from usuarios
-				join roles on usuarios.roles_id = roles.id
-				where email=?
-				""");) {
+		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_SELECT + " where u_email=?");) {
 			pst.setString(1, email);
 
 			try (ResultSet rs = pst.executeQuery()) {
@@ -58,22 +51,22 @@ public class UsuarioCrud {
 	}
 
 	private static Usuario filaAUsuario(ResultSet rs) throws SQLException {
-		String sId = rs.getString("usuarios.id");
-		String nombre = rs.getString("usuarios.nombre");
-		String imagenUrl = rs.getString("usuarios.imagen_url");
-		String email = rs.getString("usuarios.email");
-		String password = rs.getString("usuarios.password");
-	
+		String sId = rs.getString("u_id");
+		String nombre = rs.getString("u_nombre");
+		String imagenUrl = rs.getString("u_imagen_url");
+		String email = rs.getString("u_email");
+		String password = rs.getString("u_password");
+
 		Long id = Long.parseLong(sId);
-	
-		String sRolId = rs.getString("roles.id");
-		String rolNombre = rs.getString("roles.nombre");
-		String rolDescripcion = rs.getString("roles.descripcion");
-	
+
+		String sRolId = rs.getString("r_id");
+		String rolNombre = rs.getString("r_nombre");
+		String rolDescripcion = rs.getString("r_descripcion");
+
 		Long rolId = Long.parseLong(sRolId);
-	
+
 		Rol rol = new Rol(rolId, rolNombre, rolDescripcion);
-	
+
 		return new Usuario(id, imagenUrl, nombre, email, password, rol);
 	}
 

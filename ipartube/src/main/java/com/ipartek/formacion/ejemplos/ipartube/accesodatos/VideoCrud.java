@@ -1,5 +1,6 @@
 package com.ipartek.formacion.ejemplos.ipartube.accesodatos;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,44 +12,42 @@ import com.ipartek.formacion.ejemplos.ipartube.modelos.Usuario;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Video;
 
 public class VideoCrud {
-	private static final String SQL_SELECT = """
-			SELECT
-			    v.id AS v_id,
-			    v.titulo AS v_titulo,
-			    v.descripcion AS v_descripcion,
-			    v.fecha AS v_fecha,
-			    v.imagen_url AS v_imagen_url,
-			    v.video_url AS v_video_url,
-			    u.id AS u_id,
-			    u.nombre AS u_nombre,
-			    u.imagen_url AS u_imagen_url,
-			    (SELECT
-			            COUNT(*)
-			        FROM
-			            usuarios_le_gusta_videos
-			        WHERE
-			            videos_id = v_id) AS numero_me_gusta,
-			    (SELECT
-			            COUNT(*)
-			        FROM
-			            usuarios_le_gusta_videos
-			        WHERE
-			            usuarios_id = ? AND videos_id = v_id) AS me_gusta
-			FROM
-			    videos AS v
-			        JOIN
-			    usuarios AS u ON v.usuarios_id = u.id
-						""";
+	private static final String SQL_SELECT = "CALL videos_completos()";
+	private static final String SQL_SELECT_USUARIO = "CALL videos_completos_usuario(?)";
+	private static final String SQL_SELECT_ID = "CALL videos_completos_por_id(?,?)";
+	private static final String SQL_SELECT_ID_USUARIO = "CALL videos_completos_por_usuario(?)";
+
+	private static final String SQL_INSERT = "CALL videos_completos_insert(?,?,?,?,?,?)";
+	
+	private static final String SQL_UPDATE = "CALL videos_completos_update(?,?,?,?,?,?,?)";
+	private static final String SQL_UPDATE_USUARIO = "CALL videos_completos_update_usuario(?,?,?,?,?,?,?,?)";
+	
+	private static final String SQL_DELETE = "CALL videos_completos_borrar(?)";
+	private static final String SQL_DELETE_ID_USUARIO = "CALL videos_completos_borrar_usuario(?,?)";
 
 	public static ArrayList<Video> obtenerTodos() {
-		return obtenerTodos(null);
-	}
-
-	public static ArrayList<Video> obtenerTodos(Long idUsuario) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_SELECT)) {
-			pst.setObject(1, idUsuario);
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_SELECT)) {
 			ResultSet rs = pst.executeQuery();
 			
+			ArrayList<Video> videos = new ArrayList<>();
+			
+			while (rs.next()) {
+				Video video = filaAVideo(rs);
+				
+				videos.add(video);
+			}
+			
+			return videos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static ArrayList<Video> obtenerTodos(Long idUsuario) {
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_SELECT_USUARIO)) {
+			pst.setObject(1, idUsuario);
+			ResultSet rs = pst.executeQuery();
+
 			ArrayList<Video> videos = new ArrayList<>();
 
 			while (rs.next()) {
@@ -65,7 +64,7 @@ public class VideoCrud {
 	}
 
 	public static Video obtenerPorId(Long id) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_SELECT + "WHERE v.id=?");) {
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_SELECT_ID);) {
 			pst.setObject(1, null);
 			pst.setLong(2, id);
 
@@ -85,9 +84,8 @@ public class VideoCrud {
 	}
 
 	public static ArrayList<Video> obtenerPorIdUsuario(Long idUsuario) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql(SQL_SELECT + "WHERE u.id=?");) {
-			pst.setObject(1, null);
-			pst.setLong(2, idUsuario);
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_SELECT_ID_USUARIO);) {
+			pst.setLong(1, idUsuario);
 
 			try (ResultSet rs = pst.executeQuery()) {
 				ArrayList<Video> videos = new ArrayList<>();
@@ -109,7 +107,7 @@ public class VideoCrud {
 	}
 
 	public static void borrar(Long id) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql("delete from videos where id=?");) {
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_DELETE);) {
 			pst.setLong(1, id);
 
 			pst.executeUpdate();
@@ -119,7 +117,7 @@ public class VideoCrud {
 	}
 
 	public static boolean borrar(Long id, Long idUsuario) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql("delete from videos where id=? AND usuarios_id=?");) {
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_DELETE_ID_USUARIO);) {
 			pst.setLong(1, id);
 			pst.setLong(2, idUsuario);
 
@@ -133,8 +131,7 @@ public class VideoCrud {
 	}
 
 	public static void insertar(Video video) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql(
-				"insert into videos (titulo, descripcion, imagen_url, fecha, video_url, usuarios_id) VALUES (?,?,?,?,?,?)");) {
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_INSERT);) {
 			videoAFila(video, pst);
 
 			pst.executeUpdate();
@@ -144,8 +141,7 @@ public class VideoCrud {
 	}
 
 	public static void modificar(Video video) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql(
-				"update videos set titulo=?, descripcion=?, imagen_url=?, fecha=?, video_url=?, usuarios_id=? where id=?");) {
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_UPDATE);) {
 			videoAFila(video, pst);
 
 			pst.executeUpdate();
@@ -155,8 +151,7 @@ public class VideoCrud {
 	}
 
 	public static boolean modificar(Video video, Long idUsuario) {
-		try (PreparedStatement pst = JdbcHelper.prepararSql(
-				"update videos set titulo=?, descripcion=?, imagen_url=?, fecha=?, video_url=?, usuarios_id=? where id=? AND usuarios_id=?");) {
+		try (CallableStatement pst = JdbcHelper.procedimientoSql(SQL_UPDATE_USUARIO);) {
 			videoAFila(video, idUsuario, pst);
 
 			int numeroRegistrosModificados = pst.executeUpdate();
