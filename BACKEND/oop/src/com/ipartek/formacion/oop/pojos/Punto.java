@@ -6,6 +6,15 @@ public class Punto {
 	private double distancia;
 	private double angulo;
 
+	public Punto(int x, int y) {
+		setX(x);
+		setY(y);
+	}
+
+	public Punto() {
+		this(0, 0);
+	}
+
 	public int getX() {
 		return (int) round(distancia * cos(toRadians(angulo)));
 	}
@@ -46,6 +55,6 @@ public class Punto {
 
 	@Override
 	public String toString() {
-		return "Punto [distancia=" + distancia + ", angulo=" + angulo + "]";
+		return String.format("Punto [x=%s, y=%s, distancia=%s, angulo=%s]", getX(), getY(), distancia, angulo);
 	}
 }
