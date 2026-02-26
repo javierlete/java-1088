@@ -1,16 +1,12 @@
 package com.ipartek.formacion.oop.pojos;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 
 public class Colecciones {
 	public static void main(String[] args) {
-		Collection<String> coleccion = new ArrayList<>();
-		
-		coleccion.add("Uno");
-		coleccion.add("Dos");
-		coleccion.add("Tres");
+		Collection<String> coleccion = Set.of("Uno", "Dos", "Tres");
 		
 		Iterable<String> iterable = coleccion;
 		
