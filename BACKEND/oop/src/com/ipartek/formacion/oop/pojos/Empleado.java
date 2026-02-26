@@ -1,10 +1,11 @@
 package com.ipartek.formacion.oop.pojos;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Empleado extends Persona {
-	private String dni;
+public abstract class Empleado extends Persona {
+	protected String dni;
 
 	public Empleado(Long id, String nombre, LocalDate fechaNacimiento, String dni) {
 		super(id, nombre, fechaNacimiento);
@@ -15,6 +16,8 @@ public class Empleado extends Persona {
 		this(null, nombre, fechaNacimiento, dni);
 	}
 
+	public abstract BigDecimal getSueldoMensual();
+	
 	public String getDni() {
 		return dni;
 	}
