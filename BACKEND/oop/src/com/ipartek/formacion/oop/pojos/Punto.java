@@ -2,7 +2,10 @@ package com.ipartek.formacion.oop.pojos;
 
 import static java.lang.Math.*;
 
-public class Punto {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class Punto implements Iterable<Integer> {
 	private double distancia;
 	private double angulo;
 
@@ -56,5 +59,29 @@ public class Punto {
 	@Override
 	public String toString() {
 		return String.format("Punto [x=%s, y=%s, distancia=%s, angulo=%s]", getX(), getY(), distancia, angulo);
+	}
+
+	@Override
+	public Iterator<Integer> iterator() {
+		return new Iterador();
+	}
+
+	private class Iterador implements Iterator<Integer> {
+		private int contador = 0;
+
+		@Override
+		public boolean hasNext() {
+			return contador < 2;
+		}
+
+		@Override
+		public Integer next() {
+			return switch (contador++) {
+			case 0 -> getX();
+			case 1 -> getY();
+			default -> throw new NoSuchElementException();
+			};
+		}
+
 	}
 }
