@@ -63,25 +63,22 @@ public class Punto implements Iterable<Integer> {
 
 	@Override
 	public Iterator<Integer> iterator() {
-		return new Iterador();
-	}
+		return new Iterator<Integer>() {
+			private int contador = 0;
 
-	private class Iterador implements Iterator<Integer> {
-		private int contador = 0;
+			@Override
+			public boolean hasNext() {
+				return contador < 2;
+			}
 
-		@Override
-		public boolean hasNext() {
-			return contador < 2;
-		}
-
-		@Override
-		public Integer next() {
-			return switch (contador++) {
-			case 0 -> getX();
-			case 1 -> getY();
-			default -> throw new NoSuchElementException();
-			};
-		}
-
+			@Override
+			public Integer next() {
+				return switch (contador++) {
+				case 0 -> getX();
+				case 1 -> getY();
+				default -> throw new NoSuchElementException();
+				};
+			}
+		};
 	}
 }
