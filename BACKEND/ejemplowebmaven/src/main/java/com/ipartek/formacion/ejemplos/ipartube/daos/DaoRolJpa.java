@@ -2,12 +2,13 @@ package com.ipartek.formacion.ejemplos.ipartube.daos;
 
 import java.util.Optional;
 
+import com.ipartek.formacion.ejemplos.bibliotecas.dao.DaoFabricaJpa;
 import com.ipartek.formacion.ejemplos.bibliotecas.dao.DaoJpa;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Rol;
 
 public class DaoRolJpa implements DaoRol {
 
-	private static final DaoJpa dao = new DaoJpa("com.ipartek.formacion.ejemplos.ipartube.modelos");
+	private static final DaoJpa dao = DaoFabricaJpa.getDaoJpa("daojpa.rol");
 
 	public Iterable<Rol> obtenerTodos() {
 		return dao.ejecutarJpa(em -> em.createQuery("from Rol", Rol.class).getResultList());
