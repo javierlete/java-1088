@@ -10,7 +10,7 @@ import jakarta.persistence.Persistence;
 public class DaoJpa {
 	private final EntityManagerFactory entityManagerFactory;
 
-	public DaoJpa(String unidadPersistencia) {
+	DaoJpa(String unidadPersistencia) {
 		entityManagerFactory = Persistence.createEntityManagerFactory(unidadPersistencia);
 	}
 
