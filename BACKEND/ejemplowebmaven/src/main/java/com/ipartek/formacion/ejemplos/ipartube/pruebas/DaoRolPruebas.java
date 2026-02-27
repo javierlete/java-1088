@@ -2,12 +2,12 @@ package com.ipartek.formacion.ejemplos.ipartube.pruebas;
 
 import java.util.Optional;
 
+import com.ipartek.formacion.ejemplos.bibliotecas.fabrica.Fabrica;
 import com.ipartek.formacion.ejemplos.ipartube.daos.DaoRol;
-import com.ipartek.formacion.ejemplos.ipartube.daos.DaoRolJpa;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Rol;
 
 public class DaoRolPruebas {
-	private static final DaoRol DAO = new DaoRolJpa();
+	private static final DaoRol DAO = (DaoRol) Fabrica.getObjeto("dao.rol");
 	
 	public static void main(String[] args) {
 		DAO.insertar(new Rol(null, "ADMIN", "Administradores de la aplicación"));
