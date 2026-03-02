@@ -1,9 +1,10 @@
 package com.ipartek.formacion.ejemplos.ipartube.rest;
 
-import java.util.List;
+import java.util.Optional;
 
-import com.ipartek.formacion.ejemplos.ipartube.accesodatos.ComentarioCrud;
-import com.ipartek.formacion.ejemplos.ipartube.accesodatos.VideoCrud;
+import com.ipartek.formacion.ejemplos.bibliotecas.fabrica.Fabrica;
+import com.ipartek.formacion.ejemplos.ipartube.daos.DaoComentario;
+import com.ipartek.formacion.ejemplos.ipartube.daos.DaoVideo;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.ComentarioDto;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoDetalleDto;
 import com.ipartek.formacion.ejemplos.ipartube.dtos.VideoListadoDto;
@@ -25,33 +26,36 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Path("/videos")
 public class VideoRest {
+	private static final DaoVideo DAO_VIDEO = (DaoVideo) Fabrica.getObjeto("dao.video");
+	private static final DaoComentario DAO_COMENTARIO= (DaoComentario) Fabrica.getObjeto("dao.comentario");
+	
 	@GET
-	public List<VideoListadoDto> obtenerTodos() {
-		return VideoCrud.obtenerTodosDto();
+	public Iterable<VideoListadoDto> obtenerTodos() {
+		return DAO_VIDEO.obtenerTodosDto();
 	}
 	
 	@GET
 	@Path("{id}")
 	public VideoDetalleDto obtenerPorId(@PathParam("id") Long id) {
-		VideoDetalleDto video = VideoCrud.obtenerPorIdDto(id);
+		Optional<VideoDetalleDto> video = DAO_VIDEO.obtenerPorIdDto(id);
 		
-		if(video == null) {
+		if(video.isEmpty()) {
 			throw new NotFoundException();
 		}
 		
-		return video;
+		return video.get();
 	}
 	
 	@GET
 	@Path("{id}/comentarios")
-	public List<ComentarioDto> obtenerPorIdVideo(@PathParam("id") Long id) {
-		return ComentarioCrud.obtenerPorVideo(id);
+	public Iterable<ComentarioDto> obtenerPorIdVideo(@PathParam("id") Long id) {
+		return DAO_COMENTARIO.obtenerPorVideoDto(id);
 	}
 	
 	@RolesAllowed("USUARIO")
 	@POST
 	public Response insertar(Video video) {
-		return Response.status(Status.CREATED).entity(VideoCrud.insertar(video)).build();
+		return Response.status(Status.CREATED).entity(DAO_VIDEO.insertar(video)).build();
 	}
 	
 	@RolesAllowed("USUARIO")
@@ -62,7 +66,7 @@ public class VideoRest {
 			throw new BadRequestException();
 		}
 		
-		return VideoCrud.modificar(video);
+		return DAO_VIDEO.modificar(video);
 	}
 	
 	@RolesAllowed("USUARIO")
@@ -70,6 +74,6 @@ public class VideoRest {
 	@Path("{id}")
 	public void borrar(@Auth Usuario usuario, @PathParam("id") Long id) {
 		System.out.println(usuario);
-		VideoCrud.borrar(usuario.getId(), id);
+		DAO_VIDEO.borrar(usuario.getId(), id);
 	}
 }
