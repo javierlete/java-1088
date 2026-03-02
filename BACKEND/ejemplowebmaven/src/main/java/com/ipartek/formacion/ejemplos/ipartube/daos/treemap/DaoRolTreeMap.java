@@ -1,8 +1,9 @@
-package com.ipartek.formacion.ejemplos.ipartube.daos;
+package com.ipartek.formacion.ejemplos.ipartube.daos.treemap;
 
 import java.util.Optional;
 import java.util.TreeMap;
 
+import com.ipartek.formacion.ejemplos.ipartube.daos.DaoRol;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Rol;
 
 public class DaoRolTreeMap implements DaoRol {

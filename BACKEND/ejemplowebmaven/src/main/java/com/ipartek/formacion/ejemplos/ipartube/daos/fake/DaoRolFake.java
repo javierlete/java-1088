@@ -1,8 +1,9 @@
-package com.ipartek.formacion.ejemplos.ipartube.daos;
+package com.ipartek.formacion.ejemplos.ipartube.daos.fake;
 
 import java.util.List;
 import java.util.Optional;
 
+import com.ipartek.formacion.ejemplos.ipartube.daos.DaoRol;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Rol;
 
 public class DaoRolFake implements DaoRol {

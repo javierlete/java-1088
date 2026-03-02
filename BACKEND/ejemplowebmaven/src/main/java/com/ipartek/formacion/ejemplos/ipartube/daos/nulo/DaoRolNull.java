@@ -1,8 +1,9 @@
-package com.ipartek.formacion.ejemplos.ipartube.daos;
+package com.ipartek.formacion.ejemplos.ipartube.daos.nulo;
 
 import java.util.List;
 import java.util.Optional;
 
+import com.ipartek.formacion.ejemplos.ipartube.daos.DaoRol;
 import com.ipartek.formacion.ejemplos.ipartube.modelos.Rol;
 
 public class DaoRolNull implements DaoRol {
