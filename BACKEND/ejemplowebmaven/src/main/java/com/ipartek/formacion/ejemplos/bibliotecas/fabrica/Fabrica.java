@@ -3,6 +3,8 @@ package com.ipartek.formacion.ejemplos.bibliotecas.fabrica;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import com.ipartek.formacion.ejemplos.bibliotecas.dao.DaoException;
@@ -10,6 +12,7 @@ import com.ipartek.formacion.ejemplos.bibliotecas.dao.DaoFabricaJpa;
 
 public class Fabrica {
 	private static final Properties p = new Properties();
+	private static final Map<String, Object> objetos = new HashMap<>();
 
 	static {
 		try {
@@ -23,12 +26,18 @@ public class Fabrica {
 		String nombreClase = null;
 
 		try {
-			nombreClase = p.getProperty(clave);
+			nombreClase = p.getProperty(clave); // "com.ipartek.formacion.ejemplos.ipartube.daos.DaoRolJpa"
+			
+			if(objetos.containsKey(nombreClase)) {
+				return objetos.get(nombreClase);
+			}
 
-			Class<?> clase = Class.forName(nombreClase);
-			Constructor<?> constructor = clase.getConstructor();
-			Object objeto = constructor.newInstance();
+			Class<?> clase = Class.forName(nombreClase); // com.ipartek.formacion.ejemplos.ipartube.daos.DaoRolJpa
+			Constructor<?> constructor = clase.getConstructor(); // com.ipartek.formacion.ejemplos.ipartube.daos.DaoRolJpa()
+			Object objeto = constructor.newInstance(); // new com.ipartek.formacion.ejemplos.ipartube.daos.DaoRolJpa()
 
+			objetos.put(nombreClase, objeto);
+			
 			return objeto;
 		} catch (ClassNotFoundException e) {
 			throw new FabricaException("No se ha encontrado la clase " + nombreClase, e);
