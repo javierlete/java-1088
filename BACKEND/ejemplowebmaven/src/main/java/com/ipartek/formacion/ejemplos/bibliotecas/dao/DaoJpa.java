@@ -15,8 +15,10 @@ public class DaoJpa {
 	}
 
 	public <R> R ejecutarJpa(Function<EntityManager, R> funcion) {
+		EntityTransaction t = null;
+		
 		try (EntityManager em = entityManagerFactory.createEntityManager()) {
-			EntityTransaction t = em.getTransaction();
+			t = em.getTransaction();
 
 			t.begin();
 
@@ -26,6 +28,10 @@ public class DaoJpa {
 
 			return resultado;
 		} catch(Exception e) {
+			if(t != null) {
+				t.rollback();
+			}
+			
 			throw new DaoException("Error en la operación de JPA", e);
 		}
 	}
