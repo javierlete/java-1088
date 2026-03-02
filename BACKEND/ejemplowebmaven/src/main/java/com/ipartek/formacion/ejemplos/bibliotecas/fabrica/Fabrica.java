@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.ipartek.formacion.ejemplos.bibliotecas.dao.DaoException;
-import com.ipartek.formacion.ejemplos.bibliotecas.dao.DaoFabricaJpa;
 
 public class Fabrica {
 	private static final Properties p = new Properties();
@@ -16,7 +15,7 @@ public class Fabrica {
 
 	static {
 		try {
-			p.load(DaoFabricaJpa.class.getResourceAsStream("/configuracion.properties"));
+			p.load(Fabrica.class.getResourceAsStream("/configuracion.properties"));
 		} catch (IOException e) {
 			throw new DaoException("No se ha podido leer el fichero de configuración", e);
 		}
