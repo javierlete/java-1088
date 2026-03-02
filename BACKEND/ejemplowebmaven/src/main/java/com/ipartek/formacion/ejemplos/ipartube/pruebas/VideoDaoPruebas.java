@@ -20,6 +20,8 @@ public class VideoDaoPruebas {
 	private static final DaoComentario DAO_COMENTARIO= (DaoComentario) Fabrica.getObjeto("dao.comentario");
 	
 	public static void main(String[] args) {
+		System.out.println("VIDEO DAO PRUEBAS");
+		
 		Rol rol = new Rol(null, "USUARIO", "Usuarios");
 		DAO_ROL.insertar(rol);
 
