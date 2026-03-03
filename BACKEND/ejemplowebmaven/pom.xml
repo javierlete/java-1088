@@ -17,6 +17,14 @@
 
 	<dependencies>
 		<!-- Source:
+		https://mvnrepository.com/artifact/io.github.classgraph/classgraph -->
+		<dependency>
+			<groupId>io.github.classgraph</groupId>
+			<artifactId>classgraph</artifactId>
+			<version>4.8.184</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
 		https://mvnrepository.com/artifact/io.dropwizard/dropwizard-core -->
 		<dependency>
 			<groupId>io.dropwizard</groupId>
@@ -94,6 +102,14 @@
 			<artifactId>jakarta.servlet-api</artifactId>
 			<version>6.0.0</version>
 			<scope>provided</scope>
+		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/jakarta.servlet.jsp/jakarta.servlet.jsp-api -->
+		<dependency>
+			<groupId>jakarta.servlet.jsp</groupId>
+			<artifactId>jakarta.servlet.jsp-api</artifactId>
+			<version>4.0.0</version>
+			<scope>compile</scope>
 		</dependency>
 		<!-- Source:
 		https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
