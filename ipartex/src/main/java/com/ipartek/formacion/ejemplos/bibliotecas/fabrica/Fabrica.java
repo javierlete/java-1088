@@ -46,7 +46,7 @@ public class Fabrica {
 			throw new FabricaException("No se ha podido acceder al constructor vacío de la clase " + nombreClase, e);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			throw new FabricaException("No se ha podido invocar el constructor vació de la clase " + nombreClase, e);
+			throw new FabricaException("No se ha podido invocar el constructor vacío de la clase " + nombreClase, e);
 		}
 	}
 }

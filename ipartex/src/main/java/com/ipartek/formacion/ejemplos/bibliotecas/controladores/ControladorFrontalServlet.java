@@ -68,7 +68,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 	private String ejecutarAccion(String ruta, Map<String, String[]> entrada, Map<String, Object> salida,
 			Map<String, Object> sesionEntrada, Map<String, Object> sesionSalida) {
 		try (ScanResult scan = new ClassGraph().enableAllInfo()
-				.acceptPackages("com.ipartek.formacion.ejemplos.ipartube.acciones").scan()) {
+				.acceptPackages("com.ipartek.formacion.ejemplos.ipartex.presentacion.acciones").scan()) {
 
 			// Buscamos las clases que contienen métodos con @Ruta
 			for (ClassInfo ci : scan.getClassesWithMethodAnnotation(Ruta.class)) {
