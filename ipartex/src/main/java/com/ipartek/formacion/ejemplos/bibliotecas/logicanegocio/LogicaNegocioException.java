@@ -6,6 +6,7 @@ import java.util.Set;
 import com.ipartek.formacion.ejemplos.bibliotecas.validaciones.Validacion;
 
 import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 public class LogicaNegocioException extends RuntimeException {
 
@@ -32,6 +33,11 @@ public class LogicaNegocioException extends RuntimeException {
 
 	public LogicaNegocioException(String message, Throwable cause) {
 		super(message, cause);
+		
+		if(cause.getCause() instanceof ConstraintViolationException cve) {
+			Set<ConstraintViolation<?>> errores = cve.getConstraintViolations();
+			this.errores = Validacion.constraintViolationsAErrores(errores);
+		}
 	}
 
 	public LogicaNegocioException(String message) {
