@@ -10,6 +10,10 @@
 <body>
 
 <ul>
+	<li><a href="login">Iniciar sesión</a></li>
+	<li><a href="registrar">Registrarse</a></li>
+</ul>
+<ul>
 	<c:forEach items="${mensajes}" var="m">
 		<li>
 			${m.usuario.nombre} - ${m.fechaHora} - ${m.texto}

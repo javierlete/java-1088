@@ -14,6 +14,16 @@ public class AnonimoNegocioImpl implements AnonimoNegocio {
 	private final DaoUsuario daoUsuario = (DaoUsuario) Fabrica.getObjeto("dao.usuario"); 
 	
 	@Override
+	public Iterable<Mensaje> listarMensajes() {
+		return daoMensaje.obtenerTodos();
+	}
+
+	@Override
+	public Usuario registrar(Usuario usuario) {
+		return daoUsuario.insertar(usuario);
+	}
+
+	@Override
 	public Optional<Usuario> autenticar(String email, String password) {
 		Optional<Usuario> usuario = daoUsuario.obtenerPorEmail(email);
 		
@@ -22,11 +32,6 @@ public class AnonimoNegocioImpl implements AnonimoNegocio {
 		} else {
 			return Optional.empty();
 		}
-	}
-
-	@Override
-	public Iterable<Mensaje> listarMensajes() {
-		return daoMensaje.obtenerTodos();
 	}
 
 }
