@@ -3,9 +3,9 @@ package com.ipartek.formacion.ejemplos.ipartex.presentacion.acciones;
 import com.ipartek.formacion.ejemplos.bibliotecas.controladores.Modelo;
 import com.ipartek.formacion.ejemplos.bibliotecas.controladores.Ruta;
 import com.ipartek.formacion.ejemplos.bibliotecas.fabrica.Fabrica;
+import com.ipartek.formacion.ejemplos.bibliotecas.logicanegocio.LogicaNegocioException;
 import com.ipartek.formacion.ejemplos.ipartex.entidades.Usuario;
 import com.ipartek.formacion.ejemplos.ipartex.logicanegocio.AnonimoNegocio;
-import com.ipartek.formacion.ejemplos.ipartex.logicanegocio.LogicaNegocioException;
 
 public class AnonimoAcciones {
 	private static final AnonimoNegocio NEGOCIO = (AnonimoNegocio) Fabrica.getObjeto("negocio.anonimo");

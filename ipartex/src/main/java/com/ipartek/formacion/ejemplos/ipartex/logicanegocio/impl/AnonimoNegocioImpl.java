@@ -5,12 +5,12 @@ import java.util.Set;
 
 import com.ipartek.formacion.ejemplos.bibliotecas.dao.DaoException;
 import com.ipartek.formacion.ejemplos.bibliotecas.fabrica.Fabrica;
+import com.ipartek.formacion.ejemplos.bibliotecas.logicanegocio.LogicaNegocioException;
 import com.ipartek.formacion.ejemplos.ipartex.accesodatos.DaoMensaje;
 import com.ipartek.formacion.ejemplos.ipartex.accesodatos.DaoUsuario;
 import com.ipartek.formacion.ejemplos.ipartex.entidades.Mensaje;
 import com.ipartek.formacion.ejemplos.ipartex.entidades.Usuario;
 import com.ipartek.formacion.ejemplos.ipartex.logicanegocio.AnonimoNegocio;
-import com.ipartek.formacion.ejemplos.ipartex.logicanegocio.LogicaNegocioException;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

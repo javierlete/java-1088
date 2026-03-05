@@ -1,24 +1,27 @@
-package com.ipartek.formacion.ejemplos.ipartex.logicanegocio;
+package com.ipartek.formacion.ejemplos.bibliotecas.logicanegocio;
 
+import java.util.Map;
 import java.util.Set;
+
+import com.ipartek.formacion.ejemplos.bibliotecas.validaciones.Validacion;
 
 import jakarta.validation.ConstraintViolation;
 
 public class LogicaNegocioException extends RuntimeException {
 
-	private Set<ConstraintViolation<?>> errores;
+	private Map<String, String> errores;
 	
 	public LogicaNegocioException() {
 		super();
 	}
 
-	public Set<ConstraintViolation<?>> getErrores() {
+	public Map<String, String> getErrores() {
 		return errores;
 	}
 
 	public LogicaNegocioException(Set<ConstraintViolation<?>> errores, String message, Throwable cause) {
 		super(message, cause);
-		this.errores = errores;
+		this.errores = Validacion.constraintViolationsAErrores(errores);
 	}
 
 	public LogicaNegocioException(String message, Throwable cause, boolean enableSuppression,
