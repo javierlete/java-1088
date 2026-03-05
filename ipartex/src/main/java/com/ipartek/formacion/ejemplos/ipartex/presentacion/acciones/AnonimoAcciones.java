@@ -37,9 +37,11 @@ public class AnonimoAcciones {
 		try {
 			NEGOCIO.registrar(usuario);
 		} catch (LogicaNegocioException lne) {
+			// Empaquetar modelo para la siguiente vista
 			modelo.salida().put("usuario", usuario);
 			modelo.salida().put("errores", lne.getErrores());
 
+			// Saltar a la siguiente vista
 			return "registrar";
 		}
 		
