@@ -10,4 +10,9 @@ public class DaoMensajeJpa extends DaoJpa<Mensaje> implements DaoMensaje {
 		super(Mensaje.class, "com.ipartek.formacion.ejemplos.ipartex.entidades");
 	}
 	
+	@Override
+	public Iterable<Mensaje> obtenerTodos() {
+		return ejecutarJpa(em -> em.createQuery("from Mensaje m order by m.fechaHora desc", Mensaje.class).getResultList());
+	}
+	
 }
