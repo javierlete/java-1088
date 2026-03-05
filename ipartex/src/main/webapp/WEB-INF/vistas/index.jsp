@@ -10,6 +10,7 @@
 <body>
 
 <ul>
+	<li>${usuario.nombre}</li>
 	<li><a href="login">Iniciar sesión</a></li>
 	<li><a href="registrar">Registrarse</a></li>
 </ul>
