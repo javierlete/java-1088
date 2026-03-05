@@ -61,7 +61,11 @@ public class ControladorFrontalServlet extends HttpServlet {
 		sesionSalida.forEach((clave, valor) -> session.setAttribute(clave, valor));
 
 		// Saltar a la siguiente vista
-		request.getRequestDispatcher("/WEB-INF/vistas/" + rutaDestino + ".jsp").forward(request, response);
+		if (rutaDestino.startsWith("redirect:/")) {
+			response.sendRedirect(request.getContextPath() + rutaDestino.replace("redirect:/", "/cf/"));
+		} else {
+			request.getRequestDispatcher("/WEB-INF/vistas/" + rutaDestino + ".jsp").forward(request, response);
+		}
 
 	}
 
@@ -75,14 +79,14 @@ public class ControladorFrontalServlet extends HttpServlet {
 
 				// Sacamos la información de cada método de esas clases
 				for (MethodInfo mi : ci.getMethodInfo()) {
-				
+
 					// Si ese método tiene @Ruta y la @Ruta(value) es igual que la ruta recibida...
 					if (mi.hasAnnotation(Ruta.class)
 							&& ruta.equals(mi.getAnnotationInfo(Ruta.class).getParameterValues().getValue("value"))) {
-					
+
 						// ... obtenemos el método de Reflection
 						Method m = mi.loadClassAndGetMethod();
-						
+
 						// ... y lo invocamos
 						return (String) m.invoke(null, new Modelo(entrada, salida, sesionEntrada, sesionSalida));
 					}
