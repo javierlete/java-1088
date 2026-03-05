@@ -2,6 +2,7 @@ package com.ipartek.formacion.ejemplos.ipartex.entidades;
 
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class Usuario {
 	@NotBlank
 	@Email
 	@Size(max = 255)
+	@Column(unique = true)
 	private String email;
 
 	@NotBlank
