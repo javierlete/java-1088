@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,15 +11,26 @@
 
 	<ul>
 		<c:forEach items="${errores}" var="e">
-			<li><strong>${e.propertyPath}</strong> ${e.message} </li>
+			<li><strong>${e.key}</strong> ${e.value}</li>
 		</c:forEach>
 	</ul>
 
 	<form action="registrar-post" method="post">
-		<input name="nombre" placeholder="Nombre" value="${usuario.nombre}">
-		<input name="email" placeholder="Correo electrónico" value="${usuario.email}">
-		<input name="password" placeholder="Contraseña" value="${usuario.password}">
-		
+		<div>
+			<input name="nombre" placeholder="Nombre" value="${usuario.nombre}">
+			<p>${errores.nombre}</p>
+		</div>
+		<div>
+			<input name="email" placeholder="Correo electrónico"
+				value="${usuario.email}">
+			<p>${errores.email}</p>
+		</div>
+		<div>
+			<input name="password" placeholder="Contraseña"
+				value="${usuario.password}">
+			<p>${errores.password}</p>
+		</div>
+
 		<button>Registrarse</button>
 	</form>
 
