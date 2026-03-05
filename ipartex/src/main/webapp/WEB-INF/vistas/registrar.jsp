@@ -26,8 +26,7 @@
 			<p>${errores.email}</p>
 		</div>
 		<div>
-			<input name="password" placeholder="Contraseña"
-				value="${usuario.password}">
+			<input name="password" placeholder="Contraseña">
 			<p>${errores.password}</p>
 		</div>
 
