@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
@@ -22,6 +23,24 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/cf/*")
 public class ControladorFrontalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private final String paqueteRutas;
+
+	public ControladorFrontalServlet() {
+		try {
+			Properties props = new Properties();
+			props.load(ControladorFrontalServlet.class.getResourceAsStream("/configuracion.properties"));
+
+			paqueteRutas = props.getProperty("cf.paqueterutas");
+			
+		} catch (Exception e) {
+			throw new ControladorFrontalException("No se ha podido cargar el configuracion.properties", e);
+		}
+
+		if(paqueteRutas == null) {
+			throw new ControladorFrontalException("No se ha encontrado la ruta de paquetes en el configuracion.properties cf.paqueterutas");
+		}
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -71,8 +90,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 
 	private String ejecutarAccion(String ruta, Map<String, String[]> entrada, Map<String, Object> salida,
 			Map<String, Object> sesionEntrada, Map<String, Object> sesionSalida) {
-		try (ScanResult scan = new ClassGraph().enableAllInfo()
-				.acceptPackages("com.ipartek.formacion.ejemplos.ipartex.presentacion.acciones").scan()) {
+		try (ScanResult scan = new ClassGraph().enableAllInfo().acceptPackages(paqueteRutas).scan()) {
 
 			// Buscamos las clases que contienen métodos con @Ruta
 			for (ClassInfo ci : scan.getClassesWithMethodAnnotation(Ruta.class)) {
