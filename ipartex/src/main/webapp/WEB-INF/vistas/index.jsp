@@ -1,35 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
-<ul>
-	<li>${usuario.nombre}</li>
-	<li><a href="login">Iniciar sesión</a></li>
-	<li><a href="registrar">Registrarse</a></li>
-</ul>
+<c:if test="${usuario != null}">
+	<form class="mb-5" action="usuario/nuevo-mensaje" method="post">
+		<textarea class="form-control mb-3" name="texto" placeholder="Mensaje"></textarea>
 
-<form action="usuario/nuevo-mensaje" method="post">
-	<textarea name="texto" placeholder="Mensaje"></textarea>
-	
-	<button>Enviar</button>
-</form>
+		<button class="btn btn-primary">Enviar</button>
+	</form>
+</c:if>
 
-<ul>
+<ul class="list-group list-group">
 	<c:forEach items="${mensajes}" var="m">
-		<li>
-			<p>${m.usuario.nombre} - <javatime:format value="${m.fechaHora}" pattern="dd/MM/yyyy HH:mm"/></p>
-			<pre>${m.texto}</pre>
+		<li
+			class="list-group-item d-flex justify-content-between align-items-start">
+			<div class="ms-2 me-auto">
+				<div class="fw-bold">${m.usuario.nombre}</div>
+				<pre>${m.texto}</pre>
+			</div> <span class="badge text-bg-primary rounded-pill"><javatime:format
+					value="${m.fechaHora}" pattern="dd/MM/yyyy HH:mm" /></span>
 		</li>
 	</c:forEach>
 </ul>
 
-</body>
-</html>
+<%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>
