@@ -3,7 +3,6 @@ package com.ipartek.formacion.ejemplos.ipartexspring.entidades;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +27,6 @@ public class Mensaje {
 
 	@NotNull
 	@PastOrPresent
-	@Column(name = "fecha_hora")
 	private LocalDateTime fechaHora;
 
 	@NotNull
