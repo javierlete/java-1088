@@ -19,7 +19,7 @@ public class AnonimoController {
 	@Autowired
 	private AnonimoService anonimoService;
 
-	@GetMapping("/index")
+	@GetMapping({"/", "/index"})
 	public String index(Model modelo) {
 		modelo.addAttribute("mensajes", anonimoService.listarMensajes());
 
