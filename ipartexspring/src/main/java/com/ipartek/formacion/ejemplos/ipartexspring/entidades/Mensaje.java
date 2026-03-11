@@ -27,7 +27,7 @@ public class Mensaje {
 
 	@NotNull
 	@PastOrPresent
-	private LocalDateTime fechaHora;
+	private LocalDateTime fechaHora = LocalDateTime.now();
 
 	@NotNull
 	@ManyToOne
