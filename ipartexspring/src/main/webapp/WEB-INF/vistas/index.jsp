@@ -2,13 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
-<c:if test="${usuario != null}">
+<sec:authorize access="isAuthenticated()">
 	<form class="mb-5" action="usuario/nuevo-mensaje" method="post">
 		<textarea class="form-control mb-3" name="texto" placeholder="Mensaje"></textarea>
 
 		<button class="btn btn-primary">Enviar</button>
 	</form>
-</c:if>
+</sec:authorize>
 
 <ul class="list-group list-group">
 	<c:forEach items="${mensajes}" var="m">

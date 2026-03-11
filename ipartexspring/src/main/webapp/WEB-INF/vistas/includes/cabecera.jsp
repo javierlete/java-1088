@@ -3,6 +3,8 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!DOCTYPE html>
 <html class="h-100" lang="es">
 <head>
@@ -34,18 +36,21 @@
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a></li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-sm-0">
-					<c:if test="${sessionScope.usuario != null}">
-						<li class="navbar-text">${sessionScope.usuario.nombre}</li>
+					<sec:authorize access="isAuthenticated()">
+						<li class="navbar-text">
+							<sec:authentication property="name" />
+							<sec:authentication property="principal.authorities" />
+						</li>
 						<li class="nav-item"><a class="nav-link" href="logout">Cerrar
 								sesión</a></li>
-					</c:if>
-					<c:if test="${sessionScope.usuario == null}">
+					</sec:authorize>
+					<sec:authorize access="isAnonymous()">
 						<li class="nav-item"><a class="nav-link" href="login">Iniciar
 								sesión</a></li>
-					</c:if>
-					<c:if test="${sessionScope.usuario == null}">
+					</sec:authorize>
+					<sec:authorize access="isAnonymous()">
 						<li class="nav-item"><a class="nav-link" href="registrar">Registrarse</a></li>
-					</c:if>
+					</sec:authorize>
 				</ul>
 			</div>
 		</div>
