@@ -2,10 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html class="h-100" lang="es">
 <head>
-<base href="${pageContext.request.contextPath}/cf/">
+<base href="${pageContext.request.contextPath}/">
 <meta charset="UTF-8">
 <title>IparTube</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
