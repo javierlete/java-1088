@@ -1,12 +1,6 @@
 package com.ipartek.formacion.ejemplos.ipartexspring.entidades;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
-
-import org.jspecify.annotations.Nullable;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,10 +14,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements UserDetails {
-
-	private static final long serialVersionUID = -7375734781548673829L;
-
+public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -107,25 +98,4 @@ public class Usuario implements UserDetails {
 	public String toString() {
 		return String.format("Usuario [id=%s, nombre=%s, email=%s, password=%s]", id, nombre, email, password);
 	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new GrantedAuthority() {
-			@Override
-			public @Nullable String getAuthority() {
-				return "ROLE_USUARIO";
-			}
-			
-			@Override
-			public String toString() {
-				return getAuthority();
-			}
-		});
-	}
-
-	@Override
-	public String getUsername() {
-		return nombre;
-	}
-
 }

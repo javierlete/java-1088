@@ -24,7 +24,7 @@ class WebSecurityConfig {
 	// AUTENTICACIÓN
 	@Bean
 	UserDetailsService userDetailsService(DataSource dataSource) {
-		return (username -> usuarioService.buscarPorEmail(username).orElse(null));
+		return (username -> UsuarioLogin.of(usuarioService.buscarPorEmail(username).orElse(null)));
 	}
 
 	@Bean
