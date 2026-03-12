@@ -44,7 +44,7 @@ public class RepositoriosConsola implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		Usuario javier = new Usuario(null, "Javier", "javier@email.net", passwordEncoder.encode("javier"));
-		Usuario pepe = new Usuario(null, "Pepe", "pepe@email.net", passwordEncoder.encode("pepe"));
+		Usuario pepe = new Usuario(null, "Pepe", "pepe@email.net", "{noop}pepe");
 
 		usuarioRepository.saveAll(List.of(javier, pepe));
 

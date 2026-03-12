@@ -1,5 +1,8 @@
 package com.ipartek.formacion.ejemplos.ipartexspring.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -27,9 +32,16 @@ class WebSecurityConfig {
 		return (username -> UsuarioLogin.of(usuarioService.buscarPorEmail(username).orElse(null)));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Bean
 	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder(14);
+	    String idForEncode = "bcrypt";
+	    Map<String, PasswordEncoder> encoders = new HashMap<>();
+
+	    encoders.put("bcrypt", new BCryptPasswordEncoder(14));
+	    encoders.put("noop", NoOpPasswordEncoder.getInstance());
+
+	    return new DelegatingPasswordEncoder(idForEncode, encoders);
 	}
 
 	// AUTORIZACIÓN
