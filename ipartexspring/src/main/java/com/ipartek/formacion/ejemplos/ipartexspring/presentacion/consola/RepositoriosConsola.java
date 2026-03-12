@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.ipartek.formacion.ejemplos.ipartexspring.entidades.Mensaje;
@@ -36,11 +37,14 @@ public class RepositoriosConsola implements CommandLineRunner {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public void run(String... args) throws Exception {
-		Usuario javier = new Usuario(null, "Javier", "javier@email.net", "javier");
-		Usuario pepe = new Usuario(null, "Pepe", "pepe@email.net", "pepe");
+		Usuario javier = new Usuario(null, "Javier", "javier@email.net", passwordEncoder.encode("javier"));
+		Usuario pepe = new Usuario(null, "Pepe", "pepe@email.net", passwordEncoder.encode("pepe"));
 
 		usuarioRepository.saveAll(List.of(javier, pepe));
 
