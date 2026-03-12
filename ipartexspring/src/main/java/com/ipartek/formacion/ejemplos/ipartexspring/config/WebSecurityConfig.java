@@ -1,16 +1,16 @@
 package com.ipartek.formacion.ejemplos.ipartexspring.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -18,11 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 class WebSecurityConfig {
 	// AUTENTICACIÓN
 	@Bean
-	UserDetailsService userDetailsService(PasswordEncoder encoder) {
-		UserDetails javier = User.withUsername("javier@email.net").password("javier").roles("ADMINISTRADOR").build();
-		UserDetails pepe = User.withUsername("pepe@email.net").password("pepe").roles("USUARIO").build();
-
-		return new InMemoryUserDetailsManager(javier, pepe);
+	UserDetailsService userDetailsService(DataSource dataSource) {
+		return new JdbcUserDetailsManager(dataSource);
 	}
 
 	@Bean
