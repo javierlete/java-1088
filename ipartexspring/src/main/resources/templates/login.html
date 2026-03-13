@@ -1,26 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>IparteX</title>
-</head>
-<body>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/">
+<title>IparteX: Login</title>
 
-<h1>Ipartex</h1>
+<main>
 
-<ul>
-	<li><a href="login.html" th:href="@{/login}">Login</a></li>
-</ul>
+	<p th:if="${param.error}">Error de login</p>
+	<p th:if="${param.logout}">Cierre de sesión correcto</p>
 
-<p th:if="${param.error}">Error de login</p>
-<p th:if="${param.logout}">Cierre de sesión correcto</p>
+	<form action="index.html" th:action="@{/login}" th:method="post">
+		<input name="username" placeholder="Email"> <input
+			name="password" placeholder="Contraseña">
 
-<form action="index.html" th:action="@{/login}" th:method="post">
-	<input name="username" placeholder="Email">
-	<input name="password" placeholder="Contraseña">
-	
-	<button>Iniciar sesión</button>
-</form>
+		<button>Iniciar sesión</button>
+	</form>
+</main>
 
-</body>
 </html>

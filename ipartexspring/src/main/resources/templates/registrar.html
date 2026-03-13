@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>IparteX</title>
-</head>
-<body>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/">
+<title>IparteX: Registro</title>
 
-	<h1>Ipartex</h1>
-
+<main>
 	<form action="login.html" th:action="@{/registrar-post}"
 		th:method="post" th:object="${usuario}">
 		<div>
@@ -29,5 +26,6 @@
 		<button>Registrarse</button>
 	</form>
 
-</body>
+</main>
+
 </html>
