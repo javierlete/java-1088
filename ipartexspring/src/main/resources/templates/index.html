@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
-	xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/">
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/">
 
 <title>IparteX: Mensajes</title>
 
 <main>
 	<form sec:authorize="isAuthenticated()"
-		th:action="@{/usuario/nuevo-mensaje}" th:method="post">
-		<textarea name="texto" placeholder="Mensaje nuevo"></textarea>
-		<button>Enviar mensaje</button>
+		th:action="@{/usuario/nuevo-mensaje}" th:method="post" class="mb-5">
+		<textarea class="form-control mb-3" name="texto"
+			placeholder="Mensaje nuevo"></textarea>
+		<button class="btn btn-primary">Enviar mensaje</button>
 	</form>
 
-	<ul>
-		<li th:each="mensaje: ${mensajes}">
-			<p th:text="${mensaje.usuario.nombre}">Javier</p>
-			<p th:text="${mensaje.fechaHora}">13/03/2026 9:13</p>
-			<p th:text="${mensaje.texto}">flñajksdñ glkha sñdlgj ñalskdhg
-				ñlaskdj fñlashd gñlkaj sdñflj asñdlkgh ñlash dg</p>
+	<ul class="list-group list-group">
+		<li
+			class="list-group-item d-flex justify-content-between align-items-start"
+			th:each="mensaje: ${mensajes}" th:object="${mensaje}">
+			<div class="ms-2 me-auto">
+				<div class="fw-bold" th:text="*{usuario.nombre}">Javier</div>
+				<pre th:text="*{texto}">flñajksdñ glkha sñdlgj ñalskdhg ñlaskdj</pre>
+			</div> <span class="badge text-bg-primary rounded-pill"
+			th:text="${#temporals.format(mensaje.fechaHora, 'dd/MMM/yyyy HH:mm')}">13/03/2026 9:13</span>
 		</li>
 	</ul>
+
 </main>
 
 </html>

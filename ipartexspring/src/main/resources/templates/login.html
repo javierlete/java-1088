@@ -5,15 +5,39 @@
 <title>IparteX: Login</title>
 
 <main>
+	<div th:if="${param.error}"
+		class="alert alert-danger alert-dismissible fade show" role="alert">
+		Error de login
+		<button type="button" class="btn-close" data-bs-dismiss="alert"
+			aria-label="Close"></button>
+	</div>
 
-	<p th:if="${param.error}">Error de login</p>
-	<p th:if="${param.logout}">Cierre de sesión correcto</p>
+	<div th:if="${param.logout}"
+		class="alert alert-success alert-dismissible fade show" role="alert">
+		Cierre de sesión correcto
+		<button type="button" class="btn-close" data-bs-dismiss="alert"
+			aria-label="Close"></button>
+	</div>
 
 	<form action="index.html" th:action="@{/login}" th:method="post">
-		<input name="username" placeholder="Email"> <input
-			name="password" placeholder="Contraseña">
-
-		<button>Iniciar sesión</button>
+		<div class="row mb-3">
+			<label for="email" class="col-sm-2 col-form-label">Email</label>
+			<div class="col-sm">
+				<input type="email" class="form-control" id="email" name="username">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="password" class="col-sm-2 col-form-label">Contraseña</label>
+			<div class="col-sm">
+				<input type="password" class="form-control" id="password"
+					name="password">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="offset-sm-2 col-sm">
+				<button class="btn btn-primary">Iniciar sesión</button>
+			</div>
+		</div>
 	</form>
 </main>
 
