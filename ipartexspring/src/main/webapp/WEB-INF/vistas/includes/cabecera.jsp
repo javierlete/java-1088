@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
-<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
 <!DOCTYPE html>
 <html class="h-100" lang="es">
@@ -37,12 +38,13 @@
 				</ul>
 				<ul class="navbar-nav mb-2 mb-sm-0">
 					<sec:authorize access="isAuthenticated()">
-						<li class="navbar-text">
-							<sec:authentication property="name" />
-							<sec:authentication property="principal.authorities" />
+						<li class="navbar-text"><sec:authentication property="name" />
+							<sec:authentication property="principal.authorities" /></li>
+						<li class="nav-item">
+							<form:form action="logout" method="post">
+								<button class="nav-link">Cerrar sesión</button>
+							</form:form>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="logout">Cerrar
-								sesión</a></li>
 					</sec:authorize>
 					<sec:authorize access="isAnonymous()">
 						<li class="nav-item"><a class="nav-link" href="login">Iniciar

@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -25,23 +26,24 @@ import com.ipartek.formacion.ejemplos.ipartexspring.servicios.UsuarioService;
 class WebSecurityConfig {
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	// AUTENTICACIÓN
 	@Bean
 	UserDetailsService userDetailsService(DataSource dataSource) {
-		return (username -> UsuarioLogin.of(usuarioService.buscarPorEmail(username).orElse(null)));
+		return (username -> UsuarioLogin.of(
+				usuarioService.buscarPorEmail(username).orElseThrow(() -> new UsernameNotFoundException(username))));
 	}
 
 	@SuppressWarnings("deprecation")
 	@Bean
 	PasswordEncoder passwordEncoder() {
-	    String idForEncode = "bcrypt";
-	    Map<String, PasswordEncoder> encoders = new HashMap<>();
+		String idForEncode = "bcrypt";
+		Map<String, PasswordEncoder> encoders = new HashMap<>();
 
-	    encoders.put("bcrypt", new BCryptPasswordEncoder(14));
-	    encoders.put("noop", NoOpPasswordEncoder.getInstance());
+		encoders.put("bcrypt", new BCryptPasswordEncoder(14));
+		encoders.put("noop", NoOpPasswordEncoder.getInstance());
 
-	    return new DelegatingPasswordEncoder(idForEncode, encoders);
+		return new DelegatingPasswordEncoder(idForEncode, encoders);
 	}
 
 	// AUTORIZACIÓN
@@ -54,7 +56,7 @@ class WebSecurityConfig {
 				.anyRequest().permitAll()
 			)
 			.formLogin(form -> form
-				// .loginPage("/login")
+				.loginPage("/login")
 				.permitAll()
 			)
 			.logout(LogoutConfigurer::permitAll);

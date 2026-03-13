@@ -41,4 +41,9 @@ public class AnonimoController {
 
 		return "redirect:/index";
 	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
 }
