@@ -19,19 +19,19 @@ public class AnonimoController {
 	@Autowired
 	private AnonimoService anonimoService;
 
-	@GetMapping({"/", "/index"})
+	@GetMapping({"", "index"})
 	public String index(Model modelo) {
 		modelo.addAttribute("mensajes", anonimoService.listarMensajes());
 
 		return "index";
 	}
 
-	@GetMapping("/registrar")
-	public String registrar() {
+	@GetMapping("registrar")
+	public String registrar(Usuario usuario) {
 		return "registrar";
 	}
 
-	@PostMapping("/registrar-post")
+	@PostMapping("registrar-post")
 	public String registrarPost(@Valid Usuario usuario, BindingResult bindingResult, Model modelo) {
 		if (bindingResult.hasErrors()) {
 			return "registrar";
@@ -42,7 +42,7 @@ public class AnonimoController {
 		return "redirect:/index";
 	}
 	
-	@GetMapping("/login")
+	@GetMapping("login")
 	public String login() {
 		return "login";
 	}
