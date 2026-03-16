@@ -37,20 +37,21 @@ public class RepositoriosConsola implements CommandLineRunner {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public void run(String... args) throws Exception {
-		Usuario javier = new Usuario(null, "Javier", "javier@email.net", passwordEncoder.encode("javier"));
-		Usuario pepe = new Usuario(null, "Pepe", "pepe@email.net", "{noop}pepe");
+		Usuario javier = Usuario.builder().nombre("Javier").email("javier@email.net")
+				.password(passwordEncoder.encode("javier")).build();
+		Usuario pepe = Usuario.builder().nombre("Pepe").email("pepe@email.net").password("{noop}pepe").build();
 
 		usuarioRepository.saveAll(List.of(javier, pepe));
 
 		for (int i = 1; i < 50; i++) {
-			mensajeRepository.save(new Mensaje(null, "Mensaje " + i, LocalDateTime.now().minusDays(50 - i),
-					i % 2 == 0 ? javier : pepe));
+			mensajeRepository.save(Mensaje.builder().texto("Mensaje " + i)
+					.fechaHora(LocalDateTime.now().minusDays(50 - i)).usuario(i % 2 == 0 ? javier : pepe).build());
 		}
 
 		for (Mensaje mensaje : mensajeRepository.findAll()) {

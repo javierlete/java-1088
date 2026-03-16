@@ -1,7 +1,6 @@
 package com.ipartek.formacion.ejemplos.ipartexspring.entidades;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +12,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 
 @Entity
 @Table(name = "mensajes")
@@ -27,76 +35,10 @@ public class Mensaje {
 
 	@NotNull
 	@PastOrPresent
+	@Builder.Default
 	private LocalDateTime fechaHora = LocalDateTime.now();
 
 	@NotNull
 	@ManyToOne
 	private Usuario usuario;
-
-	public Mensaje(Long id, String texto, LocalDateTime fechaHora, Usuario usuario) {
-		super();
-		this.id = id;
-		this.texto = texto;
-		this.fechaHora = fechaHora;
-		this.usuario = usuario;
-	}
-
-	public Mensaje() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTexto() {
-		return texto;
-	}
-
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
-
-	public LocalDateTime getFechaHora() {
-		return fechaHora;
-	}
-
-	public void setFechaHora(LocalDateTime fechaHora) {
-		this.fechaHora = fechaHora;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(fechaHora, id, texto, usuario);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Mensaje other = (Mensaje) obj;
-		return Objects.equals(fechaHora, other.fechaHora) && Objects.equals(id, other.id)
-				&& Objects.equals(texto, other.texto) && Objects.equals(usuario, other.usuario);
-	}
-
-	@Override
-	public String toString() {
-		return String.format("Mensaje [id=%s, texto=%s, fechaHora=%s, usuario=%s]", id, texto, fechaHora, usuario);
-	}
-
 }
