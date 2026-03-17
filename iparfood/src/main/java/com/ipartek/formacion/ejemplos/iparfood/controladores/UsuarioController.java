@@ -34,4 +34,9 @@ public class UsuarioController {
 	public String pedido() {
 		return "pedido";
 	}
+	
+	@GetMapping("login")
+	public String login() {
+		return "login";
+	}
 }

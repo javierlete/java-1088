@@ -6,6 +6,11 @@
 <title>IparFood: Pedido</title>
 
 <main>
+	<div th:object="${pedido.usuario}">
+		<p th:text="*{nombre}"></p>
+		<p th:text="*{direccion}"></p>
+	</div>
+
 	<table class="table">
 		<thead class="table-secondary">
 			<tr>
@@ -16,17 +21,19 @@
 		<tbody>
 			<tr th:each="plato: ${pedido.platos}" th:object="${plato}">
 				<td th:text="*{nombre}">Burger</td>
-				<td class="text-end" th:text="${#numbers.formatCurrency(plato.precio)}">12,12 €</td>
+				<td class="text-end"
+					th:text="${#numbers.formatCurrency(plato.precio)}">12,12 €</td>
 			</tr>
 		</tbody>
 		<tfoot class="table-secondary">
 			<tr>
 				<td class="fw-bold">Total</td>
-				<td class="text-end fw-bold" th:text="${#numbers.formatCurrency(pedido.total)}">1234,12 €</td>
+				<td class="text-end fw-bold"
+					th:text="${#numbers.formatCurrency(pedido.total)}">1234,12 €</td>
 			</tr>
 		</tfoot>
 	</table>
-	
+
 	<a class="btn btn-primary" href="index.html" th:href="@{/}">Volver</a>
 </main>
 

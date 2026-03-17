@@ -1,6 +1,7 @@
 package com.ipartek.formacion.ejemplos.iparfood.servicios.impl;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -8,8 +9,10 @@ import org.springframework.validation.annotation.Validated;
 import com.ipartek.formacion.ejemplos.iparfood.dtos.PedidoDto;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Pedido;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Plato;
+import com.ipartek.formacion.ejemplos.iparfood.entidades.Usuario;
 import com.ipartek.formacion.ejemplos.iparfood.repositorios.PedidoRepository;
 import com.ipartek.formacion.ejemplos.iparfood.repositorios.PlatoRepository;
+import com.ipartek.formacion.ejemplos.iparfood.repositorios.UsuarioRepository;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.ServicioException;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.UsuarioService;
 
@@ -24,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioServiceImpl implements UsuarioService {
 	private final PedidoRepository pedidoRepository;
 	private final PlatoRepository platoRepository;
+	private final UsuarioRepository usuarioRepository;
+
 	private final PedidoDto pedidoSesion;
 	
 	@Override
@@ -60,6 +65,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Collection<Plato> listarPlatos() {
 		return platoRepository.findAll();
+	}
+
+	@Override
+	public Optional<Usuario> buscarPorEmail(String email) {
+		return usuarioRepository.findByEmail(email);
 	}
 
 }
