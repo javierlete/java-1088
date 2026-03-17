@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/">
+
+<title>IparFood: Listado de platos</title>
+
+<main>
+	<div class="row row-cols-1 row-cols-md-3 g-4">
+		<div class="col" th:each="plato: ${platos}" th:object="${plato}">
+			<div class="card h-100">
+				<img th:src="'https://picsum.photos/400/300?' + *{id}" src="https://picsum.photos/400/300" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title" th:text="*{nombre}">Burger</h5>
+					<p class="lead" th:text="'Comida ' + *{tipoComida.nombre}">Americana</p>
+					<p class="card-text" th:text="*{descripcion}">Plato de fast food de toa la vida</p>
+				</div>
+				<div class="card-footer">
+					<small class="text-body-secondary" th:text="${#numbers.formatCurrency(plato.precio)}">12,12 €</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+</html>

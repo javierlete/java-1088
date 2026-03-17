@@ -12,4 +12,5 @@ public interface UsuarioService {
 	Pedido anadirPlatoAPedido(@Valid Plato plato);
 	Pedido confirmarPedido(@Valid Pedido pedido);
 	Collection<Pedido> listarPedidos(@NotNull Long idUsuario);
+	Collection<Plato> listarPlatos();
 }
