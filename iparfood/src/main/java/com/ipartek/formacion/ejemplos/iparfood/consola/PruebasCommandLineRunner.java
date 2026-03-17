@@ -26,7 +26,7 @@ public class PruebasCommandLineRunner implements CommandLineRunner {
 
 	@Autowired
 	private TipoComidaRepository tipoComidaRepository;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
@@ -46,11 +46,13 @@ public class PruebasCommandLineRunner implements CommandLineRunner {
 				Plato.builder().nombre("Rollitos").precio(new BigDecimal("5.12")).tipoComida(asiatica).build());
 		var ensalada = administradorService.crearPlato(
 				Plato.builder().nombre("Ensalada China").precio(new BigDecimal("7.12")).tipoComida(asiatica).build());
-		
-		var javier = usuarioRepository.save(Usuario.builder().nombre("Javier").direccion("Mi casa").email("javier@email.net").password("{noop}javier").build());
 
-		var pedido = usuarioService.confirmarPedido(Pedido.builder().usuario(javier).platos(List.of(burger, rollitos, ensalada, pizza)).build());
-		
+		var javier = usuarioRepository.save(Usuario.builder().nombre("Javier").direccion("Mi casa")
+				.email("javier@email.net").password("{noop}javier").build());
+
+		var pedido = usuarioService.confirmarPedido(
+				Pedido.builder().usuario(javier).platos(List.of(burger, rollitos, ensalada, pizza)).build());
+
 		System.out.println(pedido);
 	}
 
