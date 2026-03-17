@@ -2,7 +2,6 @@ package com.ipartek.formacion.ejemplos.iparfood.servicios.impl;
 
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -15,8 +14,10 @@ import com.ipartek.formacion.ejemplos.iparfood.servicios.ServicioException;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@RequiredArgsConstructor
 @Validated
 @Slf4j
 // @Log
@@ -25,11 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class AdministradorServiceImpl implements AdministradorService {
 //	private static final Logger log = Logger.getLogger(AdministradorServiceImpl.class.getName());
 	
-	@Autowired
-	private PedidoRepository pedidoRepository;
-	
-	@Autowired
-	private PlatoRepository platoRepository;
+	private final PedidoRepository pedidoRepository;
+	private final PlatoRepository platoRepository;
 	
 	@Override
 	public Collection<Pedido> listarPedidos() {

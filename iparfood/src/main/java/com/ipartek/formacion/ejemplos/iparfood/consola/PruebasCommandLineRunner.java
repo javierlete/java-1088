@@ -3,7 +3,6 @@ package com.ipartek.formacion.ejemplos.iparfood.consola;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,19 +15,16 @@ import com.ipartek.formacion.ejemplos.iparfood.repositorios.UsuarioRepository;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.AdministradorService;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.UsuarioService;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+
 @Component
 public class PruebasCommandLineRunner implements CommandLineRunner {
-	@Autowired
-	private AdministradorService administradorService;
-
-	@Autowired
-	private UsuarioService usuarioService;
-
-	@Autowired
-	private TipoComidaRepository tipoComidaRepository;
-
-	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private final AdministradorService administradorService;
+	private final UsuarioService usuarioService;
+	private final TipoComidaRepository tipoComidaRepository;
+	private final UsuarioRepository usuarioRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
