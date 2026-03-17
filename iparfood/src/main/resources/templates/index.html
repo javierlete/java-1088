@@ -15,7 +15,8 @@
 					<p class="lead" th:text="'Comida ' + *{tipoComida.nombre}">Americana</p>
 					<p class="card-text" th:text="*{descripcion}">Plato de fast food de toa la vida</p>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer d-flex justify-content-between align-items-baseline">
+					<a href="pedido.html" th:href="@{/anadir(id=${plato.id})}" class="btn btn-sm btn-primary">Añadir al pedido</a>
 					<small class="text-body-secondary" th:text="${#numbers.formatCurrency(plato.precio)}">12,12 €</small>
 				</div>
 			</div>

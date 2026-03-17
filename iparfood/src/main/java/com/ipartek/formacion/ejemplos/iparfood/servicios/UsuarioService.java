@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 public interface UsuarioService {
+	Pedido anadirPlatoAPedido(@NotNull Long id);
 	Pedido anadirPlatoAPedido(@Valid Plato plato);
 	Pedido confirmarPedido(@Valid Pedido pedido);
 	Collection<Pedido> listarPedidos(@NotNull Long idUsuario);

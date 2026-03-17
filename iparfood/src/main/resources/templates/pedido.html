@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/">
+
+<title>IparFood: Pedido</title>
+
+<main>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Plato</th>
+				<th class="text-end">Precio</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="plato: ${pedido.platos}" th:object="${plato}">
+				<td th:text="*{nombre}">Burger</td>
+				<td class="text-end" th:text="${#numbers.formatCurrency(plato.precio)}">12,12 €</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<a class="btn btn-primary" href="index.html" th:href="@{/}">Volver</a>
+</main>
+
+</html>

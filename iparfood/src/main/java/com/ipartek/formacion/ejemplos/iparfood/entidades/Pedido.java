@@ -1,5 +1,6 @@
 package com.ipartek.formacion.ejemplos.iparfood.entidades;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.persistence.Entity;
@@ -32,5 +33,6 @@ public class Pedido {
 	private Usuario usuario;
 	
 	@ManyToMany
-	private Collection<Plato> platos;
+	@Builder.Default
+	private Collection<Plato> platos = new ArrayList<>();
 }
