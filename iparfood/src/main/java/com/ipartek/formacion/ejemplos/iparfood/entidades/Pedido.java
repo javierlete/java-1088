@@ -1,5 +1,6 @@
 package com.ipartek.formacion.ejemplos.iparfood.entidades;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -27,12 +28,17 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotNull
 	@ManyToOne
 	private Usuario usuario;
-	
+
 	@ManyToMany
 	@Builder.Default
 	private Collection<Plato> platos = new ArrayList<>();
+
+	public BigDecimal getTotal() {
+		return platos.stream().map(p -> p.getPrecio()).reduce((total, precio) -> total.add(precio))
+				.orElse(BigDecimal.ZERO);
+	}
 }

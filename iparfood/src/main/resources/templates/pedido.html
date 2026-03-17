@@ -7,7 +7,7 @@
 
 <main>
 	<table class="table">
-		<thead>
+		<thead class="table-secondary">
 			<tr>
 				<th>Plato</th>
 				<th class="text-end">Precio</th>
@@ -19,6 +19,12 @@
 				<td class="text-end" th:text="${#numbers.formatCurrency(plato.precio)}">12,12 €</td>
 			</tr>
 		</tbody>
+		<tfoot class="table-secondary">
+			<tr>
+				<td class="fw-bold">Total</td>
+				<td class="text-end fw-bold" th:text="${#numbers.formatCurrency(pedido.total)}">1234,12 €</td>
+			</tr>
+		</tfoot>
 	</table>
 	
 	<a class="btn btn-primary" href="index.html" th:href="@{/}">Volver</a>
