@@ -5,19 +5,18 @@
 <head>
 <title th:replace="${titulo}">IparFood</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" href="../static/css/bootstrap-icons.min.css"
+	th:href="@{/css/bootstrap-icons.min.css}">
+<link rel="icon" href="../static/imgs/fork-knife.svg"
+	th:href="@{/imgs/fork-knife.svg}">
 </head>
 <body class="h-100 d-flex flex-column">
 	<nav class="sticky-top navbar navbar-expand-sm bg-dark"
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="index">IparFood</a>
+			<a class="navbar-brand" href="index"><i class="bi bi-fork-knife"></i> IparFood</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -54,10 +53,8 @@
 	</div>
 
 	<footer class="p-2 text-bg-dark"> &copy;2026 Javier Lete </footer>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-		crossorigin="anonymous"></script>
+	<script src="../static/js/bootstrap.bundle.min.js"
+		th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 
