@@ -61,7 +61,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Collection<Pedido> listarPedidos(@NotNull Long idUsuario) {
-		return pedidoRepository.findByUsuarioId(idUsuario);
+		return pedidoRepository.findByUsuarioIdOrderByFechaHoraDesc(idUsuario);
 	}
 
 	@Override

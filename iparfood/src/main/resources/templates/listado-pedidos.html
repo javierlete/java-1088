@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
-	xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/">
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/">
 
-<title>IparFood: </title>
+<title>IparFood:</title>
 
 <main>
-	<table th:each="pedido: ${pedidos}" th:object="${pedido}" class="table">
-		<thead class="table-secondary">
-			<tr>
-				<th>Plato</th>
-				<th class="text-end">Precio</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="plato: ${pedido.platos}" th:object="${plato}">
-				<td th:text="*{nombre}">Burger</td>
-				<td class="text-end"
-					th:text="${#numbers.formatCurrency(plato.precio)}">12,12 €</td>
-			</tr>
-		</tbody>
-		<tfoot class="table-secondary">
-			<tr>
-				<td class="fw-bold">Total</td>
-				<td class="text-end fw-bold"
-					th:text="${#numbers.formatCurrency(pedido.total)}">1234,12 €</td>
-			</tr>
-		</tfoot>
-	</table>
+	<div th:each="pedido: ${pedidos}" th:object="${pedido}">
+		<div th:text="${#temporals.format(pedido.fechaHora, 'dd/MMM/yyyy HH:mm')}"></div>
+
+		<table 
+			class="table">
+			<thead class="table-secondary">
+				<tr>
+					<th>Plato</th>
+					<th class="text-end">Precio</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="plato: ${pedido.platos}" th:object="${plato}">
+					<td th:text="*{nombre}">Burger</td>
+					<td class="text-end"
+						th:text="${#numbers.formatCurrency(plato.precio)}">12,12 €</td>
+				</tr>
+			</tbody>
+			<tfoot class="table-secondary">
+				<tr>
+					<td class="fw-bold">Total</td>
+					<td class="text-end fw-bold"
+						th:text="${#numbers.formatCurrency(pedido.total)}">1234,12 €</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
 </main>
 
 </html>

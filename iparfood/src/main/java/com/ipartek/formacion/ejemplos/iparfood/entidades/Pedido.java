@@ -1,6 +1,7 @@
 package com.ipartek.formacion.ejemplos.iparfood.entidades;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -29,6 +30,9 @@ public class Pedido implements Cloneable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull
+	private LocalDateTime fechaHora;
+	
 	@NotNull
 	@ManyToOne
 	private Usuario usuario;

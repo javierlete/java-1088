@@ -1,6 +1,7 @@
 package com.ipartek.formacion.ejemplos.iparfood.consola;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
@@ -50,7 +51,7 @@ public class PruebasCommandLineRunner implements CommandLineRunner {
 				.email("javier@email.net").password("{noop}javier").build());
 
 		var pedido = usuarioService.confirmarPedido(
-				Pedido.builder().usuario(javier).platos(List.of(burger, rollitos, ensalada, pizza)).build());
+				Pedido.builder().fechaHora(LocalDateTime.now()).usuario(javier).platos(List.of(burger, rollitos, ensalada, pizza)).build());
 
 		log.debug(pedido.toString());
 	}

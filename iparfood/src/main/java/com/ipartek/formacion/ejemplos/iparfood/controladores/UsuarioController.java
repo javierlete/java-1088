@@ -1,5 +1,7 @@
 package com.ipartek.formacion.ejemplos.iparfood.controladores;
 
+import java.time.LocalDateTime;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,8 +52,12 @@ public class UsuarioController {
 	@GetMapping("confirmar-pedido")
 	public String confirmarPedido() {
 		log.debug(pedidoSesion.toString());
-	    
-	    usuarioService.confirmarPedido(pedidoSesion.clone());
+		
+		var pedido = pedidoSesion.clone();
+		
+		pedido.setFechaHora(LocalDateTime.now());
+		
+	    usuarioService.confirmarPedido(pedido);
 	    
 	    pedidoSesion.getPlatos().clear();
 	    
