@@ -49,11 +49,16 @@ public class PruebasCommandLineRunner implements CommandLineRunner {
 
 		var javier = usuarioRepository.save(Usuario.builder().nombre("Javier").direccion("Mi casa")
 				.email("javier@email.net").password("{noop}javier").build());
+		var pepe = usuarioRepository.save(Usuario.builder().nombre("Pepe").direccion("Su casa")
+				.email("pepe@email.net").password("{noop}pepe").build());
 
-		var pedido = usuarioService.confirmarPedido(
-				Pedido.builder().fechaHora(LocalDateTime.now()).usuario(javier).platos(List.of(burger, rollitos, ensalada, pizza)).build());
+		var pedidoJavier = usuarioService.confirmarPedido(Pedido.builder().fechaHora(LocalDateTime.now())
+				.usuario(javier).platos(List.of(burger, rollitos, ensalada, pizza)).build());
+		var pedidoPepe = usuarioService.confirmarPedido(
+				Pedido.builder().fechaHora(LocalDateTime.now()).usuario(pepe).platos(List.of(ensalada, pizza)).build());
 
-		log.debug(pedido.toString());
+		log.debug(pedidoJavier.toString());
+		log.debug(pedidoPepe.toString());
 	}
 
 }
