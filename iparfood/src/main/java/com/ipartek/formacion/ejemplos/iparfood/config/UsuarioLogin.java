@@ -26,7 +26,7 @@ public class UsuarioLogin extends Usuario implements UserDetails {
 
 	public static UsuarioLogin of(Usuario usuario) {
 		return UsuarioLogin.builder().id(usuario.getId()).nombre(usuario.getNombre()).email(usuario.getEmail())
-				.password(usuario.getPassword()).build();
+				.password(usuario.getPassword()).rol(usuario.getRol()).build();
 	}
 
 	@Override
