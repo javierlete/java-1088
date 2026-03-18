@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
-	xmlns:th="https://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/">
+	xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/">
 
-<title>IparFood: Pedido</title>
+<title>IparFood: </title>
 
 <main>
-	<div th:object="${pedido.usuario}">
-		<p th:text="*{nombre}"></p>
-		<p th:text="*{direccion}"></p>
-	</div>
-
-	<table class="table">
+	<table th:each="pedido: ${pedidos}" th:object="${pedido}" class="table">
 		<thead class="table-secondary">
 			<tr>
 				<th>Plato</th>
@@ -33,11 +27,6 @@
 			</tr>
 		</tfoot>
 	</table>
-
-	<div class="d-flex justify-content-between">
-		<a class="btn btn-outline-primary" href="index.html" th:href="@{/}">Volver</a>
-		<a class="btn btn-primary" href="index.html" th:href="@{/confirmar-pedido}">Confirmar pedido</a>
-	</div>
 </main>
 
 </html>

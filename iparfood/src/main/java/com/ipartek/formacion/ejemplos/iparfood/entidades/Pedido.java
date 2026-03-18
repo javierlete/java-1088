@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "pedidos")
-public class Pedido {
+public class Pedido implements Cloneable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -38,7 +38,11 @@ public class Pedido {
 	private Collection<Plato> platos = new ArrayList<>();
 
 	public BigDecimal getTotal() {
-		return platos.stream().map(p -> p.getPrecio()).reduce((total, precio) -> total.add(precio))
-				.orElse(BigDecimal.ZERO);
+		return platos.stream().map(Plato::getPrecio).reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+
+	@Override
+	public Pedido clone() {
+		return Pedido.builder().usuario(usuario).platos(new ArrayList<>(platos)).build();
 	}
 }

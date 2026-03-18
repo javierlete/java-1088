@@ -49,4 +49,9 @@ public class UsuarioLogin extends Usuario implements UserDetails {
 		return getNombre();
 	}
 
+	public Usuario getUsuario() {
+		return Usuario.builder().id(getId()).nombre(getUsername()).direccion(getDireccion()).email(getEmail())
+				.password(getPassword()).rol(getRol()).build();
+	}
+
 }

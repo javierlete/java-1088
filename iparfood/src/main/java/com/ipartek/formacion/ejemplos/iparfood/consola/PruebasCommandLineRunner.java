@@ -16,8 +16,11 @@ import com.ipartek.formacion.ejemplos.iparfood.servicios.AdministradorService;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
+
+@Slf4j
 
 @Component
 public class PruebasCommandLineRunner implements CommandLineRunner {
@@ -49,7 +52,7 @@ public class PruebasCommandLineRunner implements CommandLineRunner {
 		var pedido = usuarioService.confirmarPedido(
 				Pedido.builder().usuario(javier).platos(List.of(burger, rollitos, ensalada, pizza)).build());
 
-		System.out.println(pedido);
+		log.debug(pedido.toString());
 	}
 
 }

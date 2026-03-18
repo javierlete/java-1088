@@ -19,9 +19,11 @@ import com.ipartek.formacion.ejemplos.iparfood.servicios.UsuarioService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Validated
+@Slf4j
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -33,8 +35,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Override
 	public Pedido anadirPlatoAPedido(@NotNull Long id) {
-		System.out.println("USUARIO SERVICE " + id);
-		System.out.println("USUARIO SERVICE " + pedidoSesion);
+		log.debug("USUARIO SERVICE " + id);
+		log.debug("USUARIO SERVICE " + pedidoSesion);
 		
 		var plato = platoRepository.findById(id);
 		

@@ -26,9 +26,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                                         Authentication authentication)
                                         throws IOException, ServletException {
 
-        var usuario = (UsuarioLogin) authentication.getPrincipal();
+        var usuarioLogin = (UsuarioLogin) authentication.getPrincipal();
 
-        pedidoDto.setUsuario(usuario);
+        pedidoDto.setUsuario(usuarioLogin.getUsuario());
 
         response.sendRedirect("/"); // o donde quieras
     }
