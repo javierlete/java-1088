@@ -1,5 +1,6 @@
 package com.ipartek.formacion.ejemplos.iparfood.entidades;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,6 +38,7 @@ public class Usuario {
 	@NotBlank
 	@Size(max = 255)
 	@Email
+	@Column(unique = true)
 	private String email;
 	
 	@NotBlank
