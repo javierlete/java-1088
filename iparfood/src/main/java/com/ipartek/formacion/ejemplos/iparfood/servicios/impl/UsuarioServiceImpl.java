@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.ipartek.formacion.ejemplos.iparfood.dtos.PedidoDto;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Pedido;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Plato;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Usuario;
@@ -30,28 +29,23 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private final PedidoRepository pedidoRepository;
 	private final PlatoRepository platoRepository;
 	private final UsuarioRepository usuarioRepository;
-
-	private final PedidoDto pedidoSesion;
 	
 	@Override
-	public Pedido anadirPlatoAPedido(@NotNull Long id) {
-		log.debug("USUARIO SERVICE " + id);
-		log.debug("USUARIO SERVICE " + pedidoSesion);
-		
+	public Pedido anadirPlatoAPedido(@NotNull Long id, Pedido pedido) {
 		var plato = platoRepository.findById(id);
 		
 		if(plato.isEmpty()) {
 			throw new ServicioException("No se ha encontrado el plato a añadir");
 		}
 		
-		return anadirPlatoAPedido(plato.get());
+		return anadirPlatoAPedido(plato.get(), pedido);
 	}
 
 	@Override
-	public Pedido anadirPlatoAPedido(@Valid Plato plato) {
-		pedidoSesion.getPlatos().add(plato);
+	public Pedido anadirPlatoAPedido(@Valid Plato plato, Pedido pedido) {
+		pedido.getPlatos().add(plato);
 		
-		return pedidoSesion;
+		return pedido;
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class UsuarioController {
 
 	@GetMapping("anadir")
 	public String anadir(Long id) {
-		usuarioService.anadirPlatoAPedido(id);
+		usuarioService.anadirPlatoAPedido(id, pedidoSesion);
 
 		return "redirect:/pedido";
 	}
