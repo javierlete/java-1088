@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/">
+<title>IparteX: Plato</title>
+
+<main>
+	<form action="index.html" th:action="@{/admin/platos/formulario}" th:method="post" th:object="${plato}">
+		
+		<div class="row mb-3">
+			<label for="id" class="col-sm-2 col-form-label">Id</label>
+			<div class="col-sm">
+				<input type="number" class="form-control" th:errorclass="is-invalid" th:field="*{id}">
+				<div class="invalid-feedback"></div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+			<div class="col-sm">
+				<input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{nombre}">
+				<div class="invalid-feedback">El nombre es obligatorio</div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="precio" class="col-sm-2 col-form-label">Precio</label>
+			<div class="col-sm">
+				<input type="number" step=".01" class="form-control" th:errorclass="is-invalid" th:field="*{precio}">
+				<div class="invalid-feedback">El precio es obligatorio y debe ser positivo</div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="tipoComida" class="col-sm-2 col-form-label">Tipo de comida</label>
+			<div class="col-sm">
+				<select class="form-select" th:errorclass="is-invalid" th:field="*{tipoComida}">
+					<option value="0">Selecciona una</option>
+					<option th:each="tipo: ${tiposComida}" th:value="${tipo.id}" th:text="${tipo.nombre}">Opción</option>
+				</select>
+				<div class="invalid-feedback">Debes seleccionar un tipo de comida</div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
+			<div class="col-sm">
+				<textarea class="form-control" th:errorclass="is-invalid" th:field="*{descripcion}"></textarea>
+				<div class="invalid-feedback"></div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="offset-sm-2 col-sm">
+				<button class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+	</form>
+</main>
+
+</html>

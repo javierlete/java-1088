@@ -56,6 +56,7 @@ class WebSecurityConfig {
 		http
 			.authorizeHttpRequests(requests -> requests
 				.requestMatchers("/js/**", "/css/**", "/imgs/**").permitAll()
+				.requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
 				.anyRequest().authenticated()
 			)
 			.formLogin(form -> form

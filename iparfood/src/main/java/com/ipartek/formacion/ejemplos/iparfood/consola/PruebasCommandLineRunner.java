@@ -44,18 +44,18 @@ public class PruebasCommandLineRunner implements CommandLineRunner {
 				Plato.builder().nombre("Pizza").precio(new BigDecimal("12.12")).tipoComida(italiana).build());
 		var rollitos = administradorService.crearPlato(
 				Plato.builder().nombre("Rollitos").precio(new BigDecimal("5.12")).tipoComida(asiatica).build());
-		var ensalada = administradorService.crearPlato(
+		administradorService.crearPlato(
 				Plato.builder().nombre("Ensalada China").precio(new BigDecimal("7.12")).tipoComida(asiatica).build());
 
 		var javier = usuarioRepository.save(Usuario.builder().nombre("Javier").direccion("Mi casa")
-				.email("javier@email.net").password("{noop}javier").build());
+				.email("javier@email.net").password("{noop}javier").rol("ADMINISTRADOR").build());
 		var pepe = usuarioRepository.save(Usuario.builder().nombre("Pepe").direccion("Su casa")
 				.email("pepe@email.net").password("{noop}pepe").build());
 
 		var pedidoJavier = usuarioService.confirmarPedido(Pedido.builder().fechaHora(LocalDateTime.now())
-				.usuario(javier).platos(List.of(burger, rollitos, ensalada, pizza)).build());
+				.usuario(javier).platos(List.of(burger, rollitos, pizza)).build());
 		var pedidoPepe = usuarioService.confirmarPedido(
-				Pedido.builder().fechaHora(LocalDateTime.now()).usuario(pepe).platos(List.of(ensalada, pizza)).build());
+				Pedido.builder().fechaHora(LocalDateTime.now()).usuario(pepe).platos(List.of(burger, pizza)).build());
 
 		log.debug(pedidoJavier.toString());
 		log.debug(pedidoPepe.toString());

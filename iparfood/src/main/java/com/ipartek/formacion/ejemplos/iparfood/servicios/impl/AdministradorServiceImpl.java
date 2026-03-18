@@ -7,8 +7,10 @@ import org.springframework.validation.annotation.Validated;
 
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Pedido;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Plato;
+import com.ipartek.formacion.ejemplos.iparfood.entidades.TipoComida;
 import com.ipartek.formacion.ejemplos.iparfood.repositorios.PedidoRepository;
 import com.ipartek.formacion.ejemplos.iparfood.repositorios.PlatoRepository;
+import com.ipartek.formacion.ejemplos.iparfood.repositorios.TipoComidaRepository;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.AdministradorService;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.ServicioException;
 
@@ -28,6 +30,7 @@ public class AdministradorServiceImpl implements AdministradorService {
 	
 	private final PedidoRepository pedidoRepository;
 	private final PlatoRepository platoRepository;
+	private final TipoComidaRepository tipoComidaRepository;
 	
 	@Override
 	public Collection<Pedido> listarPedidos() {
@@ -64,5 +67,15 @@ public class AdministradorServiceImpl implements AdministradorService {
 	@Override
 	public void borrarPlato(@NotNull Long id) {
 		platoRepository.deleteById(id);
+	}
+
+	@Override
+	public Collection<TipoComida> listarTiposComida() {
+		return tipoComidaRepository.findAll();
+	}
+
+	@Override
+	public Plato obtenerPlatoPorId(Long id) {
+		return platoRepository.findById(id).orElse(null);
 	}
 }

@@ -30,9 +30,12 @@
 						th:href="@{/}">Principal</a></li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-sm-0">
+					<li sec:authorize="hasRole('ADMINISTRADOR')" class="nav-item"><a class="nav-link" href="admin.html"
+						th:href="@{/admin}">Administración</a></li>
+
 					<th:block sec:authorize="isAuthenticated()">
-						<li class="nav-item"><a class="nav-link"
-							href="pedido.html" th:href="@{/pedido}">Pedido actual</a></li>
+						<li class="nav-item"><a class="nav-link" href="pedido.html"
+							th:href="@{/pedido}">Pedido actual</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="listado-pedidos.html" th:href="@{/listado-pedidos}">Pedidos</a></li>
 						<li class="navbar-text"><span sec:authentication="name">USUARIO</span>
