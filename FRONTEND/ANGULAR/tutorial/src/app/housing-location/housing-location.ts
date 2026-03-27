@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
 import { HousingLocationInfo } from '../housing-location';
 import { JsonPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-housing-location',
-  imports: [JsonPipe],
+  imports: [JsonPipe, RouterLink],
   templateUrl: './housing-location.html',
   styleUrl: './housing-location.css',
 })

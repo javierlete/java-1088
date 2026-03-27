@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HousingService } from '../housing';
+import { HousingLocationInfo } from '../housing-location';
 
 @Component({
   selector: 'app-details',
@@ -6,4 +9,13 @@ import { Component } from '@angular/core';
   templateUrl: './details.html',
   styleUrl: './details.css',
 })
-export class Details {}
+export class Details {
+  route: ActivatedRoute = inject(ActivatedRoute);
+  housingService = inject(HousingService);
+  housingLocation: HousingLocationInfo | undefined;
+
+  constructor() {
+    const housingLocationId = Number(this.route.snapshot.params['id']);
+    this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+  }
+}
