@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
+import { HousingService } from '../housing';
 import { HousingLocationInfo } from '../housing-location';
 import { HousingLocation } from "../housing-location/housing-location";
-import { JsonPipe } from '@angular/common';
-import { HousingService } from '../housing';
 
 @Component({
   selector: 'app-home',
-  imports: [HousingLocation, JsonPipe],
+  imports: [HousingLocation],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
