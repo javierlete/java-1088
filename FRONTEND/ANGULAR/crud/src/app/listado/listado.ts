@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { Producto } from '../producto';
-import { PRODUCTOS } from '../mock-productos';
-import { CurrencyPipe } from '@angular/common';
+import { ProductoService } from '../producto.service';
 
 @Component({
   selector: 'app-listado',
@@ -11,9 +11,17 @@ import { CurrencyPipe } from '@angular/common';
   styleUrl: './listado.css',
 })
 export class Listado {
-  productos: Producto[] = PRODUCTOS;
+  productos: Producto[] = [];
+  
+  private readonly productoService: ProductoService = inject(ProductoService);
+
+  constructor() {
+    this.productos = this.productoService.obtenerTodos();
+  }
 
   borrar(id: number): void {
     console.log('borrar', id);
+
+    this.productoService.borrar(id);
   }
 }

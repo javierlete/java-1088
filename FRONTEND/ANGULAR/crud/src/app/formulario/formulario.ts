@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
 import { PRODUCTOS } from '../mock-productos';
 import { Producto } from '../producto';
+import { ProductoService } from '../producto.service';
 
 @Component({
   selector: 'app-formulario',
@@ -15,17 +16,26 @@ export class Formulario {
 
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
+  private readonly productoService = inject(ProductoService);
 
   constructor() {
-    const id: number = +this.route.snapshot.params['id'];
+    const id: number = Number(this.route.snapshot.params['id']);
 
     console.log('formulario', id);
 
-    this.producto = PRODUCTOS.find(p => p.id === id)!;
+    if (id) {
+      this.producto = this.productoService.obtenerPorId(id) ?? {} as Producto;
+    }
   }
 
   guardar(): void {
     console.log('guardar', this.producto);
+
+    if (this.producto.id) {
+      this.productoService.modificar(this.producto);
+    } else {
+      this.productoService.insertar(this.producto);
+    }
 
     this.router.navigate(['']);
   }
