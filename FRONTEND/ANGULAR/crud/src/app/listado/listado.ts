@@ -12,4 +12,8 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class Listado {
   productos: Producto[] = PRODUCTOS;
+
+  borrar(id: number): void {
+    console.log('borrar', id);
+  }
 }

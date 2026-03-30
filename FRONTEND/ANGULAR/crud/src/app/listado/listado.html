@@ -16,7 +16,7 @@
             <td>{{producto.precio | currency }}</td>
             <td>
                 <a routerLink="formulario/{{producto.id}}">Editar</a>&nbsp;
-                <a href="#">Borrar</a>
+                <button (click)="borrar(producto.id)">Borrar</button>
             </td>
         </tr>
         }
