@@ -1,6 +1,6 @@
-<form>
-    <input placeholder="Nombre">
-    <input placeholder="Precio">
+<form (submit)="guardar()">
+    <input type="text" [(ngModel)]="producto.nombre" name="nombre" placeholder="Nombre">
+    <input type="number" step=".01" [(ngModel)]="producto.precio" name="precio" placeholder="Precio">
     
-    <button routerLink="">Guardar</button>
+    <button>Guardar</button>
 </form>
