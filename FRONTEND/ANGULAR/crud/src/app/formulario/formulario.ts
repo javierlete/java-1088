@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
-import { PRODUCTOS } from '../mock-productos';
 import { Producto } from '../producto';
 import { ProductoService } from '../producto.service';
 
