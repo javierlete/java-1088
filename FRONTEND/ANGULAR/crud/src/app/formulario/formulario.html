@@ -1,6 +1,16 @@
-<form (submit)="guardar()">
-    <input type="text" [(ngModel)]="producto.nombre" name="nombre" placeholder="Nombre">
-    <input type="number" step=".01" [(ngModel)]="producto.precio" name="precio" placeholder="Precio">
+<form class="p-3" (submit)="guardar()">
+    <div class="row mb-2">
+        <label class="col-form-label col-sm-2" for="nombre">Nombre</label>
+        <div class="col-sm">
+            <input class="form-control" type="text" [(ngModel)]="producto.nombre" id="nombre" name="nombre" placeholder="Nombre">
+        </div>
+    </div>
+    <div class="row mb-2">
+        <label class="col-form-label col-sm-2" for="precio">Precio</label>
+        <div class="col-sm">
+            <input class="form-control" type="number" step=".01" [(ngModel)]="producto.precio" id="precio" name="precio" placeholder="Precio">
+        </div>
+    </div>
     
-    <button>Guardar</button>
+    <button class="btn btn-primary">Guardar</button>
 </form>

@@ -1,9 +1,9 @@
-<table>
-    <thead>
+<table class="table table-hover table-striped table-bordered">
+    <thead class="table-secondary">
         <tr>
-            <th scope="col">Id</th>
+            <th class="text-end" scope="col">Id</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Precio</th>
+            <th class="text-end" scope="col">Precio</th>
             <th scope="col">OPCIONES</th>
         </tr>
     </thead>
@@ -11,22 +11,22 @@
     <tbody>
         @for(producto of productos; track producto.id) {
         <tr>
-            <th scope="row">{{producto.id}}</th>
+            <th class="text-end" scope="row">{{producto.id}}</th>
             <td>{{producto.nombre}}</td>
-            <td>{{producto.precio | currency }}</td>
+            <td class="text-end">{{producto.precio | currency }}</td>
             <td>
-                <a routerLink="formulario/{{producto.id}}">Editar</a>&nbsp;
-                <button (click)="borrar(producto.id)">Borrar</button>
+                <a class="btn btn-sm btn-primary" routerLink="formulario/{{producto.id}}"><i class="bi bi-pencil-fill"></i></a>&nbsp;
+                <button class="btn btn-sm btn-danger" (click)="borrar(producto.id)"><i class="bi bi-trash-fill"></i></button>
             </td>
         </tr>
         }
     </tbody>
 
-    <tfoot>
+    <tfoot class="table-secondary">
         <tr>
             <td colspan="3"></td>
             <td>
-                <a routerLink="formulario">Añadir</a>
+                <a class="btn btn-sm btn-primary" routerLink="formulario"><i class="bi bi-plus-lg"></i></a>
             </td>
         </tr>
     </tfoot>
