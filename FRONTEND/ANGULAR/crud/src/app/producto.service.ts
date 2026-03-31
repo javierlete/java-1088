@@ -1,35 +1,54 @@
 import { Injectable } from '@angular/core';
 import { Producto } from './producto';
-import { PRODUCTOS } from './mock-productos';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductoService {
-  obtenerTodos(): Producto[] {
-    return PRODUCTOS;
+  private readonly URL = 'http://localhost:3000/productos/';
+
+  async obtenerTodos(): Promise<Producto[]> {
+    const respuesta = await fetch(this.URL);
+
+    console.log(respuesta);
+
+    const productos = await respuesta.json();
+
+    console.log(productos);
+
+    return productos;
   }
 
-  obtenerPorId(id: number): Producto | undefined {
-    return PRODUCTOS.find(p => p.id === id);
+  async obtenerPorId(id: number): Promise<Producto | undefined> {
+    const respuesta = await fetch(this.URL + id);
+    return await respuesta.json();
   }
 
-  insertar(producto: Producto): Producto {
-    const id = Math.max(...PRODUCTOS.map(p => p.id)) + 1;
-    producto.id = id;
+  async insertar(producto: Producto): Promise<Producto> {
+    const respuesta = await fetch(this.URL, {
+      body: JSON.stringify(producto),
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
 
-    PRODUCTOS.push(producto);
-
-    return producto;
+    return await respuesta.json();
   }
 
-  modificar(producto: Producto): Producto {
-    PRODUCTOS[PRODUCTOS.findIndex(p => producto.id === p.id)] = producto;
+  async modificar(producto: Producto): Promise<Producto> {
+    const respuesta = await fetch(this.URL + producto.id, {
+      body: JSON.stringify(producto),
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
 
-    return producto;
+    return await respuesta.json();
   }
   
-  borrar(id: number): void {
-    PRODUCTOS.splice(PRODUCTOS.findIndex(p => id === p.id), 1);
+  async borrar(id: number): Promise<void> {
+    await fetch(this.URL + id, { method: 'DELETE' });
   }
 }

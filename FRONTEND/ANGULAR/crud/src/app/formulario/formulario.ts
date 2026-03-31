@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Producto } from '../producto';
@@ -15,7 +15,8 @@ export class Formulario {
 
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
-  private readonly productoService = inject(ProductoService);
+  private readonly productoService: ProductoService = inject(ProductoService);
+  private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   constructor() {
     const id: number = Number(this.route.snapshot.params['id']);
@@ -23,7 +24,11 @@ export class Formulario {
     console.log('formulario', id);
 
     if (id) {
-      this.producto = this.productoService.obtenerPorId(id) ?? {} as Producto;
+      this.productoService.obtenerPorId(id).then(producto => { // NOSONAR
+          this.producto = producto ?? {} as Producto;
+          this.changeDetectorRef.markForCheck();
+        }
+      );
     }
   }
 
