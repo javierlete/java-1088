@@ -3,10 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Producto } from '../producto';
 import { ProductoService } from '../producto.service';
+import { LabelInput } from "../label-input/label-input";
+import { Boton } from "../boton/boton";
 
 @Component({
   selector: 'app-formulario',
-  imports: [FormsModule],
+  imports: [FormsModule, LabelInput, Boton],
   templateUrl: './formulario.html',
   styleUrl: './formulario.css',
 })

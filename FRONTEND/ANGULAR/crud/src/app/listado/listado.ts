@@ -3,10 +3,11 @@ import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { Producto } from '../producto';
 import { ProductoService } from '../producto.service';
+import { Boton } from "../boton/boton";
 
 @Component({
   selector: 'app-listado',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, Boton],
   templateUrl: './listado.html',
   styleUrl: './listado.css',
 })

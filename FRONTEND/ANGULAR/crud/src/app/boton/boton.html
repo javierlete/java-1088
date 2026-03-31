@@ -1,0 +1,7 @@
+<button class="btn btn-{{tipo()}}" [ngClass]="tamanyo() ? 'btn-' + tamanyo() : null" [routerLink]="vinculo()" (click)="pulsado.emit()">
+    @if(icono()) {
+    <i class="bi bi-{{etiqueta()}}"></i>
+    } @else {
+    {{etiqueta()}}
+    }
+</button>

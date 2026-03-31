@@ -1,0 +1,7 @@
+<div class="row mb-2">
+    <label class="col-form-label col-sm-2" for="{{nombre()}}">{{etiqueta()}}</label>
+    <div class="col-sm">
+        <input class="form-control" type="{{tipo()}}" [attr.step]="paso()" [(ngModel)]="valor" id="{{nombre()}}" name="{{nombre()}}"
+            placeholder="{{etiqueta()}}">
+    </div>
+</div>
