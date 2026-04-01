@@ -26,7 +26,7 @@ export class Formulario {
     console.log('formulario', id);
 
     if (id) {
-      this.productoService.obtenerPorId(id).then(producto => { // NOSONAR
+      this.productoService.obtenerPorId(id).subscribe(producto => { // NOSONAR
           this.producto = producto ?? {} as Producto;
           this.changeDetectorRef.markForCheck();
         }
@@ -38,9 +38,9 @@ export class Formulario {
     console.log('guardar', this.producto);
 
     if (this.producto.id) {
-      this.productoService.modificar(this.producto);
+      this.productoService.modificar(this.producto).subscribe();
     } else {
-      this.productoService.insertar(this.producto);
+      this.productoService.insertar(this.producto).subscribe();
     }
 
     this.router.navigate(['']);

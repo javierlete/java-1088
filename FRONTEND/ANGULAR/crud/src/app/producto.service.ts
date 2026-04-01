@@ -1,54 +1,32 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Producto } from './producto';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductoService {
   private readonly URL = 'http://localhost:3000/productos/';
+  private readonly http: HttpClient = inject(HttpClient);
 
-  async obtenerTodos(): Promise<Producto[]> {
-    const respuesta = await fetch(this.URL);
-
-    console.log(respuesta);
-
-    const productos = await respuesta.json();
-
-    console.log(productos);
-
-    return productos;
+  obtenerTodos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(this.URL);
   }
 
-  async obtenerPorId(id: number): Promise<Producto | undefined> {
-    const respuesta = await fetch(this.URL + id);
-    return await respuesta.json();
+  obtenerPorId(id: number): Observable<Producto | undefined> {
+    return this.http.get<Producto | undefined>(this.URL + id);
   }
 
-  async insertar(producto: Producto): Promise<Producto> {
-    const respuesta = await fetch(this.URL, {
-      body: JSON.stringify(producto),
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      }
-    });
-
-    return await respuesta.json();
+  insertar(producto: Producto): Observable<Producto> {
+    return this.http.post<Producto>(this.URL, producto);
   }
 
-  async modificar(producto: Producto): Promise<Producto> {
-    const respuesta = await fetch(this.URL + producto.id, {
-      body: JSON.stringify(producto),
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json'
-      }
-    });
-
-    return await respuesta.json();
+  modificar(producto: Producto): Observable<Producto> {
+    return this.http.put<Producto>(this.URL + producto.id, producto);
   }
   
-  async borrar(id: number): Promise<void> {
-    await fetch(this.URL + id, { method: 'DELETE' });
+  borrar(id: number): Observable<void> {
+    return this.http.delete<void>(this.URL + id);
   }
 }

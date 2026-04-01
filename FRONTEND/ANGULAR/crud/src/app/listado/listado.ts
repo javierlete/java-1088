@@ -22,7 +22,7 @@ export class Listado {
   }
 
   private refrescarListado() {
-    this.productoService.obtenerTodos().then(productos => {
+    this.productoService.obtenerTodos().subscribe(productos => {
       console.log(productos);
       this.productos = productos;
       this.changeDetectorRef.markForCheck();
@@ -32,6 +32,6 @@ export class Listado {
   borrar(id: number): void {
     console.log('borrar', id);
 
-    this.productoService.borrar(id).then(() => this.refrescarListado());
+    this.productoService.borrar(id).subscribe(() => this.refrescarListado());
   }
 }
