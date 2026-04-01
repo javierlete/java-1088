@@ -10,13 +10,31 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "type": "component",
           "standalone": false
         },
         "@schematics/angular:directive": {
+          "type": "directive",
           "standalone": false
         },
+        "@schematics/angular:service": {
+          "type": "service"
+        },
         "@schematics/angular:pipe": {
-          "standalone": false
+          "standalone": false,
+          "typeSeparator": "."
+        },
+        "@schematics/angular:guard": {
+          "typeSeparator": "."
+        },
+        "@schematics/angular:interceptor": {
+          "typeSeparator": "."
+        },
+        "@schematics/angular:module": {
+          "typeSeparator": "."
+        },
+        "@schematics/angular:resolver": {
+          "typeSeparator": "."
         }
       },
       "root": "",
