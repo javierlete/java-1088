@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 import { MessageService } from '../message.service';
@@ -12,7 +12,7 @@ import { MessageService } from '../message.service';
 export class HeroesComponent implements OnInit {
   heroes: Hero[] = [];
 
-  constructor(private readonly heroService: HeroService, private readonly messageService: MessageService) { }
+  constructor(private readonly heroService: HeroService, private readonly messageService: MessageService, private readonly changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getHeroes();
@@ -20,7 +20,10 @@ export class HeroesComponent implements OnInit {
 
   getHeroes(): void {
     this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes);
+      .subscribe(heroes => {
+        this.heroes = heroes;
+        this.changeDetectorRef.markForCheck();
+      });
   }
 
 }

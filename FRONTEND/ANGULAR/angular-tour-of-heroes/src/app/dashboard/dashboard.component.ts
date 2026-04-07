@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 
@@ -11,7 +11,7 @@ import { HeroService } from '../hero.service';
 export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
 
-  constructor(private readonly heroService: HeroService) { }
+  constructor(private readonly heroService: HeroService, private readonly changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getHeroes();
@@ -19,6 +19,9 @@ export class DashboardComponent implements OnInit {
 
   getHeroes(): void {
     this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
+      .subscribe(heroes => {
+        this.heroes = heroes.slice(1, 5);
+        this.changeDetectorRef.markForCheck();
+      });
   }
 }
