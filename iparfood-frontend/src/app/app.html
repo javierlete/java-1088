@@ -1,2 +1,8 @@
 <h1>Aplicación<i class="bi bi-cart"></i></h1>
+
+<ul>
+    @for(plato of platos; track plato.nombre) {
+        <li>{{plato.nombre}}</li>
+    }
+</ul>
 <router-outlet/>
