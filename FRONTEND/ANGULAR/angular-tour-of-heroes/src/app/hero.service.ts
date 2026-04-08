@@ -23,4 +23,23 @@ export class HeroService {
     this.messageService.add(`HeroService: fetched hero id=${id}`);
     return this.http.get<Hero>(this.heroesUrl + id);
   }
+
+  /** POST: add a new hero to the server */
+  addHero(hero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(this.heroesUrl, hero);
+  }
+
+  /** PUT: update the hero on the server */
+  updateHero(hero: Hero): Observable<any> {
+    this.messageService.add(`HeroService: updated hero id=${hero.id}`);
+    return this.http.put<any>(this.heroesUrl + hero.id, hero);
+  }
+  
+  /** DELETE: delete the hero from the server */
+  deleteHero(id: number): Observable<Hero> {
+    const url = `${this.heroesUrl}/${id}`;
+    
+    this.messageService.add(`HeroService: deleted hero id=${id}`);
+    return this.http.delete<Hero>(url);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { ActivatedRoute } from '@angular/router';
 import { HeroService } from '../hero.service';
@@ -14,7 +14,7 @@ export class HeroDetailComponent implements OnInit {
 
   @Input() hero?: Hero;
 
-  constructor(private readonly heroService: HeroService, private readonly route: ActivatedRoute, private readonly location: Location) { }
+  constructor(private readonly changeDetectorRef: ChangeDetectorRef, private readonly heroService: HeroService, private readonly route: ActivatedRoute, private readonly location: Location) { }
 
   ngOnInit(): void {
     this.getHero();
@@ -23,9 +23,19 @@ export class HeroDetailComponent implements OnInit {
   getHero(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
+      .subscribe(hero => {
+        this.hero = hero;
+        this.changeDetectorRef.markForCheck();
+      });
   }
 
+  save(): void {
+    if (this.hero) {
+      this.heroService.updateHero(this.hero)
+        .subscribe(() => this.goBack());
+    }
+  }
+  
   goBack(): void {
     this.location.back();
   }
