@@ -17,6 +17,9 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.ipartek.formacion.ejemplos.iparfood.servicios.UsuarioService;
 
@@ -54,8 +57,10 @@ class WebSecurityConfig {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) {
 		// @formatter:off
 		http
+			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+			.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests(requests -> requests
-				.requestMatchers("/js/**", "/css/**", "/imgs/**").permitAll()
+				.requestMatchers("/js/**", "/css/**", "/imgs/**", "/api/**").permitAll()
 				.requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
 				.anyRequest().authenticated()
 			)
@@ -69,4 +74,19 @@ class WebSecurityConfig {
 
 		return http.build();
 	}
+	
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+	    CorsConfiguration config = new CorsConfiguration();
+	    config.addAllowedOriginPattern("*");
+	    config.addAllowedMethod("*");
+	    config.addAllowedHeader("*");
+	    config.setAllowCredentials(true);
+
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", config);
+
+	    return source;
+	}
+
 }
