@@ -1,28 +1,15 @@
 <nav class="sticky-top navbar navbar-expand-sm bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/"><i class="bi bi-fork-knife"></i> IparFood</a>
+        <a class="navbar-brand" routerLink="/"><i class="bi bi-fork-knife"></i> IparFood</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-                <li class="nav-item"><a class="nav-link" href="/">Principal</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/">Principal</a></li>
             </ul>
             <ul class="navbar-nav mb-2 mb-sm-0">
-                <li class="nav-item"><a class="nav-link" href="/admin">Administración</a></li>
-
-
-                <li class="nav-item"><a class="nav-link" href="/pedido">Pedido actual</a></li>
-                <li class="nav-item"><a class="nav-link" href="/listado-pedidos">Pedidos</a></li>
-                <li class="navbar-text"><span>Javier</span>
-                    <span>[ROLE_ADMINISTRADOR]</span>
-                </li>
-                <li class="nav-item">
-                    <form action="logout" method="post">
-                        <button class="nav-link">Cerrar sesión</button>
-                    </form>
-                </li>
             </ul>
         </div>
     </div>
@@ -31,25 +18,6 @@
 <div class='container flex-grow-1 my-5'>
     <main>
         <router-outlet />
-
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            @for(plato of platos; track plato.id) {
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://picsum.photos/400/300?{{plato.id}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{plato.nombre}}</h5>
-                        <p class="lead">{{plato.tipoComida.nombre}}</p>
-                        <p class="card-text">{{plato.descripcion}}</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-baseline">
-                        <a href="/anadir?id=1" class="btn btn-sm btn-primary">Añadir al pedido</a>
-                        <small class="text-body-secondary">{{plato.precio | currency }}</small>
-                    </div>
-                </div>
-            </div>
-            }
-        </div>
     </main>
 </div>
 <footer class="p-2 text-bg-dark"> &copy;2026 Javier Lete </footer>

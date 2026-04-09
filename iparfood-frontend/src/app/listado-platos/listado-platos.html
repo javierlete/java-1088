@@ -1,1 +1,18 @@
-<p>listado-platos works!</p>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @for(plato of platos; track plato.id) {
+    <div class="col">
+        <div class="card h-100">
+            <img src="https://picsum.photos/400/300?{{plato.id}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{plato.nombre}}</h5>
+                <p class="lead">{{plato.tipoComida.nombre}}</p>
+                <p class="card-text">{{plato.descripcion}}</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-baseline">
+                <a routerLink="/anadir?id=1" class="btn btn-sm btn-primary">Añadir al pedido</a>
+                <small class="text-body-secondary">{{plato.precio | currency }}</small>
+            </div>
+        </div>
+    </div>
+    }
+</div>
