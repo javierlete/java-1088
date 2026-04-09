@@ -29,8 +29,12 @@
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "src/styles.css"
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.js"],
-            "polyfills": ["@angular/localize/init"]
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+            ],
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           },
           "configurations": {
             "production": {
@@ -71,6 +75,9 @@
         "test": {
           "builder": "@angular/build:unit-test"
         }
+      },
+      "i18n": {
+        "sourceLocale": "es-ES"
       }
     }
   }
