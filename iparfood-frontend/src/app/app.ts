@@ -1,12 +1,9 @@
-import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Plato } from './plato';
-import { PlatoService } from './plato-service';
-import { CurrencyPipe } from '@angular/common';
+import { Component, signal } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

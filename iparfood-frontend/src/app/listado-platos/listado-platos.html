@@ -9,7 +9,7 @@
                 <p class="card-text">{{plato.descripcion}}</p>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-baseline">
-                <a routerLink="/anadir?id=1" class="btn btn-sm btn-primary">Añadir al pedido</a>
+                <button (click)="anadirPedido(plato)" class="btn btn-sm btn-primary">Añadir al pedido</button>
                 <small class="text-body-secondary">{{plato.precio | currency }}</small>
             </div>
         </div>
