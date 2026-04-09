@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Plato } from './plato';
 import { PlatoService } from './plato-service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CurrencyPipe],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
