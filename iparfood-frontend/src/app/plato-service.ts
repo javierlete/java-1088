@@ -7,12 +7,10 @@ import { Plato } from './plato';
   providedIn: 'root',
 })
 export class PlatoService {
-  private readonly url = 'http://localhost:8080/api/v1/platos';
+  private readonly url = 'http://localhost:8080/api/v2/platos';
   private readonly http = inject(HttpClient);
 
   obtenerPlatos(): Observable<Plato[]> {
-    return this.http.get<any>(this.url).pipe(
-      map((resultado: any) => resultado._embedded.platos)
-    );
+    return this.http.get<any>(this.url);
   }
 }
