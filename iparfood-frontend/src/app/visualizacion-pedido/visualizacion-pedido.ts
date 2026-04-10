@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './visualizacion-pedido.css',
 })
 export class VisualizacionPedido {
-  private readonly pedidoService = inject(PedidoService);
+  protected readonly pedidoService = inject(PedidoService);
 
   pedido: Pedido = this.pedidoService.pedido;
 }

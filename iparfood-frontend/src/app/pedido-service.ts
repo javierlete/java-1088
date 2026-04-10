@@ -23,6 +23,10 @@ export class PedidoService {
     sessionStorage.setItem('pedido', JSON.stringify(pedido));
   }
 
+  get total(): number {
+    return this.pedido.platos.map(p => p.precio).reduce((total, precio) => precio + total, 0);
+  }
+
   anadirPlato(plato: Plato): Pedido {
     const pedidoModificado = this.pedido;
 
