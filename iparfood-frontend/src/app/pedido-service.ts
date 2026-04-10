@@ -1,13 +1,19 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Pedido } from './pedido';
 import { Plato } from './plato';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PedidoService {
+  private readonly url = 'http://localhost:8080/api/v2/pedidos';
+  private readonly http = inject(HttpClient);
+
   private readonly pedidoInicial: Pedido = {
     usuario: {
+      id: 1,
       nombre: 'Javier'
     },
     platos: [] as Plato[]
@@ -35,5 +41,21 @@ export class PedidoService {
     this.pedido = pedidoModificado;
 
     return this.pedido;
+  }
+
+  confirmarPedido(): Observable<Pedido> {
+    const pedido = this.pedido;
+
+    pedido.fechaHora = new Date();
+
+    this.pedido = pedido;
+
+    return this.http.post<Pedido>(this.url, this.pedido, {
+      headers: {
+        'Content-type': 'application/json'
+      }
+    }).pipe(
+      tap(resultado => console.log(resultado))
+    );
   }
 }

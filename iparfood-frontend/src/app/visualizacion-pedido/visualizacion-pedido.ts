@@ -14,4 +14,8 @@ export class VisualizacionPedido {
   protected readonly pedidoService = inject(PedidoService);
 
   pedido: Pedido = this.pedidoService.pedido;
+
+  confirmarPedido() {
+    this.pedidoService.confirmarPedido().subscribe();
+  }
 }

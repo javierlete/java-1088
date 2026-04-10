@@ -60,9 +60,10 @@ class WebSecurityConfig {
 			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 			.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests(requests -> requests
-				.requestMatchers("/js/**", "/css/**", "/imgs/**", "/api/**").permitAll()
-				.requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
-				.anyRequest().authenticated()
+				// .requestMatchers("/js/**", "/css/**", "/imgs/**", "/api/**").permitAll()
+				// .requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
+				// .anyRequest().authenticated()
+				.anyRequest().permitAll()
 			)
 			.formLogin(form -> form
 				.loginPage("/login")
