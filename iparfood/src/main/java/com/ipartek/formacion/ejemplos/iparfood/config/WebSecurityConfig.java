@@ -40,7 +40,7 @@ class WebSecurityConfig {
 				usuarioService.buscarPorEmail(username).orElseThrow(() -> new UsernameNotFoundException(username))));
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({"deprecation", "java:S5344"}) // Es un ejemplo en el que debemos permitir noop
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		String idForEncode = "bcrypt";

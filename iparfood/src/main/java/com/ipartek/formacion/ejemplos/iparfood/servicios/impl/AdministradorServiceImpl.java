@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 public class AdministradorServiceImpl implements AdministradorService {
-//	private static final Logger log = Logger.getLogger(AdministradorServiceImpl.class.getName());
+//	private static final Logger log = Logger.getLogger(AdministradorServiceImpl.class.getName()); // NOSONAR // Ejemplo de cómo usar log sin Lombok
 	
 	private final PedidoRepository pedidoRepository;
 	private final PlatoRepository platoRepository;

@@ -6,8 +6,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.ipartek.formacion.ejemplos.iparfood.dtos.PedidoDto;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
-    private final PedidoDto pedidoDto;
+    private final PedidoSesion pedidoSesion;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -28,7 +26,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         var usuarioLogin = (UsuarioLogin) authentication.getPrincipal();
 
-        pedidoDto.setUsuario(usuarioLogin.getUsuario());
+        if(usuarioLogin == null) {
+        	throw new ConfiguracionException("No se ha recibido el usuario logueado");
+        }
+        
+        pedidoSesion.setUsuario(usuarioLogin.getUsuario());
 
         response.sendRedirect("/"); // o donde quieras
     }

@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ipartek.formacion.ejemplos.iparfood.dtos.PedidoDto;
+import com.ipartek.formacion.ejemplos.iparfood.config.PedidoSesion;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Usuario;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.UsuarioService;
 
@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/")
 public class UsuarioController {
 	private final UsuarioService usuarioService;
-	private final PedidoDto pedidoSesion;
+	private final PedidoSesion pedidoSesion;
 
 	@GetMapping
 	public String index(Model modelo) {
@@ -53,7 +53,7 @@ public class UsuarioController {
 	public String confirmarPedido() {
 		log.debug(pedidoSesion.toString());
 		
-		var pedido = pedidoSesion.clone();
+		var pedido = pedidoSesion.copia();
 		
 		pedido.setFechaHora(LocalDateTime.now());
 		

@@ -24,9 +24,10 @@ public class UsuarioLogin extends Usuario implements UserDetails {
 
 	private static final long serialVersionUID = 8529729608587167893L;
 
+	@SuppressWarnings("java:S3252") // Lombok builder heredado; uso intencional en subclase
 	public static UsuarioLogin of(Usuario usuario) {
-		return UsuarioLogin.builder().id(usuario.getId()).nombre(usuario.getNombre()).email(usuario.getEmail())
-				.password(usuario.getPassword()).rol(usuario.getRol()).build();
+		return UsuarioLogin.builder().id(usuario.getId()).nombre(usuario.getNombre())
+				.email(usuario.getEmail()).password(usuario.getPassword()).rol(usuario.getRol()).build();
 	}
 
 	@Override

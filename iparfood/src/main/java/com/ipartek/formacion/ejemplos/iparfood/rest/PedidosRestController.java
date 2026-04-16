@@ -1,12 +1,16 @@
 package com.ipartek.formacion.ejemplos.iparfood.rest;
 
+import java.time.LocalDateTime;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ipartek.formacion.ejemplos.iparfood.dtos.PedidoDto;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Pedido;
+import com.ipartek.formacion.ejemplos.iparfood.entidades.Usuario;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,10 +29,14 @@ public class PedidosRestController {
 	public Iterable<Pedido> get(Long idUsuario) {
 		return usuarioService.listarPedidos(idUsuario);
 	}
-	
+
 	@PostMapping
-	public Pedido post(@RequestBody Pedido pedido) {
-		log.info(pedido.toString());
+	public Pedido post(@RequestBody PedidoDto pedidoDto) {
+		log.info(pedidoDto.toString());
+
+		var pedido = Pedido.builder().fechaHora(LocalDateTime.now()).usuario(Usuario.builder().id(1L).build())
+				.platos(pedidoDto.platos()).build();
+
 		return usuarioService.confirmarPedido(pedido);
 	}
 }
