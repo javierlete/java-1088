@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ipartek.formacion.ejemplos.iparfood.dtos.PlatoDto;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Plato;
+import com.ipartek.formacion.ejemplos.iparfood.mappers.PlatoMapper;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.AdministradorService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 
 @RequiredArgsConstructor
 
@@ -20,7 +24,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/admin")
 public class AdministradorController {
 	private final AdministradorService administradorService;
-
+	private final PlatoMapper mapper;
+	
 	@GetMapping
 	public String index(Model modelo) {
 		modelo.addAttribute("platos", administradorService.listarPlatos());
@@ -49,10 +54,12 @@ public class AdministradorController {
 			modelo.addAttribute("tiposComida", administradorService.listarTiposComida());
 			return "admin/plato";
 		}
-
-		var plato = Plato.builder().id(platoDto.id()).nombre(platoDto.nombre()).descripcion(platoDto.descripcion())
-				.precio(platoDto.precio()).tipoComida(platoDto.tipoComida()).build();
-
+		
+		var plato = mapper.toEntity(platoDto);
+		
+		log.info(platoDto.toString());
+		log.info(plato.toString());
+		
 		if (plato.getId() != null) {
 			administradorService.modificarPlato(plato);
 		} else {
