@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
 	xmlns:th="https://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/">
+	xmlns:sec="https://www.thymeleaf.org/" lang="es">
 
 <title>IparFood: Administración</title>
 
@@ -11,17 +11,17 @@
 	<table class="table table-hover table-striped table-bordered">
 		<thead class="table-secondary">
 			<tr>
-				<th>Id</th>
-				<th>Nombre</th>
-				<th>Precio</th>
-				<th>Tipo</th>
-				<th>OPCIONES</th>
+				<th scope="col">Id</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Precio</th>
+				<th scope="col">Tipo</th>
+				<th scope="col">OPCIONES</th>
 			</tr>
 		</thead>
 
 		<tbody>
 			<tr th:each="plato: ${platos}" th:object="${plato}">
-				<th th:text="*{id}">1</th>
+				<th scope="row" th:text="*{id}">1</th>
 				<td th:text="*{nombre}">Un plato</td>
 				<td th:text="*{precio}">12,12 €</td>
 				<td th:text="*{tipoComida.nombre}">Mediterranea</td>
