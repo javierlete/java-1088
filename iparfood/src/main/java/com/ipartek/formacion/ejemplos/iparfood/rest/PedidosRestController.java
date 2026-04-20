@@ -34,6 +34,7 @@ public class PedidosRestController {
 	public Pedido post(@RequestBody PedidoDto pedidoDto) {
 		log.info(pedidoDto.toString());
 
+		// TODO: El usuario del pedido  debería ser un usuario que se ha logueado
 		var pedido = Pedido.builder().fechaHora(LocalDateTime.now()).usuario(Usuario.builder().id(1L).build())
 				.platos(pedidoDto.platos()).build();
 
