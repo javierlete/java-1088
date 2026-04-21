@@ -30,4 +30,11 @@ export class UsuarioService {
       return of(undefined);
     }
   }
+
+  logout(): Observable<any> {
+    this.usuario.set(undefined);
+    sessionStorage.removeItem('usuario');
+    
+    return of(null);
+  }
 }

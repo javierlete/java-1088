@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Usuario } from '../usuario';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../usuario-service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,12 @@ export class Login {
 
   private readonly usuarioService = inject(UsuarioService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
+  constructor() {
+    this.cierreSesion = Boolean(this.route.snapshot.queryParamMap.get('logout'));
+  }
+  
   envioFormulario() {
     console.log(this.usuario);
 
