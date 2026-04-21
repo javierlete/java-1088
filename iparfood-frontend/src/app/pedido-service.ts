@@ -11,11 +11,7 @@ export class PedidoService {
   private readonly url = 'http://localhost:8080/api/v2/pedidos';
   private readonly http = inject(HttpClient);
 
-  private readonly pedidoInicial: Pedido = {
-    usuario: {
-      id: 1,
-      nombre: 'Javier'
-    },
+  public readonly pedidoInicial: Pedido = {
     platos: [] as Plato[]
   } as Pedido;
 

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ipartek.formacion.ejemplos.iparfood.dtos.PedidoDto;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Pedido;
-import com.ipartek.formacion.ejemplos.iparfood.entidades.Usuario;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,9 +33,10 @@ public class PedidosRestController {
 	public Pedido post(@RequestBody PedidoDto pedidoDto) {
 		log.info(pedidoDto.toString());
 
-		// TODO: El usuario del pedido  debería ser un usuario que se ha logueado
-		var pedido = Pedido.builder().fechaHora(LocalDateTime.now()).usuario(Usuario.builder().id(1L).build())
-				.platos(pedidoDto.platos()).build();
+		var usuario = usuarioService.buscarPorEmail(pedidoDto.usuario().getEmail());
+
+		var pedido = Pedido.builder().fechaHora(LocalDateTime.now()).usuario(usuario.get()).platos(pedidoDto.platos())
+				.build();
 
 		return usuarioService.confirmarPedido(pedido);
 	}
