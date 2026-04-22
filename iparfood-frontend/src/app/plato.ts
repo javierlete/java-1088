@@ -4,7 +4,7 @@ export interface Plato {
     id?: number;
     nombre: string;
     precio: number;
-    descripcion?: string;
+    descripcion?: string | null;
 
     tipoComida: TipoComida;
 }
