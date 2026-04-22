@@ -14,10 +14,14 @@ export class Admin {
   platos = signal<Plato[]>([]);
 
   constructor() {
+    this.refrescarListado();
+  }
+
+  private refrescarListado() {
     this.platoService.obtenerPlatos().subscribe(platos => this.platos.set(platos));
   }
 
   borrar(id?: number): void {
-    this.platoService.borrar(id).subscribe();
+    this.platoService.borrar(id).subscribe(() => this.refrescarListado());
   }
 }
