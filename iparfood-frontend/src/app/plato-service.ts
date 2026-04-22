@@ -15,8 +15,7 @@ export class PlatoService {
   }
 
   obtenerPlatoPorId(id: number): Observable<Plato> {
-    console.log('obtenerPlatoPorId', id);
-    return of({ id, nombre: 'Nombre ' + id, precio: id, descripcion: 'Descripción ' + id, tipoComida: { id, nombre: 'TipoComida ' + id } });
+    return this.http.get<Plato>(`${this.url}/${id}`);
   }
 
   borrar(id?: number): Observable<any> {

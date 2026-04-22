@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Plato;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.AdministradorService;
-import com.ipartek.formacion.ejemplos.iparfood.servicios.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +21,11 @@ public class PlatosRestController {
 	@GetMapping
 	public Iterable<Plato> get() {
 		return administradorService.listarPlatos(); 
+	}
+	
+	@GetMapping("{id}")
+	public Plato getId(@PathVariable Long id) {
+		return administradorService.obtenerPlatoPorId(id);
 	}
 	
 	@DeleteMapping("{id}")
