@@ -10,7 +10,7 @@ import { UsuarioService } from './usuario-service';
 })
 export class App {
   protected readonly usuarioService = inject(UsuarioService);
-  protected readonly router = inject(Router);
+  private readonly router = inject(Router);
 
   logout() {
     this.usuarioService.logout().subscribe(
