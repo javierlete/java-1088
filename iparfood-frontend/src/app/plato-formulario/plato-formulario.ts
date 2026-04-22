@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Plato } from '../plato';
 import { JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { PlatoService } from '../plato-service';
 
 @Component({
   selector: 'app-plato-formulario',
@@ -11,6 +12,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './plato-formulario.css',
 })
 export class PlatoFormulario {
+  private readonly platoService = inject(PlatoService);
   private readonly route = inject(ActivatedRoute);
   plato: Plato = {} as Plato;
 
@@ -18,7 +20,7 @@ export class PlatoFormulario {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (id) {
-      this.plato = { id, nombre: 'Nombre ' + id, precio: id, descripcion: 'Descripción ' + id, tipoComida: { id, nombre: 'TipoComida ' + id } };
+      this.platoService.obtenerPlatoPorId(id).subscribe(plato => this.plato = plato);
     }
   }
 }

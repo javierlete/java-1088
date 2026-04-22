@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Plato } from './plato';
 
 @Injectable({
@@ -12,6 +12,11 @@ export class PlatoService {
 
   obtenerPlatos(): Observable<Plato[]> {
     return this.http.get<any>(this.url);
+  }
+
+  obtenerPlatoPorId(id: number): Observable<Plato> {
+    console.log('obtenerPlatoPorId', id);
+    return of({ id, nombre: 'Nombre ' + id, precio: id, descripcion: 'Descripción ' + id, tipoComida: { id, nombre: 'TipoComida ' + id } });
   }
 
   borrar(id?: number): Observable<any> {
