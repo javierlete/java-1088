@@ -18,6 +18,6 @@ export class Admin {
   }
 
   borrar(id?: number): void {
-    console.log('BORRAR', id);
+    this.platoService.borrar(id).subscribe();
   }
 }

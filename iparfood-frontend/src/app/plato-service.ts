@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Plato } from './plato';
 
 @Injectable({
@@ -12,5 +12,11 @@ export class PlatoService {
 
   obtenerPlatos(): Observable<Plato[]> {
     return this.http.get<any>(this.url);
+  }
+
+  borrar(id?: number): Observable<any> {
+    console.log('plato-service', 'borrar', id);
+
+    return of(undefined);
   }
 }
