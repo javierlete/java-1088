@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Plato } from '../plato';
-import { PLATOS } from '../mock-platos';
 import { CurrencyPipe } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
+import { Plato } from '../plato';
+import { PlatoService } from '../plato-service';
 
 @Component({
   selector: 'app-admin',
@@ -10,5 +10,10 @@ import { CurrencyPipe } from '@angular/common';
   styleUrl: './admin.css',
 })
 export class Admin {
-  platos: Plato[] = PLATOS;
+  private readonly platoService = inject(PlatoService);
+  platos = signal<Plato[]>([]);
+
+  constructor() {
+    this.platoService.obtenerPlatos().subscribe(platos => this.platos.set(platos));
+  }
 }

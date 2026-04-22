@@ -9,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        @for(plato of platos; track plato.id) {
+        @for(plato of platos(); track plato.id) {
         <tr>
             <th class="text-end" scope="row">{{plato.id}}</th>
             <td>{{plato.nombre}}</td>
