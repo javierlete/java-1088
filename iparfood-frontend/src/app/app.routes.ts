@@ -9,6 +9,7 @@ export const routes: Routes = [
     { path: '', component: ListadoPlatos },
     { path: 'admin', component: Admin },
     { path: 'admin/plato', component: PlatoFormulario },
+    { path: 'admin/plato/:id', component: PlatoFormulario },
     { path: 'login', component: Login },
     { path: 'pedido', component: VisualizacionPedido },
 ];
