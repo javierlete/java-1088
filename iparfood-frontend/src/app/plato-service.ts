@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Plato } from './plato';
 
 @Injectable({
@@ -15,8 +15,6 @@ export class PlatoService {
   }
 
   borrar(id?: number): Observable<any> {
-    console.log('plato-service', 'borrar', id);
-
-    return of(undefined);
+    return this.http.delete(`${this.url}/${id}`);
   }
 }
