@@ -2,10 +2,11 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { Plato } from '../plato';
 import { PlatoService } from '../plato-service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './admin.html',
   styleUrl: './admin.css',
 })

@@ -16,7 +16,7 @@
             <td class="text-end">{{plato.precio | currency}}</td>
             <td>{{plato.tipoComida.nombre}}</td>
             <td class="d-flex justify-content-around">
-                <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-pencil-fill"></i></a>
+                <a routerLink="/admin/plato" class="btn btn-sm btn-primary"><i class="bi bi-pencil-fill"></i></a>
                 <a (click)="borrar(plato.id)" class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></a>
             </td>
         </tr>
@@ -26,7 +26,7 @@
         <tr>
             <td colspan="4"></td>
             <td class="text-center">
-                <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-plus-lg"></i></a>
+                <a routerLink="/admin/plato" class="btn btn-sm btn-primary"><i class="bi bi-plus-lg"></i></a>
             </td>
         </tr>
     </tfoot>
