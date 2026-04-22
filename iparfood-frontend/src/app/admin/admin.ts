@@ -16,4 +16,8 @@ export class Admin {
   constructor() {
     this.platoService.obtenerPlatos().subscribe(platos => this.platos.set(platos));
   }
+
+  borrar(id?: number): void {
+    console.log('BORRAR', id);
+  }
 }
