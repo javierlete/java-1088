@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Plato;
+import com.ipartek.formacion.ejemplos.iparfood.servicios.AdministradorService;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,15 +17,15 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v2/platos")
 public class PlatosRestController {
-	private final UsuarioService usuarioService;
+	private final AdministradorService administradorService;
 	
 	@GetMapping
 	public Iterable<Plato> get() {
-		return usuarioService.listarPlatos(); 
+		return administradorService.listarPlatos(); 
 	}
 	
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {
-		System.out.println("BORRANDO " + id);
+		administradorService.borrarPlato(id);
 	}
 }
