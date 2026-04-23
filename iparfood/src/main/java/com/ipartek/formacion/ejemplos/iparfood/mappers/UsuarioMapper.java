@@ -9,19 +9,20 @@ import org.mapstruct.ReportingPolicy;
 
 import com.ipartek.formacion.ejemplos.iparfood.dtos.UsuarioDto;
 import com.ipartek.formacion.ejemplos.iparfood.dtos.UsuarioLoginDto;
+import com.ipartek.formacion.ejemplos.iparfood.dtos.UsuarioLoginRespuestaDto;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Usuario;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UsuarioMapper {
 	Usuario toEntity(UsuarioDto dto);
-	Usuario toEntity(UsuarioLoginDto dto);
-
 	UsuarioDto toDto(Usuario entity);
 
 	@Mapping(target = "id", ignore = true)
-	@BeanMapping(ignoreByDefault = true)
 	Usuario toNewEntity(UsuarioDto dto);
 
 	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 	void updateEntityFromDto(UsuarioDto dto, @MappingTarget Usuario entity);
+
+	Usuario toEntity(UsuarioLoginDto dto);
+	UsuarioLoginRespuestaDto toLoginRespuestaDto(Usuario entity);
 }

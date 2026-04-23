@@ -16,7 +16,6 @@ public interface PlatoMapper {
 	PlatoDto toDto(Plato entity);
 
 	@Mapping(target = "id", ignore = true)
-	@BeanMapping(ignoreByDefault = true)
 	Plato toNewEntity(PlatoDto dto);
 
 	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

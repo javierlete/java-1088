@@ -22,31 +22,29 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v2/platos")
 public class PlatosRestController {
 	private final AdministradorService administradorService;
-	
+
 	private final PlatoMapper platoMapper;
-	
+
 	@GetMapping
 	public Iterable<Plato> get() {
-		return administradorService.listarPlatos(); 
+		return administradorService.listarPlatos();
 	}
-	
+
 	@GetMapping("{id}")
 	public Plato getId(@PathVariable Long id) {
 		return administradorService.obtenerPlatoPorId(id);
 	}
-	
+
 	@PostMapping
 	public Plato post(@RequestBody PlatoDto platoDto) {
-		return administradorService.crearPlato(platoMapper.toEntity(platoDto));
+		return administradorService.crearPlato(platoMapper.toNewEntity(platoDto));
 	}
-	
+
 	@PutMapping("{id}")
 	public Plato put(@PathVariable Long id, @RequestBody PlatoDto platoDto) {
 		return administradorService.modificarPlato(platoMapper.toEntity(platoDto));
 	}
-	
-	
-	
+
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {
 		administradorService.borrarPlato(id);

@@ -1,5 +1,5 @@
 package com.ipartek.formacion.ejemplos.iparfood.dtos;
 
-public record UsuarioDto(String email, String nombre, String rol) {
+public record UsuarioDto(Long id, String nombre, String email, String password, String direccion, String rol) {
 
 }
