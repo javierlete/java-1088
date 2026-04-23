@@ -5,6 +5,7 @@ import { JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlatoService } from '../plato-service';
 import { TipoComida } from '../tipo-comida';
+import { TipoComidaService } from '../tipo-comida-service';
 
 @Component({
   selector: 'app-plato-formulario',
@@ -14,14 +15,11 @@ import { TipoComida } from '../tipo-comida';
 })
 export class PlatoFormulario {
   private readonly platoService = inject(PlatoService);
+  private readonly tipoComidaService = inject(TipoComidaService);
   private readonly route = inject(ActivatedRoute);
   
   plato: Plato = {} as Plato;
-  tiposComida: TipoComida[] = [
-    { id: 1, nombre: 'UNO' },
-    { id: 2, nombre: 'DOS' },
-    { id: 3, nombre: 'TRES' },
-  ];
+  tiposComida: TipoComida[] = [];
 
   constructor() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -29,5 +27,7 @@ export class PlatoFormulario {
     if (id) {
       this.platoService.obtenerPlatoPorId(id).subscribe(plato => this.plato = plato);
     }
+
+    this.tipoComidaService.obtenerTodos().subscribe(tipos => this.tiposComida = tipos);
   }
 }
