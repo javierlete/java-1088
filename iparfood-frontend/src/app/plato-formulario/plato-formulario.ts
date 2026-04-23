@@ -39,7 +39,9 @@ export class PlatoFormulario {
   guardar() {
     console.log('guardar', this.plato);
 
-    this.router.navigate(['admin']);
+    const suscripcion = this.plato.id ? this.platoService.modificar(this.plato) : this.platoService.insertar(this.plato);
+
+    suscripcion.subscribe(_ => this.router.navigate(['admin']));
   }
 }
 

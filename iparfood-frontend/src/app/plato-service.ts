@@ -18,6 +18,16 @@ export class PlatoService {
     return this.http.get<Plato>(`${this.url}/${id}`);
   }
 
+  insertar(plato: Plato): Observable<Plato> {
+    console.log('insertar', plato);
+    return of(plato);
+  }
+
+  modificar(plato: Plato): Observable<Plato> {
+    console.log('modificar', plato);
+    return of(plato);
+  }
+
   borrar(id?: number): Observable<any> {
     return this.http.delete(`${this.url}/${id}`);
   }
