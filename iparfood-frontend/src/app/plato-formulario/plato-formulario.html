@@ -25,7 +25,7 @@
         <div class="col-sm">
             <select class="form-select" [(ngModel)]="plato.tipoComida.id" name="tipo-comida" id="tipo-comida">
                 <option value="0">Selecciona un tipo de comida</option>
-                @for(tipo of tiposComida; track tipo.id) {
+                @for(tipo of tiposComida(); track tipo.id) {
                 <option value="{{tipo.id}}">{{tipo.nombre}}</option>
                 }
             </select>

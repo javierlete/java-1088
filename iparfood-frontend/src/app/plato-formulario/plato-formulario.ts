@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Plato } from '../plato';
 import { JsonPipe } from '@angular/common';
@@ -18,8 +18,12 @@ export class PlatoFormulario {
   private readonly tipoComidaService = inject(TipoComidaService);
   private readonly route = inject(ActivatedRoute);
   
-  plato: Plato = {} as Plato;
-  tiposComida: TipoComida[] = [];
+  plato: Plato = {
+    tipoComida: {
+      id: 0
+    }
+  } as Plato;
+  tiposComida = signal<TipoComida[]>([]);
 
   constructor() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -28,6 +32,6 @@ export class PlatoFormulario {
       this.platoService.obtenerPlatoPorId(id).subscribe(plato => this.plato = plato);
     }
 
-    this.tipoComidaService.obtenerTodos().subscribe(tipos => this.tiposComida = tipos);
+    this.tipoComidaService.obtenerTodos().subscribe(tipos => this.tiposComida.set(tipos));
   }
 }
