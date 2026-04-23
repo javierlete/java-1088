@@ -4,6 +4,7 @@ import { Plato } from '../plato';
 import { JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlatoService } from '../plato-service';
+import { TipoComida } from '../tipo-comida';
 
 @Component({
   selector: 'app-plato-formulario',
@@ -14,7 +15,13 @@ import { PlatoService } from '../plato-service';
 export class PlatoFormulario {
   private readonly platoService = inject(PlatoService);
   private readonly route = inject(ActivatedRoute);
+  
   plato: Plato = {} as Plato;
+  tiposComida: TipoComida[] = [
+    { id: 1, nombre: 'UNO' },
+    { id: 2, nombre: 'DOS' },
+    { id: 3, nombre: 'TRES' },
+  ];
 
   constructor() {
     const id = Number(this.route.snapshot.paramMap.get('id'));

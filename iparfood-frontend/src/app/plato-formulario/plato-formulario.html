@@ -16,17 +16,18 @@
     <div class="row mb-3">
         <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
         <div class="col-sm">
-            <textarea class="form-control" id="descripcion" [(ngModel)]="plato.descripcion" name="descripcion" id="descripcion"></textarea>
+            <textarea class="form-control" id="descripcion" [(ngModel)]="plato.descripcion" name="descripcion"
+                id="descripcion"></textarea>
         </div>
     </div>
     <div class="row mb-3">
         <label for="tipo-comida" class="col-sm-2 col-form-label">Tipo de comida</label>
         <div class="col-sm">
             <select class="form-select" [(ngModel)]="plato.tipoComida.id" name="tipo-comida" id="tipo-comida">
-                <option>Selecciona un tipo de comida</option>
-                <option value="1">Mediterranea</option>
-                <option value="2">Americana</option>
-                <option value="3">Asiática</option>
+                <option value="0">Selecciona un tipo de comida</option>
+                @for(tipo of tiposComida; track tipo.id) {
+                <option value="{{tipo.id}}">{{tipo.nombre}}</option>
+                }
             </select>
         </div>
     </div>
