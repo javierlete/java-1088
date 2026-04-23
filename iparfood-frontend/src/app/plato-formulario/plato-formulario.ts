@@ -1,15 +1,15 @@
-import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Plato } from '../plato';
 import { JsonPipe } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Plato } from '../plato';
 import { PlatoService } from '../plato-service';
 import { TipoComida } from '../tipo-comida';
 import { TipoComidaService } from '../tipo-comida-service';
 
 @Component({
   selector: 'app-plato-formulario',
-  imports: [RouterLink, JsonPipe, FormsModule],
+  imports: [JsonPipe, FormsModule],
   templateUrl: './plato-formulario.html',
   styleUrl: './plato-formulario.css',
 })
@@ -17,7 +17,8 @@ export class PlatoFormulario {
   private readonly platoService = inject(PlatoService);
   private readonly tipoComidaService = inject(TipoComidaService);
   private readonly route = inject(ActivatedRoute);
-  
+  private readonly router = inject(Router);
+
   plato: Plato = {
     tipoComida: {
       id: 0
@@ -34,4 +35,11 @@ export class PlatoFormulario {
 
     this.tipoComidaService.obtenerTodos().subscribe(tipos => this.tiposComida.set(tipos));
   }
+
+  guardar() {
+    console.log('guardar', this.plato);
+
+    this.router.navigate(['admin']);
+  }
 }
+
