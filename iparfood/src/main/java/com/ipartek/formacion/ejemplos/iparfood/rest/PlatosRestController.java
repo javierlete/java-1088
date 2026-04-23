@@ -33,22 +33,12 @@ public class PlatosRestController {
 	
 	@PostMapping
 	public Plato post(@RequestBody Plato plato) {
-		System.out.println("POST");
-		
-		plato.setId(1234L);
-		
-		System.out.println(plato);
-
-		return plato;
+		return administradorService.crearPlato(plato);
 	}
 	
 	@PutMapping("{id}")
 	public Plato put(@PathVariable Long id, @RequestBody Plato plato) {
-		System.out.println("PUT");
-		System.out.println(id);
-		System.out.println(plato);
-		
-		return plato;
+		return administradorService.modificarPlato(plato);
 	}
 	
 	
