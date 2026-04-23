@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.ipartek.formacion.ejemplos.iparfood.dtos.UsuarioDto;
+import com.ipartek.formacion.ejemplos.iparfood.dtos.UsuarioLoginDto;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Usuario;
 import com.ipartek.formacion.ejemplos.iparfood.mappers.UsuarioMapper;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.AnonimoService;
@@ -23,8 +24,8 @@ public class LoginRestController {
 	private final UsuarioMapper usuarioMapper;
 	
 	@PostMapping
-	public UsuarioDto login(@RequestBody Usuario usuario) {
-		Usuario usuarioLogin = anonimoService.login(usuario);
+	public UsuarioDto login(@RequestBody UsuarioLoginDto usuarioLoginDto) {
+		Usuario usuarioLogin = anonimoService.login(usuarioMapper.toEntity(usuarioLoginDto));
 
 		if(usuarioLogin == null) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuario o contraseña incorrectos");

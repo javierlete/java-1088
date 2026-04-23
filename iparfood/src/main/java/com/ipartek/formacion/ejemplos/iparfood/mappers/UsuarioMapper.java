@@ -8,11 +8,13 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import com.ipartek.formacion.ejemplos.iparfood.dtos.UsuarioDto;
+import com.ipartek.formacion.ejemplos.iparfood.dtos.UsuarioLoginDto;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Usuario;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UsuarioMapper {
 	Usuario toEntity(UsuarioDto dto);
+	Usuario toEntity(UsuarioLoginDto dto);
 
 	UsuarioDto toDto(Usuario entity);
 

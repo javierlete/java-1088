@@ -18,12 +18,8 @@ public class AnonimoServiceImpl implements AnonimoService {
 
 	@Override
 	public Usuario login(Usuario usuario) {
-		System.out.println(usuario);
-		
 		var usuarioAutenticadoOptional = usuarioRepository.findByEmail(usuario.getEmail());
 
-		System.out.println(usuarioAutenticadoOptional);
-		
 		if (usuarioAutenticadoOptional.isEmpty()) {
 			return null;
 		}

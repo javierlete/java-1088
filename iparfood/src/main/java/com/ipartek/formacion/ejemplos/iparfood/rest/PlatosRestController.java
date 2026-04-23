@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ipartek.formacion.ejemplos.iparfood.dtos.PlatoDto;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Plato;
+import com.ipartek.formacion.ejemplos.iparfood.mappers.PlatoMapper;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.AdministradorService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v2/platos")
 public class PlatosRestController {
 	private final AdministradorService administradorService;
+	
+	private final PlatoMapper platoMapper;
 	
 	@GetMapping
 	public Iterable<Plato> get() {
@@ -32,13 +36,13 @@ public class PlatosRestController {
 	}
 	
 	@PostMapping
-	public Plato post(@RequestBody Plato plato) {
-		return administradorService.crearPlato(plato);
+	public Plato post(@RequestBody PlatoDto platoDto) {
+		return administradorService.crearPlato(platoMapper.toEntity(platoDto));
 	}
 	
 	@PutMapping("{id}")
-	public Plato put(@PathVariable Long id, @RequestBody Plato plato) {
-		return administradorService.modificarPlato(plato);
+	public Plato put(@PathVariable Long id, @RequestBody PlatoDto platoDto) {
+		return administradorService.modificarPlato(platoMapper.toEntity(platoDto));
 	}
 	
 	
