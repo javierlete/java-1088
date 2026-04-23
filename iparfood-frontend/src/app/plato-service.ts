@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Plato } from './plato';
 
 @Injectable({
@@ -20,12 +20,12 @@ export class PlatoService {
 
   insertar(plato: Plato): Observable<Plato> {
     console.log('insertar', plato);
-    return of(plato);
+    return this.http.post<Plato>(this.url, plato);
   }
 
   modificar(plato: Plato): Observable<Plato> {
     console.log('modificar', plato);
-    return of(plato);
+    return this.http.put<Plato>(`${this.url}/${plato.id}`, plato);
   }
 
   borrar(id?: number): Observable<any> {

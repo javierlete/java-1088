@@ -3,6 +3,9 @@ package com.ipartek.formacion.ejemplos.iparfood.rest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +30,28 @@ public class PlatosRestController {
 	public Plato getId(@PathVariable Long id) {
 		return administradorService.obtenerPlatoPorId(id);
 	}
+	
+	@PostMapping
+	public Plato post(@RequestBody Plato plato) {
+		System.out.println("POST");
+		
+		plato.setId(1234L);
+		
+		System.out.println(plato);
+
+		return plato;
+	}
+	
+	@PutMapping("{id}")
+	public Plato put(@PathVariable Long id, @RequestBody Plato plato) {
+		System.out.println("PUT");
+		System.out.println(id);
+		System.out.println(plato);
+		
+		return plato;
+	}
+	
+	
 	
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {
