@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +8,7 @@ import { TipoComidaService } from '../tipo-comida-service';
 
 @Component({
   selector: 'app-plato-formulario',
-  imports: [JsonPipe, FormsModule],
+  imports: [FormsModule],
   templateUrl: './plato-formulario.html',
   styleUrl: './plato-formulario.css',
 })
