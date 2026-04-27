@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Pedido;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Plato;
@@ -23,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 
-@Component
+// @Component
 public class PruebasCommandLineRunner implements CommandLineRunner {
 	private final AdministradorService administradorService;
 	private final UsuarioService usuarioService;
