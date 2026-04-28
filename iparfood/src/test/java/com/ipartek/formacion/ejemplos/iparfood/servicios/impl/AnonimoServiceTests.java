@@ -2,6 +2,7 @@ package com.ipartek.formacion.ejemplos.iparfood.servicios.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -43,6 +44,11 @@ class AnonimoServiceTests {
 	void setUpBeforeClass() {
 		usuarioRepository.save(JAVIER);
 		usuarioRepository.save(PEPE);
+	}
+	
+	@AfterAll
+	void tearDownAfterClass() {
+		usuarioRepository.deleteAll();
 	}
 
 	@Test

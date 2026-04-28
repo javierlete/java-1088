@@ -5,7 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -14,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ipartek.formacion.ejemplos.iparfood.entidades.Plato;
 import com.ipartek.formacion.ejemplos.iparfood.entidades.TipoComida;
+import com.ipartek.formacion.ejemplos.iparfood.repositorios.PlatoRepository;
 import com.ipartek.formacion.ejemplos.iparfood.repositorios.TipoComidaRepository;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.AdministradorService;
 import com.ipartek.formacion.ejemplos.iparfood.servicios.ServicioException;
@@ -34,19 +38,30 @@ class AdministradorServiceTests {
 	@Autowired
 	private TipoComidaRepository tipoComidaRepository;
 
+	@Autowired
+	private PlatoRepository platoRepository;
+
 	@BeforeAll
 	void setUpBeforeClass() {
 		tipoComidaRepository.saveAll(List.of(AMERICANA, ASIATICA, ITALIANA));
 	}
 
-	@Test
-	void testListarPedidos() {
-		fail("Not yet implemented");
+	@AfterAll
+	void tearDownAfterClass() {
+		tipoComidaRepository.deleteAll();
 	}
 
-	@Test
-	void testListarPlatos() {
-		fail("Not yet implemented");
+	@BeforeEach
+	void setUp() {
+		platoRepository
+				.save(Plato.builder().nombre("Rollitos").precio(new BigDecimal("5.12")).tipoComida(ASIATICA).build());
+		platoRepository
+				.save(Plato.builder().nombre("Pizza").precio(new BigDecimal("12.12")).tipoComida(ITALIANA).build());
+	}
+
+	@AfterEach
+	void tearDown() {
+		platoRepository.deleteAll();
 	}
 
 	@Test
@@ -56,8 +71,11 @@ class AdministradorServiceTests {
 
 		assertNotNull(burger);
 
-		assertEquals(
-				Plato.builder().id(1L).nombre("Burger").precio(new BigDecimal("8.12")).tipoComida(AMERICANA).build(),
+		assertNotNull(burger.getId());
+
+		burger.setId(null);
+
+		assertEquals(Plato.builder().nombre("Burger").precio(new BigDecimal("8.12")).tipoComida(AMERICANA).build(),
 				burger);
 	}
 
@@ -71,33 +89,8 @@ class AdministradorServiceTests {
 	@Test
 	void testCrearPlatoConId() {
 		var plato = Plato.builder().id(5L).nombre("asdf").precio(new BigDecimal("5")).tipoComida(AMERICANA).build();
-		
+
 		assertThrows(ServicioException.class, () -> administradorService.crearPlato(plato));
-	}
-
-	@Test
-	void testModificarPlato() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testBorrarPlato() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testListarTiposComida() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testObtenerPlatoPorId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testAdministradorServiceImpl() {
-		fail("Not yet implemented");
 	}
 
 }
