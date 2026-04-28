@@ -12,7 +12,7 @@
 	<groupId>com.ipartek.formacion.ejemplos</groupId>
 	<artifactId>iparfood</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>iparfood</name>
 	<description>Proyecto de IparFood hecho con Spring</description>
 	<url />
