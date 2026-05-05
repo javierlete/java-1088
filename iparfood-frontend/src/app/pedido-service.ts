@@ -3,12 +3,14 @@ import { Pedido } from './pedido';
 import { Plato } from './plato';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PedidoService {
-  private readonly url = 'http://localhost:8080/api/v2/pedidos';
+  private readonly apiUrl = environment.apiUrl;
+  private readonly url = `${this.apiUrl}/api/v2/pedidos`;
   private readonly http = inject(HttpClient);
 
   public readonly pedidoInicial: Pedido = {

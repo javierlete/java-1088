@@ -3,6 +3,7 @@ import { Usuario } from './usuario';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { PedidoService } from './pedido-service';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,8 @@ export class UsuarioService {
   usuario = signal<Usuario | undefined>(undefined);
 
   private readonly http = inject(HttpClient);
-  private readonly url = 'http://localhost:8080/api/v2/login';
+  private readonly apiUrl = environment.apiUrl;
+  private readonly url = `${this.apiUrl}/api/v2/login`;
   private readonly pedidoService = inject(PedidoService);
 
   constructor() {
